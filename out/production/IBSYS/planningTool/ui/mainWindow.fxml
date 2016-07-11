@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.*?>
 <?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
@@ -24,7 +25,7 @@
                   <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                       <children>
-                      <fx:include source="forecast.fxml" fx:id="foreCastView" />
+                      <fx:include fx:id="foreCastView" source="forecast.fxml" />
                       </children>
                     </AnchorPane>
                   </content>
