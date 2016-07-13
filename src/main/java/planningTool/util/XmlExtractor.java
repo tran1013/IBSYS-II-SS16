@@ -18,6 +18,8 @@ import static planningTool.model.Constants.*;
 /**
  * XML Parser
  * TODO Maybe Store the Data in a Database
+ * TODO GETTER AND SETTER AND SEARCH BY ID
+ * IF YOU WANT TO USE MAKE THE MAPS PUBLIC
  * Created by minhnguyen on 12.07.16.
  */
 public class XmlExtractor {
