@@ -3,9 +3,11 @@ package planningTool.controller;
 import com.jfoenix.controls.JFXTextField;
 import javafx.application.Application;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import planningTool.model.Article;
+import planningTool.util.Dialogs.DialogMessages;
 import planningTool.util.XmlExtractor;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -39,23 +41,18 @@ public class XmlInputController extends Application {
 
     public void initXmlImport() {
         FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Open XML file");
-
         FileChooser.ExtensionFilter filter = new FileChooser.ExtensionFilter("XML Files(*.xml)", "*.xml");
         fileChooser.getExtensionFilters().addAll(filter);
-
         File selectedFile = fileChooser.showOpenDialog(savedStage);
 
         if (selectedFile != null) {
-            String text = selectedFile.getPath();
-            String text2 = selectedFile.getName();
-
-            xmlinputpathTextField.setText(text2);
-
-            System.out.println("File \n" + selectedFile);
-
+            xmlinputpathTextField.setText(selectedFile.getName());
             try {
-                new XmlExtractor().parseXML(selectedFile);
+                if (new XmlExtractor().checkXMLFile(selectedFile)) {
+                    new XmlExtractor().parseXML(selectedFile);
+                } else {
+                    DialogMessages.ErrorDialog("Wrong XML Input");
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             } catch (ParserConfigurationException e) {
