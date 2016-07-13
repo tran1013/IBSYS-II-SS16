@@ -4,6 +4,7 @@ import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
+import planningTool.model.Article;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -13,13 +14,19 @@ import java.io.IOException;
 import java.text.MessageFormat;
 import java.text.NumberFormat;
 import java.text.ParseException;
-import java.util.Locale;
+import java.util.*;
+
+import static planningTool.model.Constants.TOTALSTOCKVALUE;
 
 /**
  * XML Parser
  * Created by minhnguyen on 12.07.16.
  */
 public class XmlExtractor {
+
+    private List <Article> articleList = new ArrayList<>();
+
+    private Map<String, Article> wareHouseArticles = new HashMap<>();
 
     private int periode;
 
@@ -69,20 +76,29 @@ public class XmlExtractor {
      * @throws ParseException
      */
     private void extractWarehouseStockArticles(Element wareHouseStock) throws ParseException {
+
         for (int i = 0; i < wareHouseStock.getChildren().size(); i++) {
             NumberFormat nf = NumberFormat.getInstance(Locale.GERMAN);
 
-            if (wareHouseStock.getChildren().get(i).getName().equals("totalstockvalue")) {
+            if (wareHouseStock.getChildren().get(i).getName().equals(TOTALSTOCKVALUE)) {
                 continue;
             }
             String id = wareHouseStock.getChildren().get(i).getAttribute("id").getValue();
-            Integer amount = Integer.valueOf(wareHouseStock.getChildren().get(i).getAttribute("amount").getValue());
-            Double pct = nf.parse(wareHouseStock.getChildren().get(i).getAttribute("pct").getValue()).doubleValue();
-            Double price = nf.parse(wareHouseStock.getChildren().get(i).getAttribute("price").getValue()).doubleValue();
-            Double stockValue = nf.parse(wareHouseStock.getChildren().get(i).getAttribute("stockvalue").getValue()).doubleValue();
-
-
-            System.out.println(MessageFormat.format("something id {0} amount {1} price {2} stockvalue {3} ptc {4}", id, amount, price, stockValue, pct));
+            int amount = Integer.valueOf(wareHouseStock.getChildren().get(i).getAttribute("amount").getValue());
+            double pct = nf.parse(wareHouseStock.getChildren().get(i).getAttribute("pct").getValue()).doubleValue();
+            double price = nf.parse(wareHouseStock.getChildren().get(i).getAttribute("price").getValue()).doubleValue();
+            double stockValue = nf.parse(wareHouseStock.getChildren().get(i).getAttribute("stockvalue").getValue()).doubleValue();
+            int reserve = 50;
+            switch (id) {
+                case "16":
+                case "17":
+                case "26":
+                    reserve = reserve * 3;
+                    break;
+            }
+            Article article = new Article(Integer.valueOf(id), amount, reserve, pct, price, stockValue);
+            System.out.println(article.toString());
+            articleList.add(article);
         }
     }
 }
