@@ -20,7 +20,9 @@ public class Constants {
 
     //OrderInWorkplace
     public static final String ORDER = "order";
+    public static final String ITEM_ID = "item";
     public static final String TIME_NEED = "timeneed";
+    public static final String PERIOD = "period";
 
     //DELIVER OPTION
     public static final int FAST_DELIVERY = 5;

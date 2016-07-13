@@ -58,11 +58,7 @@ public class XmlExtractor {
 //        Element cycleTimes = root.getChild("cycletimes");
 //        Element completedOrders = root.getChild("completedorders");
 //        Element idleTimeCosts = root.getChild("idletimecosts");
-
         extractPeriod(root);
-
-        System.out.println("size " + wareHouseStock.getChildren().size());
-
         try {
             extractWarehouseStockArticles(wareHouseStock);
             extractFutureInWardMovements(futureInwardStockMovement);
@@ -129,7 +125,7 @@ public class XmlExtractor {
     }
 
     /**
-     *
+     * eingehende bestellungen
      * @param futureInWardMovements
      */
     private void extractFutureInWardMovements(Element futureInWardMovements) {
@@ -145,15 +141,23 @@ public class XmlExtractor {
         }
     }
 
+    /**
+     * auftraege in bearbeitung auf der maschine
+     * @param orderInWork
+     */
     private void extractOrdersInWorkFormWorkplaces(Element orderInWork) {
         for (int i = 0; i < orderInWork.getChildren().size(); i++) {
 
             String workplaceId = orderInWork.getChildren().get(i).getAttribute(ID).getValue();
-            String articleId = orderInWork.getChildren().get(i).getAttribute(ORDER).getValue();
+            String articleId = orderInWork.getChildren().get(i).getAttribute(ITEM_ID).getValue();
             int amount = Integer.valueOf(orderInWork.getChildren().get(i).getAttribute(AMOUNT).getValue());
             int timeNeed = Integer.valueOf(orderInWork.getChildren().get(i).getAttribute(TIME_NEED).getValue());
+            //optional parameters
+            int period = Integer.valueOf(orderInWork.getChildren().get(i).getAttribute(PERIOD).getValue());
+            int order = Integer.valueOf(orderInWork.getChildren().get(i).getAttribute(ORDER).getValue());
 
-            OrdersInWork workplace = new OrdersInWork(workplaceId, articleId, amount, timeNeed);
+            OrdersInWork workplace = new OrdersInWork(workplaceId, articleId, period, order, amount, timeNeed);
+            System.out.println(workplace.toString());
             ordersInWorkMap.put(workplaceId, workplace);
         }
     }
