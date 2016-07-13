@@ -5,6 +5,7 @@ import org.jdom2.Element;
 import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
 import planningTool.model.Article;
+import planningTool.model.FutureInComingOrder;
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
@@ -17,13 +18,15 @@ import static planningTool.model.Constants.*;
 
 /**
  * XML Parser
+ * TODO Maybe Store the Data in a Database
  * Created by minhnguyen on 12.07.16.
  */
 public class XmlExtractor {
 
-    private List <Article> articleList = new ArrayList<>();
-
+    // The reason to use map and hashmaps are that it increase the performace
+    // by quering the right articleID
     private Map<String, Article> wareHouseArticles = new HashMap<>();
+    private Map<String, FutureInComingOrder> futureInComingOrderMap = new HashMap<>();
 
     private int periode;
 
@@ -39,15 +42,18 @@ public class XmlExtractor {
 
         Element root = document.getRootElement();
         Element wareHouseStock = root.getChild("warehousestock");
-        Element inwardstockmovement = root.getChild("inwardstockmovement");
         Element futureinwardstockmovement = root.getChild("futureinwardstockmovement");
-        Element idletimecosts = root.getChild("idletimecosts");
         Element waitinglistworkstations = root.getChild("waitinglistworkstations");
         Element waitingliststock = root.getChild("waitingliststock");
         Element ordersinwork = root.getChild("ordersinwork");
-        Element completedorders = root.getChild("completedorders");
-        Element cycletimes = root.getChild("cycletimes");
 
+        //TODO Import this things for later versions
+        //like dashboard data
+        //incoming stuff are this periode so shit happens 
+        Element inwardstockmovement = root.getChild("inwardstockmovement");
+        Element cycletimes = root.getChild("cycletimes");
+        Element completedorders = root.getChild("completedorders");
+        Element idletimecosts = root.getChild("idletimecosts");
 
         extractPeriod(root);
 
@@ -55,6 +61,7 @@ public class XmlExtractor {
 
         try {
             extractWarehouseStockArticles(wareHouseStock);
+            extractFutureInWardMovements(futureinwardstockmovement);
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -93,16 +100,16 @@ public class XmlExtractor {
     private void extractWarehouseStockArticles(Element wareHouseStock) throws ParseException {
 
         for (int i = 0; i < wareHouseStock.getChildren().size(); i++) {
-            NumberFormat nf = NumberFormat.getInstance(Locale.GERMAN);
+            NumberFormat numberFormat = NumberFormat.getInstance(Locale.GERMAN);
 
             if (wareHouseStock.getChildren().get(i).getName().equals(TOTALSTOCKVALUE)) {
                 continue;
             }
             String id = wareHouseStock.getChildren().get(i).getAttribute(ID).getValue();
             int amount = Integer.valueOf(wareHouseStock.getChildren().get(i).getAttribute(AMOUNT).getValue());
-            double pct = nf.parse(wareHouseStock.getChildren().get(i).getAttribute(PCT).getValue()).doubleValue();
-            double price = nf.parse(wareHouseStock.getChildren().get(i).getAttribute(PRICE).getValue()).doubleValue();
-            double stockValue = nf.parse(wareHouseStock.getChildren().get(i).getAttribute(STOCKVALUE).getValue()).doubleValue();
+            double pct = numberFormat.parse(wareHouseStock.getChildren().get(i).getAttribute(PCT).getValue()).doubleValue();
+            double price = numberFormat.parse(wareHouseStock.getChildren().get(i).getAttribute(PRICE).getValue()).doubleValue();
+            double stockValue = numberFormat.parse(wareHouseStock.getChildren().get(i).getAttribute(STOCKVALUE).getValue()).doubleValue();
             int reserve = 50;
             switch (id) {
                 case "16":
@@ -112,11 +119,28 @@ public class XmlExtractor {
                     break;
             }
             Article article = new Article(Integer.valueOf(id), amount, reserve, pct, price, stockValue);
-            System.out.println(article.toString());
-            articleList.add(article);
+            wareHouseArticles.put(id, article);
         }
     }
 
-    private void extractWaitingListStock(Element waitingListStock) {
+    /**
+     *
+     * @param futureInWardMovements
+     */
+    private void extractFutureInWardMovements(Element futureInWardMovements) {
+        for(int i = 0; i < futureInWardMovements.getChildren().size(); i++) {
+            String id = futureInWardMovements.getChildren().get(i).getAttribute(ID).getValue();
+            String articelId = futureInWardMovements.getChildren().get(i).getAttribute(ARTICLE).getValue();
+            int mode = Integer.valueOf(futureInWardMovements.getChildren().get(i).getAttribute(MODE).getValue());
+            int orderPeriode = Integer.valueOf(futureInWardMovements.getChildren().get(i).getAttribute(ORDER_PERIODE).getValue());
+            int amount = Integer.valueOf(futureInWardMovements.getChildren().get(i).getAttribute(AMOUNT).getValue());
+
+            FutureInComingOrder futureInComingOrder = new FutureInComingOrder(id, articelId, mode, orderPeriode, amount);
+            futureInComingOrderMap.put(articelId, futureInComingOrder);
+        }
+    }
+
+    private void extractOrdersInWorkFormWorkplaces(Element orderInWork) {
+
     }
 }

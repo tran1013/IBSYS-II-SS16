@@ -19,8 +19,6 @@ public class ForeCastController extends Application{
     @Override
     public void start(Stage primaryStage) throws Exception {
 
-        List<Article> list = new XmlExtractor().getArticleList();
-
     }
 
     public JFXButton saveForeCastViewButton;
@@ -35,12 +33,5 @@ public class ForeCastController extends Application{
     @FXML
     public void saveForeCastView() {
         System.out.println("something");
-
-        List<Article> list = new XmlExtractor().getArticleList();
-
-        for(Article a : list) {
-            System.out.println("bla bla " + a.getAmount());
-        }
-
     }
 }
