@@ -6,6 +6,7 @@ import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
 import planningTool.model.Article;
 import planningTool.model.FutureInComingOrder;
+import planningTool.model.OrdersInWork;
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
@@ -28,6 +29,9 @@ public class XmlExtractor {
     private Map<String, Article> wareHouseArticles = new HashMap<>();
     private Map<String, FutureInComingOrder> futureInComingOrderMap = new HashMap<>();
 
+    //Search by the Workplace ID
+    private Map<String, OrdersInWork> ordersInWorkMap = new HashMap<>();
+
     private int periode;
 
     public void parseXML(File file) throws IOException, ParserConfigurationException {
@@ -42,18 +46,18 @@ public class XmlExtractor {
 
         Element root = document.getRootElement();
         Element wareHouseStock = root.getChild("warehousestock");
-        Element futureinwardstockmovement = root.getChild("futureinwardstockmovement");
-        Element waitinglistworkstations = root.getChild("waitinglistworkstations");
-        Element waitingliststock = root.getChild("waitingliststock");
-        Element ordersinwork = root.getChild("ordersinwork");
+        Element futureInwardStockMovement = root.getChild("futureinwardstockmovement");
+        Element ordersInWork = root.getChild("ordersinwork");
+        Element waitingListStock = root.getChild("waitingliststock");
+        Element waitingListWorkStations = root.getChild("waitinglistworkstations");
 
         //TODO Import this things for later versions
         //like dashboard data
-        //incoming stuff are this periode so shit happens 
-        Element inwardstockmovement = root.getChild("inwardstockmovement");
-        Element cycletimes = root.getChild("cycletimes");
-        Element completedorders = root.getChild("completedorders");
-        Element idletimecosts = root.getChild("idletimecosts");
+        //incoming stuff are this periode so shit happens
+//        Element inwardStockMovement = root.getChild("inwardstockmovement");
+//        Element cycleTimes = root.getChild("cycletimes");
+//        Element completedOrders = root.getChild("completedorders");
+//        Element idleTimeCosts = root.getChild("idletimecosts");
 
         extractPeriod(root);
 
@@ -61,7 +65,8 @@ public class XmlExtractor {
 
         try {
             extractWarehouseStockArticles(wareHouseStock);
-            extractFutureInWardMovements(futureinwardstockmovement);
+            extractFutureInWardMovements(futureInwardStockMovement);
+            extractOrdersInWorkFormWorkplaces(ordersInWork);
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -130,17 +135,26 @@ public class XmlExtractor {
     private void extractFutureInWardMovements(Element futureInWardMovements) {
         for(int i = 0; i < futureInWardMovements.getChildren().size(); i++) {
             String id = futureInWardMovements.getChildren().get(i).getAttribute(ID).getValue();
-            String articelId = futureInWardMovements.getChildren().get(i).getAttribute(ARTICLE).getValue();
+            String articleId = futureInWardMovements.getChildren().get(i).getAttribute(ARTICLE).getValue();
             int mode = Integer.valueOf(futureInWardMovements.getChildren().get(i).getAttribute(MODE).getValue());
-            int orderPeriode = Integer.valueOf(futureInWardMovements.getChildren().get(i).getAttribute(ORDER_PERIODE).getValue());
+            int orderPeriod = Integer.valueOf(futureInWardMovements.getChildren().get(i).getAttribute(ORDER_PERIODE).getValue());
             int amount = Integer.valueOf(futureInWardMovements.getChildren().get(i).getAttribute(AMOUNT).getValue());
 
-            FutureInComingOrder futureInComingOrder = new FutureInComingOrder(id, articelId, mode, orderPeriode, amount);
-            futureInComingOrderMap.put(articelId, futureInComingOrder);
+            FutureInComingOrder futureInComingOrder = new FutureInComingOrder(id, articleId, mode, orderPeriod, amount);
+            futureInComingOrderMap.put(articleId, futureInComingOrder);
         }
     }
 
     private void extractOrdersInWorkFormWorkplaces(Element orderInWork) {
+        for (int i = 0; i < orderInWork.getChildren().size(); i++) {
 
+            String workplaceId = orderInWork.getChildren().get(i).getAttribute(ID).getValue();
+            String articleId = orderInWork.getChildren().get(i).getAttribute(ORDER).getValue();
+            int amount = Integer.valueOf(orderInWork.getChildren().get(i).getAttribute(AMOUNT).getValue());
+            int timeNeed = Integer.valueOf(orderInWork.getChildren().get(i).getAttribute(TIME_NEED).getValue());
+
+            OrdersInWork workplace = new OrdersInWork(workplaceId, articleId, amount, timeNeed);
+            ordersInWorkMap.put(workplaceId, workplace);
+        }
     }
 }

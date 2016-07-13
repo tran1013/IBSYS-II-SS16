@@ -18,6 +18,10 @@ public class Constants {
     public static final String MODE = "mode";
     public static final String ORDER_PERIODE = "orderperiod";
 
+    //OrderInWorkplace
+    public static final String ORDER = "order";
+    public static final String TIME_NEED = "timeneed";
+
     //DELIVER OPTION
     public static final int FAST_DELIVERY = 5;
     public static final int NORMAL_DELIVERY = 4;
