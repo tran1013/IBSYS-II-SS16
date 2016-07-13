@@ -4,9 +4,7 @@ import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
-import planningTool.model.Article;
-import planningTool.model.FutureInComingOrder;
-import planningTool.model.OrdersInWork;
+import planningTool.model.*;
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
@@ -31,6 +29,7 @@ public class XmlExtractor {
 
     //Search by the Workplace ID
     private Map<String, OrdersInWork> ordersInWorkMap = new HashMap<>();
+    private Map<String, WaitingListWorkPlace> waitingListWorkPlaceMap = new HashMap<>();
 
     private int periode;
 
@@ -48,8 +47,8 @@ public class XmlExtractor {
         Element wareHouseStock = root.getChild("warehousestock");
         Element futureInwardStockMovement = root.getChild("futureinwardstockmovement");
         Element ordersInWork = root.getChild("ordersinwork");
-        Element waitingListStock = root.getChild("waitingliststock");
         Element waitingListWorkStations = root.getChild("waitinglistworkstations");
+        Element waitingListStock = root.getChild("waitingliststock");
 
         //TODO Import this things for later versions
         //like dashboard data
@@ -63,6 +62,7 @@ public class XmlExtractor {
             extractWarehouseStockArticles(wareHouseStock);
             extractFutureInWardMovements(futureInwardStockMovement);
             extractOrdersInWorkFormWorkplaces(ordersInWork);
+            extractWaitingListWorkStations(waitingListWorkStations);
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -103,14 +103,15 @@ public class XmlExtractor {
         for (int i = 0; i < wareHouseStock.getChildren().size(); i++) {
             NumberFormat numberFormat = NumberFormat.getInstance(Locale.GERMAN);
 
-            if (wareHouseStock.getChildren().get(i).getName().equals(TOTALSTOCKVALUE)) {
+            if (getElement(wareHouseStock, i).getName().equals(TOTALSTOCKVALUE)) {
                 continue;
             }
-            String id = wareHouseStock.getChildren().get(i).getAttribute(ID).getValue();
-            int amount = Integer.valueOf(wareHouseStock.getChildren().get(i).getAttribute(AMOUNT).getValue());
-            double pct = numberFormat.parse(wareHouseStock.getChildren().get(i).getAttribute(PCT).getValue()).doubleValue();
-            double price = numberFormat.parse(wareHouseStock.getChildren().get(i).getAttribute(PRICE).getValue()).doubleValue();
-            double stockValue = numberFormat.parse(wareHouseStock.getChildren().get(i).getAttribute(STOCKVALUE).getValue()).doubleValue();
+            String id = getElement(wareHouseStock, i).getAttribute(ID).getValue();
+            int amount = Integer.valueOf(getElement(wareHouseStock, i).getAttribute(AMOUNT).getValue());
+            double pct = numberFormat.parse(getElement(wareHouseStock, i).getAttribute(PCT).getValue()).doubleValue();
+            double price = numberFormat.parse(getElement(wareHouseStock, i).getAttribute(PRICE).getValue()).doubleValue();
+            double stockValue = numberFormat.parse(getElement(wareHouseStock, i).getAttribute(STOCKVALUE).getValue()).doubleValue();
+            // set default reserve
             int reserve = 50;
             switch (id) {
                 case "16":
@@ -130,11 +131,11 @@ public class XmlExtractor {
      */
     private void extractFutureInWardMovements(Element futureInWardMovements) {
         for(int i = 0; i < futureInWardMovements.getChildren().size(); i++) {
-            String id = futureInWardMovements.getChildren().get(i).getAttribute(ID).getValue();
-            String articleId = futureInWardMovements.getChildren().get(i).getAttribute(ARTICLE).getValue();
-            int mode = Integer.valueOf(futureInWardMovements.getChildren().get(i).getAttribute(MODE).getValue());
-            int orderPeriod = Integer.valueOf(futureInWardMovements.getChildren().get(i).getAttribute(ORDER_PERIODE).getValue());
-            int amount = Integer.valueOf(futureInWardMovements.getChildren().get(i).getAttribute(AMOUNT).getValue());
+            String id = getElement(futureInWardMovements, i).getAttribute(ID).getValue();
+            String articleId = getElement(futureInWardMovements, i).getAttribute(ARTICLE).getValue();
+            int mode = Integer.valueOf(getElement(futureInWardMovements, i).getAttribute(MODE).getValue());
+            int orderPeriod = Integer.valueOf(getElement(futureInWardMovements, i).getAttribute(ORDER_PERIODE).getValue());
+            int amount = Integer.valueOf(getElement(futureInWardMovements, i).getAttribute(AMOUNT).getValue());
 
             FutureInComingOrder futureInComingOrder = new FutureInComingOrder(id, articleId, mode, orderPeriod, amount);
             futureInComingOrderMap.put(articleId, futureInComingOrder);
@@ -148,17 +149,46 @@ public class XmlExtractor {
     private void extractOrdersInWorkFormWorkplaces(Element orderInWork) {
         for (int i = 0; i < orderInWork.getChildren().size(); i++) {
 
-            String workplaceId = orderInWork.getChildren().get(i).getAttribute(ID).getValue();
-            String articleId = orderInWork.getChildren().get(i).getAttribute(ITEM_ID).getValue();
-            int amount = Integer.valueOf(orderInWork.getChildren().get(i).getAttribute(AMOUNT).getValue());
-            int timeNeed = Integer.valueOf(orderInWork.getChildren().get(i).getAttribute(TIME_NEED).getValue());
+            String workplaceId = getElement(orderInWork, i).getAttribute(ID).getValue();
+            String articleId = getElement(orderInWork, i).getAttribute(ITEM_ID).getValue();
+            int amount = Integer.valueOf(getElement(orderInWork, i).getAttribute(AMOUNT).getValue());
+            int timeNeed = Integer.valueOf(getElement(orderInWork, i).getAttribute(TIME_NEED).getValue());
             //optional parameters
-            int period = Integer.valueOf(orderInWork.getChildren().get(i).getAttribute(PERIOD).getValue());
-            int order = Integer.valueOf(orderInWork.getChildren().get(i).getAttribute(ORDER).getValue());
+            int period = Integer.valueOf(getElement(orderInWork, i).getAttribute(PERIOD).getValue());
+            int order = Integer.valueOf(getElement(orderInWork, i).getAttribute(ORDER).getValue());
 
             OrdersInWork workplace = new OrdersInWork(workplaceId, articleId, period, order, amount, timeNeed);
-            System.out.println(workplace.toString());
             ordersInWorkMap.put(workplaceId, workplace);
         }
     }
+
+    /**
+     * warteschlangen
+     * @param waitingListWorkStations
+     */
+    private void extractWaitingListWorkStations(Element waitingListWorkStations) {
+        for(int index = 0; index < waitingListWorkStations.getChildren().size(); index++) {
+            List<WaitingList> waitingLists = new ArrayList<>();
+            String workplaceId = getElement(waitingListWorkStations, index).getAttribute(ID).getValue();
+            int timeNeed = Integer.valueOf(getElement(waitingListWorkStations, index).getAttribute(TIME_NEED).getValue());
+
+            if(getElement(waitingListWorkStations, index).getChildren() != null) {
+                for(int secondIndex = 0; secondIndex < waitingListWorkStations.getChildren().get(index).getChildren().size(); secondIndex++) {
+                    String articleId = getElement(waitingListWorkStations, index).getChildren().get(secondIndex).getAttribute(ITEM_ID).getValue();
+                    Integer amount = Integer.valueOf(getElement(waitingListWorkStations, index).getChildren().get(secondIndex).getAttribute(AMOUNT).getValue());
+                    Integer timeNeedWaitingList = Integer.valueOf(getElement(waitingListWorkStations, index).getChildren().get(secondIndex).getAttribute(TIME_NEED).getValue());
+                    WaitingList waitingList = new WaitingList(articleId, amount, timeNeedWaitingList);
+                    waitingLists.add(waitingList);
+                }
+            }
+            WaitingListWorkPlace waitingListWorkPlace = new WaitingListWorkPlace(workplaceId, timeNeed, waitingLists);
+            waitingListWorkPlaceMap.put(workplaceId, waitingListWorkPlace);
+        }
+    }
+
+    private Element getElement(Element element, int index) {
+        return element.getChildren().get(index);
+    }
+
+
 }

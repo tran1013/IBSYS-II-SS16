@@ -24,6 +24,8 @@ public class Constants {
     public static final String TIME_NEED = "timeneed";
     public static final String PERIOD = "period";
 
+    //WAITINGLIST
+
     //DELIVER OPTION
     public static final int FAST_DELIVERY = 5;
     public static final int NORMAL_DELIVERY = 4;
