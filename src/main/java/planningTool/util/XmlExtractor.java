@@ -6,17 +6,14 @@ import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
 import planningTool.model.Article;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.io.IOException;
-import java.text.MessageFormat;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.*;
 
-import static planningTool.model.Constants.TOTALSTOCKVALUE;
+import static planningTool.model.Constants.*;
 
 /**
  * XML Parser
@@ -31,9 +28,6 @@ public class XmlExtractor {
     private int periode;
 
     public void parseXML(File file) throws IOException, ParserConfigurationException {
-
-        DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
-        DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
 
         Document document;
         try {
@@ -66,6 +60,27 @@ public class XmlExtractor {
         }
     }
 
+    /**
+     *
+     * @param file
+     * @return boolean if xml file contains the root element results
+     * @throws IOException
+     */
+    public boolean checkXMLFile(File file ) throws IOException{
+        boolean isDocumentOK = true;
+        Document document;
+        try {
+            document = new SAXBuilder().build(file);
+        } catch (JDOMException e) {
+            throw new IOException("Incorrect Xml File");
+        }
+        Element root = document.getRootElement();
+        if(!root.getName().equals("results")) {
+            isDocumentOK = false;
+        }
+        return isDocumentOK;
+    }
+
     private void extractPeriod(Element result) {
         periode = Integer.valueOf(result.getAttributeValue("period"));
     }
@@ -83,11 +98,11 @@ public class XmlExtractor {
             if (wareHouseStock.getChildren().get(i).getName().equals(TOTALSTOCKVALUE)) {
                 continue;
             }
-            String id = wareHouseStock.getChildren().get(i).getAttribute("id").getValue();
-            int amount = Integer.valueOf(wareHouseStock.getChildren().get(i).getAttribute("amount").getValue());
-            double pct = nf.parse(wareHouseStock.getChildren().get(i).getAttribute("pct").getValue()).doubleValue();
-            double price = nf.parse(wareHouseStock.getChildren().get(i).getAttribute("price").getValue()).doubleValue();
-            double stockValue = nf.parse(wareHouseStock.getChildren().get(i).getAttribute("stockvalue").getValue()).doubleValue();
+            String id = wareHouseStock.getChildren().get(i).getAttribute(ID).getValue();
+            int amount = Integer.valueOf(wareHouseStock.getChildren().get(i).getAttribute(AMOUNT).getValue());
+            double pct = nf.parse(wareHouseStock.getChildren().get(i).getAttribute(PCT).getValue()).doubleValue();
+            double price = nf.parse(wareHouseStock.getChildren().get(i).getAttribute(PRICE).getValue()).doubleValue();
+            double stockValue = nf.parse(wareHouseStock.getChildren().get(i).getAttribute(STOCKVALUE).getValue()).doubleValue();
             int reserve = 50;
             switch (id) {
                 case "16":
@@ -100,5 +115,8 @@ public class XmlExtractor {
             System.out.println(article.toString());
             articleList.add(article);
         }
+    }
+
+    private void extractWaitingListStock(Element waitingListStock) {
     }
 }
