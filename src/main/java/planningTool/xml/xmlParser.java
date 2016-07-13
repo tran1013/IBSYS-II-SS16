@@ -11,7 +11,8 @@ import java.io.*;
 public class xmlParser {
 
 
-    //// TODO: 12.07.16 MUCH MORE!!!!!!
+    // TODO: Mapping is missing
+    // Methods to get out attributes which you need to proceed are also missing!!!
     
     public void findArticleByID(int id) {
 
