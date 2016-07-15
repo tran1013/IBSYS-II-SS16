@@ -73,12 +73,11 @@ public class XmlExtractor {
     }
 
     /**
-     *
      * @param file
      * @return boolean if xml file contains the root element results
      * @throws IOException
      */
-    public boolean checkXMLFile(File file ) throws IOException{
+    public boolean checkXMLFile(File file) throws IOException {
         boolean isDocumentOK = true;
         Document document;
         try {
@@ -87,7 +86,7 @@ public class XmlExtractor {
             throw new IOException("Incorrect Xml File");
         }
         Element root = document.getRootElement();
-        if(!root.getName().equals("results")) {
+        if (!root.getName().equals("results")) {
             isDocumentOK = false;
         }
         return isDocumentOK;
@@ -131,10 +130,11 @@ public class XmlExtractor {
 
     /**
      * eingehende bestellungen
+     *
      * @param futureInWardMovements
      */
     private void extractFutureInWardMovements(Element futureInWardMovements) {
-        for(int i = 0; i < futureInWardMovements.getChildren().size(); i++) {
+        for (int i = 0; i < futureInWardMovements.getChildren().size(); i++) {
             String id = getFirstChildElement(futureInWardMovements, i).getAttribute(ID).getValue();
             String articleId = getFirstChildElement(futureInWardMovements, i).getAttribute(ARTICLE).getValue();
             int mode = Integer.valueOf(getFirstChildElement(futureInWardMovements, i).getAttribute(MODE).getValue());
@@ -148,6 +148,7 @@ public class XmlExtractor {
 
     /**
      * auftraege in bearbeitung auf der maschine
+     *
      * @param orderInWork
      */
     private void extractOrdersInWorkFormWorkplaces(Element orderInWork) {
@@ -168,16 +169,17 @@ public class XmlExtractor {
 
     /**
      * warteschlangen
+     *
      * @param waitingListWorkStations
      */
     private void extractWaitingListWorkStations(Element waitingListWorkStations) {
-        for(int index = 0; index < waitingListWorkStations.getChildren().size(); index++) {
+        for (int index = 0; index < waitingListWorkStations.getChildren().size(); index++) {
             List<WaitingList> waitingLists = new ArrayList<>();
             String workplaceId = getFirstChildElement(waitingListWorkStations, index).getAttribute(ID).getValue();
             int timeNeed = Integer.valueOf(getFirstChildElement(waitingListWorkStations, index).getAttribute(TIME_NEED).getValue());
 
-            if(getFirstChildElement(waitingListWorkStations, index).getChildren() != null) {
-                for(int secondIndex = 0; secondIndex < waitingListWorkStations.getChildren().get(index).getChildren().size(); secondIndex++) {
+            if (getFirstChildElement(waitingListWorkStations, index).getChildren() != null) {
+                for (int secondIndex = 0; secondIndex < waitingListWorkStations.getChildren().get(index).getChildren().size(); secondIndex++) {
                     String articleId = getFirstChildElement(waitingListWorkStations, index).getChildren().get(secondIndex).getAttribute(ITEM_ID).getValue();
                     Integer amount = Integer.valueOf(getFirstChildElement(waitingListWorkStations, index).getChildren().get(secondIndex).getAttribute(AMOUNT).getValue());
                     Integer timeNeedWaitingList = Integer.valueOf(getFirstChildElement(waitingListWorkStations, index).getChildren().get(secondIndex).getAttribute(TIME_NEED).getValue());
@@ -191,7 +193,6 @@ public class XmlExtractor {
     }
 
     /**
-     *
      * @param waitingListStock
      */
     private void extractMissingParts(Element waitingListStock) {

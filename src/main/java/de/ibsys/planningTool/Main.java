@@ -1,12 +1,10 @@
 package de.ibsys.planningTool;
 
-import de.ibsys.planningTool.util.XmlExtractor;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import org.springframework.beans.factory.annotation.Autowired;
 
 public class Main extends Application {
 
