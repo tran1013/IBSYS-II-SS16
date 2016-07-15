@@ -42,6 +42,9 @@ public class XmlInputController extends Application {
         int i = 0;
         try {
             i = xmlExtractor.getWareHouseArticles().size();
+            if(i != 0) {
+            	System.out.println("something went right");
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

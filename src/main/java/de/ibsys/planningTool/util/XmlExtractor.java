@@ -5,6 +5,7 @@ import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
@@ -220,6 +221,7 @@ public class XmlExtractor {
     }
 
     public Map<String, Article> getWareHouseArticles() {
+        System.out.println("someting" + wareHouseArticles.size());
         return wareHouseArticles;
     }
 
