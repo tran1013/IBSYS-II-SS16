@@ -1,5 +1,6 @@
 package de.ibsys.planningTool.controller;
 
+import de.ibsys.planningTool.controller.tab.ExportController;
 import de.ibsys.planningTool.controller.tab.ForeCastController;
 import de.ibsys.planningTool.controller.tab.XmlInputController;
 import de.ibsys.planningTool.model.XmlInput;
@@ -19,10 +20,14 @@ public class MainController {
     private XmlInputController xmlInputController;
 
     @FXML
+    private ExportController exportController;
+
+    @FXML
     public void initialize() {
         System.out.println("Start Application");
         foreCastController.init(this);
         xmlInputController.init(this);
+        exportController.init(this);
         xmlInput = new XmlInput();
     }
 

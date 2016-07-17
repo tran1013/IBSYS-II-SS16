@@ -17,9 +17,8 @@ import java.io.IOException;
 /**
  * Created by minhnguyen on 11.07.16.
  */
-public class XmlInputController extends Application {
+public class XmlInputController extends BaseTabController {
 
-    private MainController main;
 
     private Stage savedStage;
 
@@ -47,10 +46,6 @@ public class XmlInputController extends Application {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    public void init(MainController mainController) {
-        main = mainController;
     }
 
     private XmlInput initXmlImport() {
