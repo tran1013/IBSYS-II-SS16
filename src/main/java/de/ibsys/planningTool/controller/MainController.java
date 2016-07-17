@@ -13,10 +13,10 @@ public class MainController {
     private XmlInput xmlInput;
 
     @FXML
-    ForeCastController foreCastController;
+    private ForeCastController foreCastController;
 
     @FXML
-    XmlInputController xmlInputController;
+    private XmlInputController xmlInputController;
 
     @FXML
     public void initialize() {
