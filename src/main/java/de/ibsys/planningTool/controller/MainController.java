@@ -3,7 +3,7 @@ package de.ibsys.planningTool.controller;
 import de.ibsys.planningTool.controller.tab.ExportController;
 import de.ibsys.planningTool.controller.tab.ForeCastController;
 import de.ibsys.planningTool.controller.tab.XmlInputController;
-import de.ibsys.planningTool.model.XmlInput;
+import de.ibsys.planningTool.model.XmlInputData;
 import javafx.fxml.FXML;
 
 /**
@@ -11,7 +11,7 @@ import javafx.fxml.FXML;
  */
 public class MainController {
 
-    private XmlInput xmlInput;
+    private XmlInputData xmlInputData;
 
     @FXML
     private ForeCastController foreCastController;
@@ -28,14 +28,14 @@ public class MainController {
         foreCastController.init(this);
         xmlInputController.init(this);
         exportController.init(this);
-        xmlInput = new XmlInput();
+        xmlInputData = new XmlInputData();
     }
 
-    public XmlInput getXmlInput() {
-        return xmlInput;
+    public XmlInputData getXmlInputData() {
+        return xmlInputData;
     }
 
-    public void setXmlInput(XmlInput xmlInput) {
-        this.xmlInput = xmlInput;
+    public void setXmlInputData(XmlInputData xmlInputData) {
+        this.xmlInputData = xmlInputData;
     }
 }

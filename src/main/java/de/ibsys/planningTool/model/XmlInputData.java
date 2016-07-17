@@ -22,7 +22,7 @@ import static de.ibsys.planningTool.model.xmlInputModel.Constants.*;
  * IF YOU WANT TO USE MAKE THE MAPS PUBLIC
  * Created by minhnguyen on 12.07.16.
  */
-public class XmlInput {
+public class XmlInputData {
 
     // The reason to use map and hashmaps are that it increase the performace
     // by quering the right articleID
@@ -34,7 +34,7 @@ public class XmlInput {
     private Map<String, OrdersInWork> ordersInWorkMap = new HashMap<>();
     private Map<String, WaitingListWorkPlace> waitingListWorkPlaceMap = new HashMap<>();
 
-    private int periode;
+    private int period;
 
     public void parseXML(File file) throws IOException, ParserConfigurationException {
 
@@ -55,11 +55,12 @@ public class XmlInput {
 
         //TODO Import this things for later versions
         //like dashboard data
-        //incoming stuff are this periode so shit happens
+        //incoming stuff are this period so shit happens
 //        Element inwardStockMovement = root.getChild("inwardstockmovement");
 //        Element cycleTimes = root.getChild("cycletimes");
 //        Element completedOrders = root.getChild("completedorders");
 //        Element idleTimeCosts = root.getChild("idletimecosts");
+
         extractPeriod(root);
         try {
             extractWarehouseStockArticles(wareHouseStock);
@@ -93,7 +94,7 @@ public class XmlInput {
     }
 
     private void extractPeriod(Element result) {
-        periode = Integer.valueOf(result.getAttributeValue("period"));
+        period = Integer.valueOf(result.getAttributeValue("period"));
     }
 
     /***
@@ -239,7 +240,7 @@ public class XmlInput {
         return waitingListWorkPlaceMap;
     }
 
-    public int getPeriode() {
-        return periode;
+    public int getPeriod() {
+        return period;
     }
 }

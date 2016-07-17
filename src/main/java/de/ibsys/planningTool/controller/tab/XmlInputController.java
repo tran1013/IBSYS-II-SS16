@@ -1,14 +1,11 @@
 package de.ibsys.planningTool.controller.tab;
 
 import com.jfoenix.controls.JFXTextField;
-import de.ibsys.planningTool.controller.MainController;
+import de.ibsys.planningTool.model.XmlInputData;
 import de.ibsys.planningTool.util.Dialogs.DialogMessages;
-import de.ibsys.planningTool.model.XmlInput;
-import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
@@ -33,14 +30,14 @@ public class XmlInputController extends BaseTabController {
     @FXML
     public void loadXmlResultData () {
         System.out.println("file sollte hier geoeffnet werden");
-        main.setXmlInput(initXmlImport());
+        main.setXmlInputData(initXmlImport());
     }
 
     @FXML
     public void readData () {
         int i = 0;
         try {
-            if(i != main.getXmlInput().getWareHouseArticles().size()) {
+            if(i != main.getXmlInputData().getWareHouseArticles().size()) {
             	System.out.println("something went right");
             }
         } catch (Exception e) {
@@ -48,17 +45,17 @@ public class XmlInputController extends BaseTabController {
         }
     }
 
-    private XmlInput initXmlImport() {
+    private XmlInputData initXmlImport() {
         FileChooser fileChooser = new FileChooser();
         FileChooser.ExtensionFilter filter = new FileChooser.ExtensionFilter("XML Files(*.xml)", "*.xml");
         fileChooser.getExtensionFilters().addAll(filter);
         File selectedFile = fileChooser.showOpenDialog(savedStage);
-        XmlInput xmlInput = new XmlInput();
+        XmlInputData xmlInputData = new XmlInputData();
         if (selectedFile != null) {
             xmlinputpathTextField.setText(selectedFile.getName());
             try {
-                if (xmlInput.checkXMLFile(selectedFile)) {
-                	xmlInput.parseXML(selectedFile);
+                if (xmlInputData.checkXMLFile(selectedFile)) {
+                	xmlInputData.parseXML(selectedFile);
                 } else {
                     DialogMessages.ErrorDialog("Wrong XML Input");
                 }
@@ -68,6 +65,6 @@ public class XmlInputController extends BaseTabController {
                 e.printStackTrace();
             }
         }
-        return xmlInput;
+        return xmlInputData;
     }
 }
