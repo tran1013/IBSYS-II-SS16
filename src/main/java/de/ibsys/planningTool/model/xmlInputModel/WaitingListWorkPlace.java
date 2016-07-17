@@ -1,4 +1,4 @@
-package de.ibsys.planningTool.model;
+package de.ibsys.planningTool.model.xmlInputModel;
 
 import java.util.List;
 

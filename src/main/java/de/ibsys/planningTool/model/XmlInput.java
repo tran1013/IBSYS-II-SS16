@@ -1,11 +1,10 @@
-package de.ibsys.planningTool.util;
+package de.ibsys.planningTool.model;
 
-import de.ibsys.planningTool.model.*;
+import de.ibsys.planningTool.model.xmlInputModel.*;
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
-import org.springframework.data.jpa.repository.JpaRepository;
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
@@ -14,7 +13,7 @@ import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.*;
 
-import static de.ibsys.planningTool.model.Constants.*;
+import static de.ibsys.planningTool.model.xmlInputModel.Constants.*;
 
 /**
  * XML Parser
@@ -23,7 +22,7 @@ import static de.ibsys.planningTool.model.Constants.*;
  * IF YOU WANT TO USE MAKE THE MAPS PUBLIC
  * Created by minhnguyen on 12.07.16.
  */
-public class XmlExtractor {
+public class XmlInput {
 
     // The reason to use map and hashmaps are that it increase the performace
     // by quering the right articleID
@@ -221,7 +220,6 @@ public class XmlExtractor {
     }
 
     public Map<String, Article> getWareHouseArticles() {
-        System.out.println("someting" + wareHouseArticles.size());
         return wareHouseArticles;
     }
 
@@ -239,5 +237,9 @@ public class XmlExtractor {
 
     public Map<String, WaitingListWorkPlace> getWaitingListWorkPlaceMap() {
         return waitingListWorkPlaceMap;
+    }
+
+    public int getPeriode() {
+        return periode;
     }
 }

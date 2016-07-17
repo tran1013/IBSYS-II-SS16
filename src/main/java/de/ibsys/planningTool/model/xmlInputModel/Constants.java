@@ -1,4 +1,4 @@
-package de.ibsys.planningTool.model;
+package de.ibsys.planningTool.model.xmlInputModel;
 
 /**
  * Created by minhnguyen on 13.07.16.

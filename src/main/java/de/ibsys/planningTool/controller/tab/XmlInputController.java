@@ -1,8 +1,9 @@
-package de.ibsys.planningTool.controller;
+package de.ibsys.planningTool.controller.tab;
 
 import com.jfoenix.controls.JFXTextField;
+import de.ibsys.planningTool.controller.MainController;
 import de.ibsys.planningTool.util.Dialogs.DialogMessages;
-import de.ibsys.planningTool.util.XmlExtractor;
+import de.ibsys.planningTool.model.XmlInput;
 import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.stage.FileChooser;
@@ -18,10 +19,9 @@ import java.io.IOException;
  */
 public class XmlInputController extends Application {
 
-    private Stage savedStage;
+    private MainController main;
 
-    @Autowired
-    XmlExtractor xmlExtractor;
+    private Stage savedStage;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -34,34 +34,36 @@ public class XmlInputController extends Application {
     @FXML
     public void loadXmlResultData () {
         System.out.println("file sollte hier geoeffnet werden");
-        initXmlImport();
+        main.setXmlInput(initXmlImport());
     }
 
     @FXML
     public void readData () {
         int i = 0;
         try {
-            i = xmlExtractor.getWareHouseArticles().size();
-            if(i != 0) {
+            if(i != main.getXmlInput().getWareHouseArticles().size()) {
             	System.out.println("something went right");
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        System.out.println("someting" + i);
     }
 
-    public void initXmlImport() {
+    public void init(MainController mainController) {
+        main = mainController;
+    }
+
+    private XmlInput initXmlImport() {
         FileChooser fileChooser = new FileChooser();
         FileChooser.ExtensionFilter filter = new FileChooser.ExtensionFilter("XML Files(*.xml)", "*.xml");
         fileChooser.getExtensionFilters().addAll(filter);
         File selectedFile = fileChooser.showOpenDialog(savedStage);
-
+        XmlInput xmlInput = new XmlInput();
         if (selectedFile != null) {
             xmlinputpathTextField.setText(selectedFile.getName());
             try {
-                if (new XmlExtractor().checkXMLFile(selectedFile)) {
-                	new XmlExtractor().parseXML(selectedFile);
+                if (xmlInput.checkXMLFile(selectedFile)) {
+                	xmlInput.parseXML(selectedFile);
                 } else {
                     DialogMessages.ErrorDialog("Wrong XML Input");
                 }
@@ -71,6 +73,6 @@ public class XmlInputController extends Application {
                 e.printStackTrace();
             }
         }
-
+        return xmlInput;
     }
 }
