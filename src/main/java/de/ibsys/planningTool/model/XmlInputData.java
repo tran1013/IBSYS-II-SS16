@@ -13,7 +13,7 @@ import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.*;
 
-import static de.ibsys.planningTool.model.xmlInputModel.Constants.*;
+import static de.ibsys.planningTool.model.Constants.*;
 
 /**
  * XML Parser
