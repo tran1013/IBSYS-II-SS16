@@ -1,0 +1,8 @@
+.button-raised{
+    -fx-padding: 0.5em 0.5em;
+    -fx-font-size: 10px;
+    -fx-button-type: RAISED;
+    -fx-background-color: rgb(77,102,204);
+    -fx-pref-width: 150;
+    -fx-text-fill: WHITE;
+}

@@ -20,16 +20,10 @@
                         </AnchorPane>
                     </content>
                 </Tab>
-                <Tab text="Forecast">
+                <Tab text="Prognose">
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                             <fx:include source="tab/forecast.fxml" fx:id="foreCast"/>
-                        </AnchorPane>
-                    </content>
-                </Tab>
-                <Tab text="Sicherheitsbestand">
-                    <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                         </AnchorPane>
                     </content>
                 </Tab>

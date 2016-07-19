@@ -1,4 +1,4 @@
-package de.ibsys.planningTool.model.xmlInputModel;
+package de.ibsys.planningTool.model;
 
 /**
  * Created by minhnguyen on 13.07.16.
@@ -29,4 +29,20 @@ public class Constants {
     //DELIVER OPTION
     public static final int FAST_DELIVERY = 5;
     public static final int NORMAL_DELIVERY = 4;
+
+    //XML EXPORT ELEMENT VAR
+    public static final String SELLWISH = "sellwish";
+    public static final String SELLDIRECT = "selldirect";
+    public static final String ORDER_LIST = "orderlist";
+    public static final String PRODUCTION_LIST = "productionlist";
+    public static final String PRODUCTION = "production";
+    public static final String WORKTIME_LIST = "worktimelist";
+
+    //XML EXPORT ATTRIBUTE VAR
+    public static final String QUANTITY = "quantity";
+    public static final String PENALTY = "penalty";
+    public static final String MODUS = "modus";
+    public static final String WORK_STATION = "station";
+    public static final String SHIFT = "shift";
+    public static final String OVER_TIME = "overtime";
 }

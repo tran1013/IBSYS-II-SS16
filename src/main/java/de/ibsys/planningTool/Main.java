@@ -12,7 +12,9 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("/main.fxml"));
         primaryStage.setTitle("IBSYS_PlanningTool");
-        primaryStage.setScene(new Scene(root, 1100, 650));
+        Scene scene = new Scene(root, 1100, 650);
+        scene.getStylesheets().add(getClass().getResource("/stylesheet/stylesheet.css").toExternalForm());
+        primaryStage.setScene(scene);
         primaryStage.show();
     }
 
