@@ -2,6 +2,7 @@ package de.ibsys.planningTool.controller.tab;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
+import de.ibsys.planningTool.controller.MainController;
 import de.ibsys.planningTool.model.xmlExportModel.DirectSell;
 import de.ibsys.planningTool.model.xmlExportModel.Item;
 import de.ibsys.planningTool.util.Dialogs.DialogMessages;
@@ -20,7 +21,8 @@ import java.util.logging.Logger;
  */
 public class ForeCastController extends BaseTabController{
 
-    public JFXButton saveForeCastViewButton;
+    @FXML
+    private JFXButton saveForeCastViewButton;
 
     @FXML
     private JFXIntegerTextField forecast1TextField;
@@ -170,8 +172,9 @@ public class ForeCastController extends BaseTabController{
     }
 
     @Override
-    public void init() throws Exception {
-        super.init();
+    public void init(MainController main) {
+        super.init(main);
+        saveForeCastViewButton.getStyleClass().add("button-raised");
     }
 
     private Integer getIntegerFromTextField(JFXIntegerTextField textfield) {

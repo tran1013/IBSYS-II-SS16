@@ -1,6 +1,8 @@
 package de.ibsys.planningTool.controller.tab;
 
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
+import de.ibsys.planningTool.controller.MainController;
 import de.ibsys.planningTool.model.XmlInputData;
 import de.ibsys.planningTool.util.Dialogs.DialogMessages;
 import javafx.fxml.FXML;
@@ -16,12 +18,19 @@ import java.io.IOException;
  */
 public class XmlInputController extends BaseTabController {
 
+    @FXML
+    private JFXButton loadXmlButton;
 
     private Stage savedStage;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
         savedStage = primaryStage;
+    }
+
+    @Override
+    public void init(MainController main) {
+        super.init(main);
     }
 
     @FXML
