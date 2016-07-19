@@ -10,7 +10,9 @@ import javafx.fxml.FXML;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Logger;
 
 /**
@@ -75,10 +77,11 @@ public class ForeCastController extends BaseTabController{
         if (!checkInputViewsContainsData()) {
             System.out.println("store data");
             if (main.getSellWish().size() != 0) {
-               main.deleteSellWish();
-                main.setSellWish(storeSellWish());
+               main.deleteSellLists();
+                storeData();
+
             } else {
-                main.setSellWish(storeSellWish());
+                storeData();
             }
 
             main.getSellWish().parallelStream().forEach((Item item) -> System.out.println(item.toString()));
@@ -86,6 +89,12 @@ public class ForeCastController extends BaseTabController{
         } else {
             DialogMessages.ErrorDialog("Unvollständige Datensätze");
         }
+    }
+
+    private void storeData() {
+        main.setSellWish(storeSellWish());
+        main.setDirectSellList(storeDirectSells());
+        main.setForecastProductionList(storeProductionData());
     }
 
     private boolean checkInputViewsContainsData() {
@@ -126,10 +135,38 @@ public class ForeCastController extends BaseTabController{
 
     private List<DirectSell> storeDirectSells() {
         List<DirectSell> directSells = new ArrayList<>();
-
-        directSells.add(new DirectSell("1", getIntegerFromTextField(directSalesAmountP1TextField), getIntegerFromTextField(directSalesPriceP1TextField), Integer.valueOf(directSalesPunishmentP1TextField.getText())));
-
+        directSells.add(new DirectSell("1", getIntegerFromTextField(directSalesAmountP1TextField),
+                getIntegerFromTextField(directSalesPriceP1TextField),
+                Integer.valueOf(directSalesPunishmentP1TextField.getText())));
+        directSells.add(new DirectSell("2", getIntegerFromTextField(directSalesAmountP2TextField),
+                getIntegerFromTextField(directSalesPriceP2TextField),
+                Integer.valueOf(directSalesPunishmentP2TextField.getText())));
+        directSells.add(new DirectSell("3", getIntegerFromTextField(directSalesAmountP3TextField),
+                getIntegerFromTextField(directSalesPriceP3TextField),
+                Integer.valueOf(directSalesPunishmentP3TextField.getText())));
         return directSells;
+    }
+
+    private Map<String, Item> storeProductionData () {
+        Map<String, Item> productionData = new HashMap<>();
+
+        productionData.put("p1n", new Item("1", getIntegerFromTextField(p1nTextField)));
+        productionData.put("p1n1", new Item("1", getIntegerFromTextField(p1n1TextField)));
+        productionData.put("p1n2", new Item("1", getIntegerFromTextField(p1n2TextField)));
+        productionData.put("p1n3", new Item("1", getIntegerFromTextField(p1n3TextField)));
+
+        productionData.put("p2n", new Item("2", getIntegerFromTextField(p2nTextField)));
+        productionData.put("p2n1", new Item("2", getIntegerFromTextField(p2n1TextField)));
+        productionData.put("p2n2", new Item("2", getIntegerFromTextField(p2n2TextField)));
+        productionData.put("p2n3", new Item("2", getIntegerFromTextField(p2n3TextField)));
+
+        productionData.put("p3n", new Item("3", getIntegerFromTextField(p3nTextField)));
+        productionData.put("p3n1", new Item("3", getIntegerFromTextField(p3n1TextField)));
+        productionData.put("p3n2", new Item("3", getIntegerFromTextField(p3n2TextField)));
+        productionData.put("p3n3", new Item("3", getIntegerFromTextField(p3n3TextField)));
+
+
+        return productionData;
     }
 
     @Override
