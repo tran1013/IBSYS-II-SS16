@@ -9,6 +9,5 @@
    <children>
       <JFXTextField layoutX="67.0" layoutY="184.0" fx:id="xmlinputpathTextField" />
       <JFXButton buttonType="RAISED" fx:id="loadXmlButton" layoutX="249.0" layoutY="187.0" onAction="#loadXmlResultData" ripplerFill="#d35252" text="Load XML" />
-      <Button layoutX="220.0" layoutY="250.0" mnemonicParsing="false" onAction="#readData" text="Test Something" />
    </children>
 </AnchorPane>
