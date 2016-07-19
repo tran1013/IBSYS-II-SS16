@@ -4,7 +4,11 @@ import de.ibsys.planningTool.controller.tab.ExportController;
 import de.ibsys.planningTool.controller.tab.ForeCastController;
 import de.ibsys.planningTool.controller.tab.XmlInputController;
 import de.ibsys.planningTool.model.XmlInputData;
+import de.ibsys.planningTool.model.xmlExportModel.Item;
 import javafx.fxml.FXML;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by minhnguyen on 17.07.16.
@@ -12,6 +16,8 @@ import javafx.fxml.FXML;
 public class MainController {
 
     private XmlInputData xmlInputData;
+
+    private List<Item> sellWish;
 
     @FXML
     private ForeCastController foreCastController;
@@ -29,6 +35,7 @@ public class MainController {
         xmlInputController.init(this);
         exportController.init(this);
         xmlInputData = new XmlInputData();
+        sellWish = new ArrayList<>();
     }
 
     public XmlInputData getXmlInputData() {
@@ -37,5 +44,17 @@ public class MainController {
 
     public void setXmlInputData(XmlInputData xmlInputData) {
         this.xmlInputData = xmlInputData;
+    }
+
+    public List<Item> getSellWish() {
+        return sellWish;
+    }
+
+    public void setSellWish(List<Item> sellWish) {
+        this.sellWish = sellWish;
+    }
+
+    public void deleteSellWish() {
+        sellWish.clear();
     }
 }
