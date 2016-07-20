@@ -1,6 +1,7 @@
 package de.ibsys.planningTool.controller.tab;
 
 import de.ibsys.planningTool.model.XmlExport;
+import de.ibsys.planningTool.util.MockObject;
 import javafx.fxml.FXML;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -30,7 +31,12 @@ public class ExportController extends BaseTabController{
 
         //TODO Adding the other list in here
         if (file != null) {
-            new XmlExport().exportXmlInputData(main.getSellWish(), main.getDirectSellList(), file.getPath());
+            new XmlExport().exportXmlInputData(main.getSellWish()
+                    , main.getDirectSellList()
+                    , new MockObject().orderListMockData()
+                    , new MockObject().productionListMockData()
+                    , new MockObject().workTimeMockData()
+                    , file.getPath());
         }
     }
 }

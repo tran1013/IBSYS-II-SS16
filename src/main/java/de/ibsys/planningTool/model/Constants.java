@@ -42,6 +42,7 @@ public class Constants {
     public static final String QUANTITY = "quantity";
     public static final String PENALTY = "penalty";
     public static final String MODUS = "modus";
+    public static final String WORKINGTIME = "workingtime";
     public static final String WORK_STATION = "station";
     public static final String SHIFT = "shift";
     public static final String OVER_TIME = "overtime";

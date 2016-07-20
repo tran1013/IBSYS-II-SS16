@@ -2,6 +2,7 @@ package de.ibsys.planningTool.model;
 
 import de.ibsys.planningTool.model.xmlExportModel.DirectSell;
 import de.ibsys.planningTool.model.xmlExportModel.Item;
+import de.ibsys.planningTool.model.xmlExportModel.Order;
 import de.ibsys.planningTool.model.xmlExportModel.WorkTime;
 import org.jdom2.Document;
 import org.jdom2.Element;
@@ -23,7 +24,12 @@ public class XmlExport {
     private List<Item> sellWishList = new ArrayList<>();
     private List<DirectSell> directSellList = new ArrayList<>();
 
-    public void exportXmlInputData(List<Item> sellWishList, List<DirectSell> directSellList, String path) {
+    public void exportXmlInputData(List<Item> sellWishList,
+                                   List<DirectSell> directSellList,
+                                   List<Order> purchaseList,
+                                   List<Item> productionListInformation,
+                                   List<WorkTime> workTimeList,
+                                   String path) {
         Document document = new Document();
         Element inputElement = new Element("input");
         document.setRootElement(inputElement);
@@ -58,6 +64,32 @@ public class XmlExport {
             sellDirect.addContent(information);
         });
         inputElement.addContent(sellDirect);
+
+        purchaseList.forEach((Order order) -> {
+            Element information = new Element(ORDER);
+            information.setAttribute(ARTICLE, order.getArticleId());
+            information.setAttribute(QUANTITY, String.valueOf(order.getQuantity()));
+            information.setAttribute(MODE, String.valueOf(order.getModus()));
+            orderList.addContent(information);
+        });
+        inputElement.addContent(orderList);
+
+        productionListInformation.forEach((Item productionElement) -> {
+            Element production = new Element(PRODUCTION);
+            production.setAttribute(ARTICLE, productionElement.getArticleId());
+            production.setAttribute(QUANTITY, String.valueOf(productionElement.getQuantity()));
+            productionList.addContent(production);
+        });
+        inputElement.addContent(productionList);
+
+        workTimeList.forEach((WorkTime worktime) -> {
+            Element work = new Element(WORKINGTIME);
+            work.setAttribute(WORK_STATION, String.valueOf(worktime.getStation()));
+            work.setAttribute(SHIFT, String.valueOf(worktime.getShift()));
+            work.setAttribute(OVER_TIME, String.valueOf(worktime.getOvertime()));
+            workingTimeList.addContent(work);
+        });
+        inputElement.addContent(workingTimeList);
 
         XMLOutputter xmlOutputter = new XMLOutputter();
         xmlOutputter.setFormat(Format.getPrettyFormat());
