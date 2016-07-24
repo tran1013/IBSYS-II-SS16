@@ -36,7 +36,9 @@ public class XmlInputData {
 
     private int period;
 
-    public void parseXML(File file) throws IOException, ParserConfigurationException {
+    public boolean parseXML(File file) throws IOException, ParserConfigurationException {
+    	
+    	boolean parseFine = false;
 
         Document document;
         try {
@@ -68,9 +70,12 @@ public class XmlInputData {
             extractOrdersInWorkFormWorkplaces(ordersInWork);
             extractWaitingListWorkStations(waitingListWorkStations);
             extractMissingParts(waitingListStock);
+            parseFine = true;
         } catch (ParseException e) {
             e.printStackTrace();
         }
+        
+        return parseFine;
     }
 
     /**

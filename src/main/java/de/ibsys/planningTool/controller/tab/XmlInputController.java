@@ -64,7 +64,9 @@ public class XmlInputController extends BaseTabController {
             xmlinputpathTextField.setText(selectedFile.getName());
             try {
                 if (xmlInputData.checkXMLFile(selectedFile)) {
-                	xmlInputData.parseXML(selectedFile);
+                	if(!xmlInputData.parseXML(selectedFile)) {
+                		DialogMessages.ErrorDialog("Fehler beim Parsen");
+                	}
                 } else {
                     DialogMessages.ErrorDialog("Wrong XML Input");
                 }
