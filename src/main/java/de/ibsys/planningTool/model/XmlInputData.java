@@ -217,7 +217,6 @@ public class XmlInputData {
             }
             WaitingListMissingParts missingParts = new WaitingListMissingParts(id, waitingLists);
             stringWaitingListMissingPartsMap.put(id, missingParts);
-            System.out.println(missingParts);
         }
     }
 

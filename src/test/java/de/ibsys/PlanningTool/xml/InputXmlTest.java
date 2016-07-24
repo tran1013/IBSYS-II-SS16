@@ -13,6 +13,7 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import de.ibsys.planningTool.model.XmlInputData;
+import de.ibsys.planningTool.model.xmlInputModel.Article;
 
 
 public class InputXmlTest {
@@ -53,5 +54,14 @@ public class InputXmlTest {
 	public void testIfParseIsFine() throws IOException, ParserConfigurationException {
 		assertTrue(xmlInputData.parseXML(xmlInputFile));
 	}
+	
+	@Test
+	public void testGetAllArticles() throws IOException, ParserConfigurationException {
+		if(xmlInputData.parseXML(xmlInputFile)) {
+			assertEquals(59, xmlInputData.getWareHouseArticles().size());
+			assertEquals(0, xmlInputData.getWareHouseArticles().get("1").getAmount());
+		}
+	}
+	
 	
 }
