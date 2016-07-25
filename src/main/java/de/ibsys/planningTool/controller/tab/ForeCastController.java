@@ -1,20 +1,20 @@
 package de.ibsys.planningTool.controller.tab;
 
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXTextField;
-import de.ibsys.planningTool.controller.MainController;
-import de.ibsys.planningTool.model.xmlExportModel.DirectSell;
-import de.ibsys.planningTool.model.xmlExportModel.Item;
-import de.ibsys.planningTool.util.Dialogs.DialogMessages;
-import de.ibsys.planningTool.util.JFXIntegerTextField;
-import javafx.fxml.FXML;
-import javafx.stage.Stage;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Logger;
+
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXTextField;
+
+import de.ibsys.planningTool.controller.MainController;
+import de.ibsys.planningTool.model.xmlExportModel.DirectSell;
+import de.ibsys.planningTool.model.xmlExportModel.Item;
+import de.ibsys.planningTool.util.JFXIntegerTextField;
+import de.ibsys.planningTool.util.Dialogs.DialogMessages;
+import javafx.fxml.FXML;
+import javafx.stage.Stage;
 
 /**
  * Created by minhnguyen on 11.07.16.
