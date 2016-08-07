@@ -46,4 +46,6 @@ public class Constants {
     public static final String WORK_STATION = "station";
     public static final String SHIFT = "shift";
     public static final String OVER_TIME = "overtime";
+
+    public static final String DATABASEPATH = "jdbc:sqlite:src/main/resources/database/Database.db";
 }

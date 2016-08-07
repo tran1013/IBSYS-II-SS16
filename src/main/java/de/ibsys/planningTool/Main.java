@@ -1,10 +1,15 @@
 package de.ibsys.planningTool;
 
+import de.ibsys.planningTool.service.CapPla;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Main extends Application {
 
@@ -19,6 +24,15 @@ public class Main extends Application {
     }
 
     public static void main(String[] args) {
+
         launch(args);
+
+    CapPla cap = new CapPla();
+    Map<String, Integer> map = cap.getCapResult();
+
+    System.out.println(Arrays.toString(map.entrySet().toArray()));
+    System.out.println("Hope");
+
     }
+
 }
