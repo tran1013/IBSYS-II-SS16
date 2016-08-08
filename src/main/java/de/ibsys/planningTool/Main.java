@@ -27,11 +27,6 @@ public class Main extends Application {
 
         launch(args);
 
-    CapPla cap = new CapPla();
-    Map<String, Integer> map = cap.getCapResult();
-
-    System.out.println(Arrays.toString(map.entrySet().toArray()));
-    System.out.println("Hope");
 
     }
 

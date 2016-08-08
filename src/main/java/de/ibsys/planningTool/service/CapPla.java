@@ -1,6 +1,7 @@
 package de.ibsys.planningTool.service;
 
 
+import com.sun.tools.corba.se.idl.InterfaceGen;
 import de.ibsys.planningTool.mock.sellData;
 import de.ibsys.planningTool.model.ProductionSteps;
 import de.ibsys.planningTool.database.capPlaDB;
@@ -84,10 +85,14 @@ public class CapPla {
             e.printStackTrace();
 
         }
-        System.out.println("SETUPTIME: ");
-        System.out.println(Arrays.toString(setupTimeList.entrySet().toArray()));
+      //  System.out.println("SETUPTIME: ");
+      //  System.out.println(Arrays.toString(setupTimeList.entrySet().toArray()));
         return capResult;
     }
+
+/*    public Map<String, Integer> getBehindScheduledTime(){
+
+    }*/
 
 }
 
