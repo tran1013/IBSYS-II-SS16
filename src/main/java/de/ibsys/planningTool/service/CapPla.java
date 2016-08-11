@@ -5,6 +5,9 @@ package de.ibsys.planningTool.service;
 import de.ibsys.planningTool.mock.sellData;
 import de.ibsys.planningTool.model.ProductionSteps;
 import de.ibsys.planningTool.database.capPlaDB;
+import de.ibsys.planningTool.model.XmlInputData;
+import de.ibsys.planningTool.model.xmlInputModel.OrdersInWork;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.sql.SQLException;
 import java.util.Arrays;
@@ -19,6 +22,8 @@ public class CapPla {
 
 
     capPlaDB prod = new capPlaDB();
+    XmlInputData input;
+
 
     /**
      * Method to get CapReq
@@ -80,7 +85,6 @@ public class CapPla {
 
             }
 
-
         } catch (SQLException e) {
             e.printStackTrace();
 
@@ -89,10 +93,21 @@ public class CapPla {
       //  System.out.println(Arrays.toString(setupTimeList.entrySet().toArray()));
         return capResult;
     }
-
-/*    public Map<String, Integer> getBehindScheduledTime(){
+/*
+   public Map<String, Integer> getBehindScheduledTime(){
 
     }*/
+
+    public void getXML(){
+
+
+        Map<String, OrdersInWork> myList = new HashMap<>();
+
+        myList = input.getOrdersInWorkMap();
+
+        System.out.println("GET XML");
+        System.out.println(myList);
+    }
 
 }
 

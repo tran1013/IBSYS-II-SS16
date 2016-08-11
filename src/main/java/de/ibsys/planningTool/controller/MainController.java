@@ -1,7 +1,6 @@
 package de.ibsys.planningTool.controller;
 
-import java.util.*;
-
+import de.ibsys.planningTool.controller.tab.CapPlaController;
 import de.ibsys.planningTool.controller.tab.ExportController;
 import de.ibsys.planningTool.controller.tab.ForeCastController;
 import de.ibsys.planningTool.controller.tab.XmlInputController;
@@ -47,7 +46,24 @@ public class MainController {
 
 	private List<Order> orderList;
 
-	private List<Item> productionList;
+    @FXML
+    private CapPlaController capPlaController;
+
+    @FXML
+    public void initialize() {
+        System.out.println("Start Application");
+        foreCastController.init(this);
+        xmlInputController.init(this);
+        exportController.init(this);
+        capPlaController.init(this);
+        xmlInputData = new XmlInputData();
+        sellWish = new ArrayList<>();
+        directSellList = new ArrayList<>();
+        orderList = new ArrayList<>();
+        productionList = new ArrayList<>();
+        workTimeList = new ArrayList<>();
+        forecastProductionList = new HashMap<>();
+    }
 
 	private List<WorkTime> workTimeList;
 
