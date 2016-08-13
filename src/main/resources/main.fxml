@@ -13,21 +13,21 @@
         <JFXTabPane prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
                     AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <tabs>
-                <Tab text="Welcome">
+                <Tab text="Welcome" fx:id="welcome">
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                             <fx:include source="tab/xmlinput.fxml" fx:id="xmlInput"/>
                         </AnchorPane>
                     </content>
                 </Tab>
-                <Tab text="Prognose">
+                <Tab text="Prognose" fx:id="forecast">
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                             <fx:include source="tab/forecast.fxml" fx:id="foreCast"/>
                         </AnchorPane>
                     </content>
                 </Tab>
-                <Tab text="Fertigungsaufträge">
+                <Tab text="Fertigungsaufträge" fx:id="disposition">
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                         </AnchorPane>
@@ -48,7 +48,7 @@
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0"/>
                     </content>
                 </Tab>
-                <Tab text="Export">
+                <Tab text="Export" fx:id="exportTab">
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                             <fx:include source="tab/export.fxml" fx:id="export" />

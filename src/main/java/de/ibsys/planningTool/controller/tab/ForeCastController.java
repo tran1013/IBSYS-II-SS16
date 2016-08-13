@@ -1,9 +1,6 @@
 package de.ibsys.planningTool.controller.tab;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
@@ -11,15 +8,35 @@ import com.jfoenix.controls.JFXTextField;
 import de.ibsys.planningTool.controller.MainController;
 import de.ibsys.planningTool.model.xmlExportModel.DirectSell;
 import de.ibsys.planningTool.model.xmlExportModel.Item;
+import de.ibsys.planningTool.util.I18N;
 import de.ibsys.planningTool.util.JFXIntegerTextField;
 import de.ibsys.planningTool.util.Dialogs.DialogMessages;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 /**
  * Created by minhnguyen on 11.07.16.
  */
 public class ForeCastController extends BaseTabController{
+
+    @FXML
+    Label priceLabel;
+
+    @FXML
+    Label amountLabel;
+
+    @FXML
+    Label costLabel;
+
+    @FXML
+    Label sellingLabel;
+
+    @FXML
+    Label productionPlanningLabel;
+
+    @FXML
+    Label directSellsLabel;
 
     @FXML
     private JFXButton saveForeCastViewButton;
@@ -184,5 +201,15 @@ public class ForeCastController extends BaseTabController{
     @Override
     public void start(Stage primaryStage) throws Exception {
 
+    }
+
+    public void initUIComponents() {
+        priceLabel.setText(main.getTranslation().getString(I18N.PRICE));
+        amountLabel.setText(main.getTranslation().getString(I18N.AMOUNT));
+        costLabel.setText(main.getTranslation().getString(I18N.PUNISHMENT));
+        directSellsLabel.setText(main.getTranslation().getString(I18N.DIRECT_SELLS));
+        productionPlanningLabel.setText(main.getTranslation().getString(I18N.PRODUCTION_PLAN));
+        sellingLabel.setText(main.getTranslation().getString(I18N.SELLING));
+        saveForeCastViewButton.setText(main.getTranslation().getString(I18N.SAVE));
     }
 }

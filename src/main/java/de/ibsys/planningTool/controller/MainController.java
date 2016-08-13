@@ -1,5 +1,7 @@
 package de.ibsys.planningTool.controller;
 
+import java.util.*;
+
 import de.ibsys.planningTool.controller.tab.ExportController;
 import de.ibsys.planningTool.controller.tab.ForeCastController;
 import de.ibsys.planningTool.controller.tab.XmlInputController;
@@ -8,116 +10,172 @@ import de.ibsys.planningTool.model.xmlExportModel.DirectSell;
 import de.ibsys.planningTool.model.xmlExportModel.Item;
 import de.ibsys.planningTool.model.xmlExportModel.Order;
 import de.ibsys.planningTool.model.xmlExportModel.WorkTime;
+import de.ibsys.planningTool.util.I18N;
 import javafx.fxml.FXML;
+import javafx.scene.control.Tab;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import static de.ibsys.planningTool.util.I18N.*;
 
 /**
  * Created by minhnguyen on 17.07.16.
  */
 public class MainController {
 
-    private XmlInputData xmlInputData;
+	private String language = "de";
+	private String country = "DE";
 
-    private List<Item> sellWish;
+	private ResourceBundle translation;
 
-    private List<DirectSell> directSellList;
+	// Init Tabs
+	@FXML
+	public Tab welcome;
 
-    private List<Order> orderList;
+	@FXML
+	public Tab forecast;
 
-    private List<Item> productionList;
+	@FXML
+	public Tab disposition;
 
-    private List<WorkTime> workTimeList;
+	@FXML
+	public Tab exportTab;
 
-    //Program Production plan
-    private Map<String, Item> forecastProductionList;
+	private XmlInputData xmlInputData;
 
-    @FXML
-    private ForeCastController foreCastController;
+	private List<Item> sellWish;
 
-    @FXML
-    private XmlInputController xmlInputController;
+	private List<DirectSell> directSellList;
 
-    @FXML
-    private ExportController exportController;
+	private List<Order> orderList;
 
-    @FXML
-    public void initialize() {
-        System.out.println("Start Application");
-        foreCastController.init(this);
-        xmlInputController.init(this);
-        exportController.init(this);
-        xmlInputData = new XmlInputData();
-        sellWish = new ArrayList<>();
-        directSellList = new ArrayList<>();
-        orderList = new ArrayList<>();
-        productionList = new ArrayList<>();
-        workTimeList = new ArrayList<>();
-        forecastProductionList = new HashMap<>();
-    }
+	private List<Item> productionList;
 
-    public XmlInputData getXmlInputData() {
-        return xmlInputData;
-    }
+	private List<WorkTime> workTimeList;
 
-    public void setXmlInputData(XmlInputData xmlInputData) {
-        this.xmlInputData = xmlInputData;
-    }
+	// Program Production plan
+	private Map<String, Item> forecastProductionList;
 
-    public List<Item> getSellWish() {
-        return sellWish;
-    }
+	@FXML
+	private ForeCastController foreCastController;
 
-    public void setSellWish(List<Item> sellWish) {
-        this.sellWish = sellWish;
-    }
+	@FXML
+	private XmlInputController xmlInputController;
 
-    public List<DirectSell> getDirectSellList() {
-        return directSellList;
-    }
+	@FXML
+	private ExportController exportController;
 
-    public void setDirectSellList(List<DirectSell> directSellList) {
-        this.directSellList = directSellList;
-    }
+	@FXML
+	public void initialize() {
+		System.out.println("Start Application");
+		foreCastController.init(this);
+		xmlInputController.init(this);
+		exportController.init(this);
+		xmlInputData = new XmlInputData();
+		sellWish = new ArrayList<>();
+		directSellList = new ArrayList<>();
+		orderList = new ArrayList<>();
+		productionList = new ArrayList<>();
+		workTimeList = new ArrayList<>();
+		forecastProductionList = new HashMap<>();
 
-    public List<Order> getOrderList() {
-        return orderList;
-    }
+		changeUILanguage();
+	}
 
-    public void setOrderList(List<Order> orderList) {
-        this.orderList = orderList;
-    }
+	public XmlInputData getXmlInputData() {
+		return xmlInputData;
+	}
 
-    public List<Item> getProductionList() {
-        return productionList;
-    }
+	public void setXmlInputData(XmlInputData xmlInputData) {
+		this.xmlInputData = xmlInputData;
+	}
 
-    public void setProductionList(List<Item> productionList) {
-        this.productionList = productionList;
-    }
+	public List<Item> getSellWish() {
+		return sellWish;
+	}
 
-    public List<WorkTime> getWorkTimeList() {
-        return workTimeList;
-    }
+	public void setSellWish(List<Item> sellWish) {
+		this.sellWish = sellWish;
+	}
 
-    public void setWorkTimeList(List<WorkTime> workTimeList) {
-        this.workTimeList = workTimeList;
-    }
+	public List<DirectSell> getDirectSellList() {
+		return directSellList;
+	}
 
-    public Map<String, Item> getForecastProductionList() {
-        return forecastProductionList;
-    }
+	public void setDirectSellList(List<DirectSell> directSellList) {
+		this.directSellList = directSellList;
+	}
 
-    public void setForecastProductionList(Map<String, Item> forecastProductionList) {
-        this.forecastProductionList = forecastProductionList;
-    }
+	public List<Order> getOrderList() {
+		return orderList;
+	}
 
-    public void deleteSellLists() {
-        sellWish.clear();
-        directSellList.clear();
-        forecastProductionList.clear();
-    }
+	public void setOrderList(List<Order> orderList) {
+		this.orderList = orderList;
+	}
+
+	public List<Item> getProductionList() {
+		return productionList;
+	}
+
+	public void setProductionList(List<Item> productionList) {
+		this.productionList = productionList;
+	}
+
+	public List<WorkTime> getWorkTimeList() {
+		return workTimeList;
+	}
+
+	public void setWorkTimeList(List<WorkTime> workTimeList) {
+		this.workTimeList = workTimeList;
+	}
+
+	public Map<String, Item> getForecastProductionList() {
+		return forecastProductionList;
+	}
+
+	public void setForecastProductionList(Map<String, Item> forecastProductionList) {
+		this.forecastProductionList = forecastProductionList;
+	}
+	
+	public String getLanguage() {
+		return language;
+	}
+
+	public void setLanguage(String language) {
+		this.language = language;
+	}
+
+	public String getCountry() {
+		return country;
+	}
+
+	public void setCountry(String country) {
+		this.country = country;
+	}
+
+	public void deleteSellLists() {
+		sellWish.clear();
+		directSellList.clear();
+		forecastProductionList.clear();
+	}
+
+	public ResourceBundle getTranslation() {
+		return translation;
+	}
+
+	public void setTranslation(ResourceBundle translation) {
+		this.translation = translation;
+	}
+
+	public void changeUILanguage() {
+		translation = I18N.translation(language, country);
+
+		welcome.setText(translation.getString(WELCOME));
+		forecast.setText(translation.getString(FORECAST));
+		disposition.setText(translation.getString(DISPOSITION));
+		exportTab.setText(translation.getString(Export_TAB));
+
+		foreCastController.initUIComponents();
+		exportController.initUIComponents();
+	}
+
 }

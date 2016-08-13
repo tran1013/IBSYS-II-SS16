@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.*?>
 <?import com.jfoenix.validation.*?>
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.chart.*?>
@@ -9,6 +10,8 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.ibsys.planningTool.controller.tab.ExportController">
    <children>
-      <JFXButton buttonType="RAISED" layoutX="55.0" layoutY="187.0" onAction="#exportButtonTapped" text="Export Config" />
+      <JFXButton buttonType="RAISED" layoutX="39.0" layoutY="79.0" onAction="#exportButtonTapped" text="Export Config" />
+      <Label layoutX="39.0" layoutY="42.0" text="To Export things just click the Button" />
+      <JFXButton fx:id="changeLanguageButton" layoutX="39.0" layoutY="124.0" onAction="#changeLanguageButtonTapped" text="Change Language to german" />
    </children>
 </AnchorPane>
