@@ -9,7 +9,6 @@
 *.ear
 
 .idea/*
-.idea/workspace.xml
 
 out/*
 target/*
