@@ -1,26 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.cells.editors.base.*?>
+<?import com.jfoenix.controls.*?>
 <?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.chart.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="455.0" prefWidth="1037.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.ibsys.planningTool.controller.tab.CapPlaController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="455.0" prefWidth="1116.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.ibsys.planningTool.controller.tab.CapPlaController">
    <children>
-      <BarChart fx:id="barChart" layoutX="502.0" layoutY="41.0">
+      <BarChart fx:id="barChart" layoutX="502.0" layoutY="41.0" prefHeight="400.0" prefWidth="548.0">
         <xAxis>
           <CategoryAxis side="BOTTOM" />
         </xAxis>
         <yAxis>
-          <NumberAxis side="LEFT" />
+          <NumberAxis label="Min/Day" minorTickCount="10" side="LEFT" tickLength="10.0" upperBound="1440.0" />
         </yAxis>
       </BarChart>
-      <Button fx:id="listBtn" layoutX="47.0" layoutY="25.0" mnemonicParsing="false" onAction="#getList" text="Get list" />
-      <TreeTableView layoutX="47.0" layoutY="66.0" prefHeight="353.0" prefWidth="442.0">
-        <columns>
-          <TreeTableColumn fx:id="workplaceID" prefWidth="75.0" text="workplace" />
-          <TreeTableColumn fx:id="capTime" prefWidth="75.0" text="time" />
-        </columns>
-      </TreeTableView>
+      <TableView fx:id="tableView" layoutX="35.0" layoutY="49.0" prefHeight="371.0" prefWidth="451.0">
+         <columns>
+            <TableColumn fx:id="workplaceCol" minWidth="90.0" prefWidth="75.0" text="Workplace" />
+            <TableColumn fx:id="capacityCol" minWidth="90.0" prefWidth="75.0" text="Capacity " />
+            <TableColumn fx:id="shiftsCol" minWidth="90.0" prefWidth="75.0" text="Shifts" />
+            <TableColumn fx:id="overtimeCol" minWidth="90.0" prefWidth="75.0" text="Overtime" />
+            <TableColumn fx:id="infoCol" minWidth="90.0" prefWidth="75.0" text="Info" />
+         </columns>
+      </TableView>
+      <JFXButton layoutX="35.0" layoutY="14.0" onAction="#getColumns" text="GO" />
    </children>
 </AnchorPane>

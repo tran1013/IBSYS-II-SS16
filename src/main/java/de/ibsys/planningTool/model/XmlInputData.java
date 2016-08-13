@@ -74,7 +74,7 @@ public class XmlInputData {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        
+        System.out.println("Parse fine!");
         return parseFine;
     }
 
@@ -95,6 +95,7 @@ public class XmlInputData {
         if (!root.getName().equals("results")) {
             isDocumentOK = false;
         }
+        System.out.println("Document OK!");
         return isDocumentOK;
     }
 
@@ -247,4 +248,6 @@ public class XmlInputData {
     public int getPeriod() {
         return period;
     }
+
+
 }

@@ -7,6 +7,7 @@ import de.ibsys.planningTool.model.ProductionSteps;
 import de.ibsys.planningTool.database.capPlaDB;
 import de.ibsys.planningTool.model.XmlInputData;
 import de.ibsys.planningTool.model.xmlInputModel.OrdersInWork;
+import org.jdom2.Element;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.sql.SQLException;
@@ -22,7 +23,9 @@ public class CapPla {
 
 
     capPlaDB prod = new capPlaDB();
-    XmlInputData input;
+
+    @Autowired
+    XmlInputData input = new XmlInputData();
 
 
     /**
@@ -93,10 +96,7 @@ public class CapPla {
       //  System.out.println(Arrays.toString(setupTimeList.entrySet().toArray()));
         return capResult;
     }
-/*
-   public Map<String, Integer> getBehindScheduledTime(){
 
-    }*/
 
     public void getXML(){
 
@@ -107,7 +107,10 @@ public class CapPla {
 
         System.out.println("GET XML");
         System.out.println(myList);
+
     }
+
+
 
 }
 

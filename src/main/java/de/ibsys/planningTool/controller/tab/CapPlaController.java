@@ -1,27 +1,21 @@
 package de.ibsys.planningTool.controller.tab;
 
-import com.jfoenix.controls.JFXTreeTableView;
-import de.ibsys.planningTool.controller.MainController;
-import de.ibsys.planningTool.model.ProductionSteps;
+
+import de.ibsys.planningTool.model.XmlInputData;
+import de.ibsys.planningTool.model.xmlInputModel.OrdersInWork;
 import de.ibsys.planningTool.service.CapPla;
-import javafx.application.Application;
-import javafx.beans.property.ListProperty;
-import javafx.beans.property.SimpleListProperty;
+import javafx.beans.property.*;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
+import javafx.scene.Node;
 import javafx.scene.chart.BarChart;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TreeItem;
-import javafx.scene.control.TreeView;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 
-import java.net.URL;
 import java.util.*;
 
 /**
@@ -30,42 +24,61 @@ import java.util.*;
 public class CapPlaController extends BaseTabController {
 
     @FXML
-    private ListView<String> listView;
+    private TableView<String> tableView;
+
+    @FXML
+    private TableColumn workplaceCol;
+
+    @FXML
+    private TableColumn capacityCol;
+
+    @FXML
+    private TableColumn shiftsCol;
+
+    @FXML
+    private TableColumn overtimeCol;
+
+    @FXML
+    private TableColumn infoCol;
 
     @FXML
     private BarChart barChart;
 
-    @FXML
-    private Label label;
-
-    @FXML
-    private TreeItem<String> workplaceID;
-
-    @FXML
-    private TreeItem<String> capTime;
-
     @Override
     public void start(Stage primaryStage) throws Exception {
+
     }
 
-    ObservableList<String> list = FXCollections.observableArrayList("Mark","Tom","Daniel");
+
+    XmlInputData input = new XmlInputData();
 
     @FXML
-    public void getList(){
-        CapPla cap = new CapPla();
+    public void getColumns() {
 
-        Map<String, Integer> result = new HashMap<>();
-        List<String> workplace = new ArrayList<>();
-        List<Integer> time = new ArrayList<>();
+/*
+        Map<String, Integer> result;
 
         result = cap.getCapResult();
 
-        for(Map.Entry<String, Integer> entry : result.entrySet()){
-            String key = entry.getKey();
-            Integer value = entry.getValue();
-            workplace.add(key);
-            time.add(value);
-        }
+        Map<String, Integer> treeMap = new TreeMap<String, Integer>(result);
+        List<String> myKeys = new ArrayList<>();
+
+        ObservableList<String> myStrings = FXCollections.observableArrayList(myKeys);
+
+        for (Map.Entry<String, Integer> map : treeMap.entrySet()) {
+            String key = map.getKey();
+            //Integer key = Integer.parseInt(map.getKey());
+            Integer value = map.getValue();
+
+            myKeys.add(key);
+
+            System.out.println("Key: " + key + " " + " Value: " + value);
+        }*/
+
+
+        Map<String, OrdersInWork> result;
+        result = input.getOrdersInWorkMap();
+        System.out.println(result);
 
 
     }
