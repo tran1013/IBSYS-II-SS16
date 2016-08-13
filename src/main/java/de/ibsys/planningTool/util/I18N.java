@@ -16,6 +16,8 @@ public class I18N {
 	public static final String AMOUNT = "AMOUNT";
 	public static final String PUNISHMENT = "PUNISHMENT";
 	public static final String SAVE = "SAVE";
+	public static final String XML_INPUT = "XML_INPUT";
+	public static final String XML_EXPORT = "XML_EXPORT";
 
 	public static ResourceBundle translation(String language, String country) {
 		Locale currentLocale;

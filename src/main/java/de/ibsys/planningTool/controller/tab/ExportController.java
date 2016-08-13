@@ -1,17 +1,16 @@
 package de.ibsys.planningTool.controller.tab;
 
+import java.io.File;
+
 import com.jfoenix.controls.JFXButton;
+
 import de.ibsys.planningTool.controller.MainController;
 import de.ibsys.planningTool.model.XmlExport;
 import de.ibsys.planningTool.util.I18N;
 import de.ibsys.planningTool.util.MockObject;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-
-import java.io.File;
-import java.util.ResourceBundle;
 
 /**
  * Created by minhnguyen on 17.07.16.
@@ -22,6 +21,9 @@ public class ExportController extends BaseTabController{
 
     @FXML
     private JFXButton changeLanguageButton;
+
+    @FXML
+    private JFXButton exportButton;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -69,6 +71,7 @@ public class ExportController extends BaseTabController{
 
     public void initUIComponents() {
         changeLanguageButton.setText(main.getTranslation().getString(I18N.CHANGE_LANGUAGE_BUTTON));
+        exportButton.setText(main.getTranslation().getString(I18N.XML_EXPORT));
     }
 
 }

@@ -176,6 +176,7 @@ public class MainController {
 
 		foreCastController.initUIComponents();
 		exportController.initUIComponents();
+		xmlInputController.initUIComponents();
 	}
 
 }

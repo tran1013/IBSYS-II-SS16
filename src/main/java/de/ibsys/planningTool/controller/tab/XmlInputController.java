@@ -5,6 +5,7 @@ import com.jfoenix.controls.JFXTextField;
 import de.ibsys.planningTool.controller.MainController;
 import de.ibsys.planningTool.model.XmlInputData;
 import de.ibsys.planningTool.util.Dialogs.DialogMessages;
+import de.ibsys.planningTool.util.I18N;
 import javafx.fxml.FXML;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -77,5 +78,9 @@ public class XmlInputController extends BaseTabController {
             }
         }
         return xmlInputData;
+    }
+
+    public void initUIComponents() {
+        loadXmlButton.setText(main.getTranslation().getString(I18N.XML_INPUT));
     }
 }
