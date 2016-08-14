@@ -22,21 +22,6 @@ public class Main extends Application {
 
         launch(args);
 
-      /*  File file = new File("/Users/Duc/Downloads/resultServlet.xml");
-
-        XmlInputData input = new XmlInputData();
-        try {
-           *//* input.parseXML(file);
-            Map<String, OrdersInWork> map = input.getOrdersInWorkMap();*//*
-
-            CapPla cap = new CapPla();
-            cap.getXML();
-        }catch (Exception e){
-             e.printStackTrace();
-            }
-
-*/
-
     }
 
 }
