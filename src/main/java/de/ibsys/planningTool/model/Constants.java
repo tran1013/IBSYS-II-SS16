@@ -47,5 +47,13 @@ public class Constants {
     public static final String SHIFT = "shift";
     public static final String OVER_TIME = "overtime";
 
+    //DATABASEPATH
     public static final String DATABASEPATH = "jdbc:sqlite:src/main/resources/database/Database.db";
+
+    //WOKRPLACE CAPACITY
+    public static final int WORKPLACE_CAPACITY = 2400;
+
+
+
+
 }
