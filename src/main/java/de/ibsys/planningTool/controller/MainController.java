@@ -1,10 +1,12 @@
 package de.ibsys.planningTool.controller;
 
+import java.sql.SQLException;
 import java.util.*;
 
 import de.ibsys.planningTool.controller.tab.ExportController;
 import de.ibsys.planningTool.controller.tab.ForeCastController;
 import de.ibsys.planningTool.controller.tab.XmlInputController;
+import de.ibsys.planningTool.database.OrderDB;
 import de.ibsys.planningTool.model.XmlInputData;
 import de.ibsys.planningTool.model.xmlExportModel.DirectSell;
 import de.ibsys.planningTool.model.xmlExportModel.Item;
@@ -51,6 +53,8 @@ public class MainController {
 
 	private List<WorkTime> workTimeList;
 
+	//private OrderDB orderDB;
+
 	// Program Production plan
 	private Map<String, Item> forecastProductionList;
 
@@ -62,6 +66,7 @@ public class MainController {
 
 	@FXML
 	private ExportController exportController;
+
 
 	@FXML
 	public void initialize() {
