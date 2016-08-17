@@ -51,7 +51,7 @@ public class ExportController extends BaseTabController{
                     , main.getDirectSellList()
                     , new MockObject().orderListMockData()
                     , new MockObject().productionListMockData()
-                    , new MockObject().workTimeMockData()
+                    , main.getWorkTimeList()
                     , file.getPath());
         }
     }

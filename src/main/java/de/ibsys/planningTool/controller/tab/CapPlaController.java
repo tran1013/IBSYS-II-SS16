@@ -1,28 +1,20 @@
 package de.ibsys.planningTool.controller.tab;
 
 
-import de.ibsys.planningTool.database.capPlaDB;
-import de.ibsys.planningTool.mock.sellData;
 import de.ibsys.planningTool.model.CapPlaResult;
-import de.ibsys.planningTool.model.Constants;
-import de.ibsys.planningTool.model.ProductionSteps;
-import de.ibsys.planningTool.model.XmlInputData;
+import de.ibsys.planningTool.model.xmlExportModel.WorkTime;
 import de.ibsys.planningTool.model.xmlInputModel.OrdersInWork;
-import de.ibsys.planningTool.model.xmlInputModel.WaitingList;
 import de.ibsys.planningTool.model.xmlInputModel.WaitingListWorkPlace;
 import de.ibsys.planningTool.service.CapPla;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.chart.BarChart;
-import javafx.scene.chart.CategoryAxis;
-import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
-import java.sql.SQLException;
 import java.util.*;
 
 
@@ -83,7 +75,7 @@ public class CapPlaController extends BaseTabController {
      *
      * @return
      */
-    public ObservableList<CapPlaResult> getResults() {
+    public ObservableList<CapPlaResult> getTableData() {
         ObservableList<CapPlaResult> results = FXCollections.observableArrayList();
         List<CapPlaResult> capPlaList = this.getMasterResult();
 
@@ -141,8 +133,25 @@ public class CapPlaController extends BaseTabController {
         shiftsCol.setCellValueFactory(new PropertyValueFactory<>("shifts"));
         overtimeCol.setCellValueFactory(new PropertyValueFactory<>("overtime"));
 
-        tableView.setItems(getResults());
+        this.storeData();
+        tableView.setItems(getTableData());
         barChart.getData().add(getBarChartData());
+    }
+
+    /**
+     * Store data for xml export
+     */
+    private void storeData() {
+
+        List<CapPlaResult> capPlaResults = new ArrayList<>();
+        List<WorkTime> workTimeList = new ArrayList<>();
+
+        capPlaResults = this.getMasterResult();
+
+        for(CapPlaResult cap : capPlaResults){
+            workTimeList.add(new WorkTime(cap.getWorkplaceId(), cap.getShifts(), cap.getOvertime()));
+        }
+        main.setWorkTimeList(workTimeList);
     }
 
 
