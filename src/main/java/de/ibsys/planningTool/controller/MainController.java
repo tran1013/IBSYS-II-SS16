@@ -40,6 +40,9 @@ public class MainController {
 	@FXML
 	public Tab exportTab;
 
+	@FXML
+	public Tab cappla;
+
 	private XmlInputData xmlInputData;
 
 	private List<Item> sellWish;
@@ -178,10 +181,12 @@ public class MainController {
 		forecast.setText(translation.getString(FORECAST));
 		disposition.setText(translation.getString(DISPOSITION));
 		exportTab.setText(translation.getString(Export_TAB));
+		cappla.setText(translation.getString(CAPPLA));
 
 		foreCastController.initUIComponents();
 		exportController.initUIComponents();
 		xmlInputController.initUIComponents();
+		capPlaController.initUIComponents();
 	}
 
 }

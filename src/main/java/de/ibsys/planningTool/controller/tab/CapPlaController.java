@@ -6,14 +6,15 @@ import de.ibsys.planningTool.model.xmlExportModel.WorkTime;
 import de.ibsys.planningTool.model.xmlInputModel.OrdersInWork;
 import de.ibsys.planningTool.model.xmlInputModel.WaitingListWorkPlace;
 import de.ibsys.planningTool.service.CapPla;
+import de.ibsys.planningTool.util.I18N;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.chart.BarChart;
-import javafx.scene.chart.XYChart;
+import javafx.scene.chart.*;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import javafx.util.StringConverter;
 
 import java.util.*;
 
@@ -24,6 +25,8 @@ import java.util.*;
  * TODO: Test class or take a deep breath and get to it?
  */
 public class CapPlaController extends BaseTabController {
+
+
 
     @FXML
     private TableView<CapPlaResult> tableView;
@@ -42,6 +45,12 @@ public class CapPlaController extends BaseTabController {
 
     @FXML
     private BarChart<Number, String> barChart;
+
+    @FXML
+    private NumberAxis yAxis;
+
+    @FXML
+    private CategoryAxis xAxis;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -62,7 +71,7 @@ public class CapPlaController extends BaseTabController {
         ordersInWorkMap = main.getXmlInputData().getOrdersInWorkMap();
         waitingListWorkPlaceMap = main.getXmlInputData().getWaitingListWorkPlaceMap();
         result = cap.calculateCap(ordersInWorkMap, waitingListWorkPlaceMap);
-        
+
         return result;
     }
 
@@ -112,7 +121,6 @@ public class CapPlaController extends BaseTabController {
 
             dataSet.getData().add(new XYChart.Data(workplaceId.toString(), reqCapacity));
         }
-        dataSet.setName("Workplace");
 
         return dataSet;
     }
@@ -123,7 +131,7 @@ public class CapPlaController extends BaseTabController {
      */
     @FXML
     private void getCapPlaUI() {
-        XYChart.Series dataSet = new XYChart.Series();
+        XYChart.Series dataSet;
 
         workplaceCol.setCellValueFactory(new PropertyValueFactory<>("workplaceId"));
         capacityCol.setCellValueFactory(new PropertyValueFactory<>("reqCapacity"));
@@ -132,7 +140,11 @@ public class CapPlaController extends BaseTabController {
 
         this.storeData();
         tableView.setItems(getTableData());
-        barChart.getData().add(getBarChartData());
+
+        barChart.getData().clear();
+        dataSet = this.getBarChartData();
+        barChart.getData().add(dataSet);
+        barChart.setLegendVisible(false);
     }
 
     /**
@@ -140,7 +152,7 @@ public class CapPlaController extends BaseTabController {
      */
     private void storeData() {
 
-        List<CapPlaResult> capPlaResults = new ArrayList<>();
+        List<CapPlaResult> capPlaResults;
         List<WorkTime> workTimeList = new ArrayList<>();
 
         capPlaResults = this.getMasterResult();
@@ -151,6 +163,14 @@ public class CapPlaController extends BaseTabController {
         main.setWorkTimeList(workTimeList);
     }
 
+    public void initUIComponents() {
+        workplaceCol.setText(main.getTranslation().getString(I18N.WORKPLACE));
+        capacityCol.setText(main.getTranslation().getString(I18N.CAPACITY));
+        shiftsCol.setText(main.getTranslation().getString(I18N.SHIFTS));
+        overtimeCol.setText(main.getTranslation().getString(I18N.OVERTIME));
+        xAxis.setLabel(main.getTranslation().getString(I18N.WORKPLACE));
+        yAxis.setLabel(main.getTranslation().getString(I18N.YAXIS));
+    }
 
 }
 

@@ -18,6 +18,12 @@ public class I18N {
 	public static final String SAVE = "SAVE";
 	public static final String XML_INPUT = "XML_INPUT";
 	public static final String XML_EXPORT = "XML_EXPORT";
+	public static final String CAPPLA = "CAPPLA";
+	public static final String WORKPLACE = "WORKPLACE";
+	public static final String CAPACITY = "CAPACITY";
+	public static final String SHIFTS = "SHIFTS";
+	public static final String OVERTIME = "OVERTIME";
+	public static final String YAXIS = "YAXIS";
 
 	public static ResourceBundle translation(String language, String country) {
 		Locale currentLocale;

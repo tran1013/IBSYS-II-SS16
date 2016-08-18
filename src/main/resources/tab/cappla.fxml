@@ -7,24 +7,27 @@
 <?import javafx.scene.chart.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="532.0" prefWidth="1116.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.ibsys.planningTool.controller.tab.CapPlaController">
-   <children>
-      <BarChart fx:id="barChart" animated="false" layoutX="453.0" layoutY="41.0" prefHeight="469.0" prefWidth="637.0">
-        <xAxis>
-          <CategoryAxis prefHeight="46.0" prefWidth="543.0" side="BOTTOM" fx:id="xAxis" />
-        </xAxis>
-        <yAxis>
-          <NumberAxis fx:id="yAxis" label="Min/Period" minorTickCount="1" side="LEFT" tickLength="10.0" upperBound="7200.0" />
-        </yAxis>
-      </BarChart>
-      <TableView fx:id="tableView" layoutX="35.0" layoutY="66.0" prefHeight="385.0" prefWidth="402.0">
-         <columns>
-            <TableColumn fx:id="workplaceCol" minWidth="100.0" prefWidth="75.0" text="Workplace" />
-            <TableColumn fx:id="capacityCol" minWidth="100.0" prefWidth="75.0" text="Capacity " />
-            <TableColumn fx:id="shiftsCol" minWidth="100.0" prefWidth="75.0" text="Shifts" />
-            <TableColumn fx:id="overtimeCol" minWidth="100.0" prefWidth="75.0" text="Overtime" />
-         </columns>
-      </TableView>
-      <JFXButton layoutX="35.0" layoutY="14.0" onAction="#getCapPlaUI" text="GO" />
-   </children>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="532.0"
+            prefWidth="1116.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="de.ibsys.planningTool.controller.tab.CapPlaController">
+    <children>
+        <BarChart fx:id="barChart" animated="false" layoutX="453.0" layoutY="41.0" prefHeight="469.0" prefWidth="637.0">
+            <xAxis>
+                <CategoryAxis fx:id="xAxis" label="Workplace" prefHeight="46.0" prefWidth="543.0" side="BOTTOM"/>
+            </xAxis>
+            <yAxis>
+                <NumberAxis fx:id="yAxis" label="Min/Period" minorTickCount="1" side="LEFT" tickLength="10.0"
+                            upperBound="7200.0"/>
+            </yAxis>
+        </BarChart>
+        <TableView fx:id="tableView" layoutX="35.0" layoutY="66.0" prefHeight="385.0" prefWidth="402.0">
+            <columns>
+                <TableColumn fx:id="workplaceCol" minWidth="100.0" prefWidth="75.0"/>
+                <TableColumn fx:id="capacityCol" minWidth="100.0" prefWidth="75.0"/>
+                <TableColumn fx:id="shiftsCol" minWidth="100.0" prefWidth="75.0"/>
+                <TableColumn fx:id="overtimeCol" minWidth="100.0" prefWidth="75.0"/>
+            </columns>
+        </TableView>
+        <JFXButton layoutX="35.0" layoutY="28.0" onAction="#getCapPlaUI" text="GO"/>
+    </children>
 </AnchorPane>
