@@ -62,10 +62,7 @@ public class CapPlaController extends BaseTabController {
         ordersInWorkMap = main.getXmlInputData().getOrdersInWorkMap();
         waitingListWorkPlaceMap = main.getXmlInputData().getWaitingListWorkPlaceMap();
         result = cap.calculateCap(ordersInWorkMap, waitingListWorkPlaceMap);
-
-        System.out.println("Print list");
-        System.out.println(result);
-
+        
         return result;
     }
 
@@ -148,7 +145,7 @@ public class CapPlaController extends BaseTabController {
 
         capPlaResults = this.getMasterResult();
 
-        for(CapPlaResult cap : capPlaResults){
+        for (CapPlaResult cap : capPlaResults) {
             workTimeList.add(new WorkTime(cap.getWorkplaceId(), cap.getShifts(), cap.getOvertime()));
         }
         main.setWorkTimeList(workTimeList);

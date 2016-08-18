@@ -52,10 +52,6 @@ public class CapPla {
             mock.setProdSteps();
             List<ProductionSteps> prodSteps = mock.getProdSteps();
 
-            System.out.println();
-            System.out.println("Start CAPLA BOSS METHOD!!!");
-            System.out.println();
-
             for (Integer i : workplaceIDs) {
                 Integer capacity = 0;
                 Integer CapSetupTime = 0;
@@ -89,19 +85,19 @@ public class CapPla {
                     capResult.put(workplace.toString(), capacity);
                     setupTimeList.put(workplace.toString(), CapSetupTime);
                 }
-                System.out.println("Workplace: " + workplace);
+                /*System.out.println("Workplace: " + workplace);
                 System.out.println("Cap. require: " + capResult.get(workplace.toString()));
-                System.out.println("Setup Time: " + setupTimeList.get(workplace.toString()));
+                System.out.println("Setup Time: " + setupTimeList.get(workplace.toString()));*/
 
                 result = this.getAllScheduledTime(workplace, ordersInWorkMap, waitingListWorkPlaceMap);
                 result = result * productionTime;
-                System.out.println("Cap. require last period: " + result);
+                //System.out.println("Cap. require last period: " + result);
                 ordersInWorkTime.put(workplace.toString(), result);
 
                 setupTimeLastPeriod = this.getPieceAmountOrdersInWork(workplace, ordersInWorkMap);
                 setupTimeLastPeriod = setupTimeLastPeriod * setup;
-                System.out.println("SetupTime last period: " + setupTimeLastPeriod);
-                System.out.println("_________________________");
+                /*System.out.println("SetupTime last period: " + setupTimeLastPeriod);
+                System.out.println("_________________________");*/
 
                 requirePeriod = capResult.get(workplace.toString()) + setupTimeList.get(workplace.toString()) + result + setupTimeLastPeriod;
                 shifts = this.calculateShifts(requirePeriod);
