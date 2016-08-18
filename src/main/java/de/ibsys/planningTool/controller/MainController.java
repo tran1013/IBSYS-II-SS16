@@ -13,6 +13,8 @@ import de.ibsys.planningTool.util.I18N;
 import javafx.fxml.FXML;
 import javafx.scene.control.Tab;
 
+import java.util.*;
+
 import static de.ibsys.planningTool.util.I18N.*;
 
 /**
@@ -46,29 +48,15 @@ public class MainController {
 
 	private List<Order> orderList;
 
-    @FXML
-    private CapPlaController capPlaController;
-
-    @FXML
-    public void initialize() {
-        System.out.println("Start Application");
-        foreCastController.init(this);
-        xmlInputController.init(this);
-        exportController.init(this);
-        capPlaController.init(this);
-        xmlInputData = new XmlInputData();
-        sellWish = new ArrayList<>();
-        directSellList = new ArrayList<>();
-        orderList = new ArrayList<>();
-        productionList = new ArrayList<>();
-        workTimeList = new ArrayList<>();
-        forecastProductionList = new HashMap<>();
-    }
+	private List<Item> productionList;
 
 	private List<WorkTime> workTimeList;
 
 	// Program Production plan
 	private Map<String, Item> forecastProductionList;
+
+	@FXML
+	private CapPlaController capPlaController;
 
 	@FXML
 	private ForeCastController foreCastController;
@@ -85,6 +73,7 @@ public class MainController {
 		foreCastController.init(this);
 		xmlInputController.init(this);
 		exportController.init(this);
+		capPlaController.init(this);
 		xmlInputData = new XmlInputData();
 		sellWish = new ArrayList<>();
 		directSellList = new ArrayList<>();
