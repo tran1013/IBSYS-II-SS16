@@ -24,6 +24,12 @@ public class I18N {
 	public static final String SHIFTS = "SHIFTS";
 	public static final String OVERTIME = "OVERTIME";
 	public static final String YAXIS = "YAXIS";
+	public static final String LABEL01 = "LABEL01";
+	public static final String LABEL02 = "LABEL02";
+	public static final String LABEL03 = "LABEL03";
+	public static final String LABEL04 = "LABEL04";
+	public static final String LABEL05 = "LABEL05";
+
 
 	public static ResourceBundle translation(String language, String country) {
 		Locale currentLocale;

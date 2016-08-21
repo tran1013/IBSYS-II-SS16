@@ -1,33 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.cells.editors.base.*?>
+<?import javafx.scene.text.*?>
 <?import com.jfoenix.controls.*?>
-<?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.chart.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="532.0"
-            prefWidth="1116.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="de.ibsys.planningTool.controller.tab.CapPlaController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="507.0" prefWidth="1104.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.ibsys.planningTool.controller.tab.CapPlaController">
     <children>
-        <BarChart fx:id="barChart" animated="false" layoutX="453.0" layoutY="41.0" prefHeight="469.0" prefWidth="637.0">
+        <BarChart fx:id="barChart" layoutX="453.0" layoutY="41.0" prefHeight="469.0" prefWidth="571.0">
             <xAxis>
-                <CategoryAxis fx:id="xAxis" label="Workplace" prefHeight="46.0" prefWidth="543.0" side="BOTTOM"/>
+                <CategoryAxis animated="false" label="Workplace" prefHeight="56.0" prefWidth="543.0" side="BOTTOM" fx:id="xAxis" />
             </xAxis>
             <yAxis>
-                <NumberAxis fx:id="yAxis" label="Min/Period" minorTickCount="1" side="LEFT" tickLength="10.0"
-                            upperBound="7200.0"/>
+                <NumberAxis fx:id="yAxis" animated="false" autoRanging="false" label="Min/Period" minorTickCount="1" minorTickVisible="false" side="LEFT" tickLength="10.0" tickUnit="200.0" upperBound="7200.0" />
             </yAxis>
         </BarChart>
-        <TableView fx:id="tableView" layoutX="35.0" layoutY="66.0" prefHeight="385.0" prefWidth="402.0">
+        <TableView fx:id="tableView" layoutX="35.0" layoutY="55.0" prefHeight="385.0" prefWidth="402.0">
             <columns>
-                <TableColumn fx:id="workplaceCol" minWidth="100.0" prefWidth="75.0"/>
-                <TableColumn fx:id="capacityCol" minWidth="100.0" prefWidth="75.0"/>
-                <TableColumn fx:id="shiftsCol" minWidth="100.0" prefWidth="75.0"/>
-                <TableColumn fx:id="overtimeCol" minWidth="100.0" prefWidth="75.0"/>
+                <TableColumn fx:id="workplaceCol" minWidth="100.0" prefWidth="75.0" />
+                <TableColumn fx:id="capacityCol" minWidth="100.0" prefWidth="75.0" />
+                <TableColumn fx:id="shiftsCol" minWidth="100.0" prefWidth="75.0" />
+                <TableColumn fx:id="overtimeCol" minWidth="100.0" prefWidth="75.0" />
             </columns>
         </TableView>
-        <JFXButton layoutX="35.0" layoutY="28.0" onAction="#getCapPlaUI" text="GO"/>
+        <JFXButton layoutX="35.0" layoutY="28.0" onAction="#getCapPlaUI" text="GO" />
+      <Separator layoutX="534.0" layoutY="312.0" prefHeight="2.0" prefWidth="539.0" />
+      <Separator layoutX="534.0" layoutY="248.0" prefHeight="2.0" prefWidth="539.0" />
+      <Separator layoutX="534.0" layoutY="184.0" prefHeight="2.0" prefWidth="539.0" />
+      <Separator layoutX="534.0" layoutY="120.0" prefHeight="2.0" prefWidth="539.0" />
+      <Separator layoutX="534.0" layoutY="56.0" prefHeight="2.0" prefWidth="539.0" />
+      <Label fx:id="label_01" layoutX="1023.0" layoutY="323.0" prefHeight="17.0" prefWidth="72.0" text="1 Shift">
+         <font>
+            <Font name="System Bold" size="11.0" />
+         </font>
+      </Label>
+      <Label fx:id="label_02" layoutX="1023.0" layoutY="248.0" prefHeight="58.0" prefWidth="72.0" text="1 Shift + Overtime" wrapText="true">
+         <font>
+            <Font size="11.0" />
+         </font>
+      </Label>
+      <Label fx:id="label_03" layoutX="1023.0" layoutY="194.0" prefHeight="17.0" prefWidth="72.0" text="2 Shifts">
+         <font>
+            <Font name="System Bold" size="11.0" />
+         </font>
+      </Label>
+      <Label fx:id="label_04" layoutX="1023.0" layoutY="122.0" prefHeight="48.0" prefWidth="72.0" text="2 Shifts + Overtime" wrapText="true">
+         <font>
+            <Font size="11.0" />
+         </font>
+      </Label>
+      <Label fx:id="label_05" layoutX="1023.0" layoutY="68.0" prefHeight="17.0" prefWidth="72.0" text="3 Shifts">
+         <font>
+            <Font name="System Bold" size="11.0" />
+         </font>
+      </Label>
     </children>
 </AnchorPane>

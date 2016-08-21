@@ -12,11 +12,12 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.chart.*;
 import javafx.scene.control.*;
+import javafx.scene.control.Label;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import javafx.util.StringConverter;
 
 import java.util.*;
+import java.util.List;
 
 
 /**
@@ -51,6 +52,24 @@ public class CapPlaController extends BaseTabController {
 
     @FXML
     private CategoryAxis xAxis;
+
+    @FXML
+    private Label label_01;
+
+    @FXML
+    private Label label_02;
+
+    @FXML
+    private Label label_03;
+
+    @FXML
+    private Label label_04;
+
+    @FXML
+    private Label label_05;
+
+
+
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -141,8 +160,9 @@ public class CapPlaController extends BaseTabController {
         this.storeData();
         tableView.setItems(getTableData());
 
-        barChart.getData().clear();
+
         dataSet = this.getBarChartData();
+        barChart.getData().clear();
         barChart.getData().add(dataSet);
         barChart.setLegendVisible(false);
     }
@@ -170,6 +190,11 @@ public class CapPlaController extends BaseTabController {
         overtimeCol.setText(main.getTranslation().getString(I18N.OVERTIME));
         xAxis.setLabel(main.getTranslation().getString(I18N.WORKPLACE));
         yAxis.setLabel(main.getTranslation().getString(I18N.YAXIS));
+        label_01.setText(main.getTranslation().getString(I18N.LABEL01));
+        label_02.setText(main.getTranslation().getString(I18N.LABEL02));
+        label_03.setText(main.getTranslation().getString(I18N.LABEL03));
+        label_04.setText(main.getTranslation().getString(I18N.LABEL04));
+        label_05.setText(main.getTranslation().getString(I18N.LABEL05));
     }
 
 }
