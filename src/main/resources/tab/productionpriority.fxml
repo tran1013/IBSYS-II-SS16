@@ -8,7 +8,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="436.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.ibsys.planningTool.controller.tab.ProductionPriorityController">
    <children>
-      <JFXListView layoutX="315.0" layoutY="46.0" prefHeight="366.0" prefWidth="268.0" fx:id="listView"/>
+      <JFXListView layoutX="315.0" layoutY="46.0" prefHeight="366.0" prefWidth="400.0" fx:id="listView"/>
       <Label layoutX="28.0" layoutY="46.0" text="Priorisierung von Elementen" />
    </children>
 </AnchorPane>
