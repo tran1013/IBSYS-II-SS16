@@ -53,7 +53,7 @@ public class MockObject {
 
     public List<Item> productionListMockData() {
         List<Item> itemList = new ArrayList<>();
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 20; i++) {
             Item item = new Item(String.valueOf(i+1), generatedProduction());
             itemList.add(item);
         }

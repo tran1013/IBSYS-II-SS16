@@ -2,10 +2,7 @@ package de.ibsys.planningTool.controller;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTabPane;
-import de.ibsys.planningTool.controller.tab.BaseTabController;
-import de.ibsys.planningTool.controller.tab.CapPlaController;
-import de.ibsys.planningTool.controller.tab.SettingsController;
-import de.ibsys.planningTool.controller.tab.ForeCastController;
+import de.ibsys.planningTool.controller.tab.*;
 import de.ibsys.planningTool.model.XmlExport;
 import de.ibsys.planningTool.model.XmlInputData;
 import de.ibsys.planningTool.model.xmlExportModel.DirectSell;
@@ -90,12 +87,18 @@ public class MainController extends BaseTabController {
 	@FXML
 	private SettingsController settingsController;
 
+    @FXML
+    private ProductionPriorityController productionPriorityController;
+
 	@FXML
 	public void initialize() {
 	    logger.info("Start Application");
+
 		foreCastController.init(this);
 		settingsController.init(this);
 		capPlaController.init(this);
+        productionPriorityController.init(this);
+
 		xmlInputData = new XmlInputData();
 		sellWish = new ArrayList<>();
 		directSellList = new ArrayList<>();
