@@ -6,3 +6,7 @@
     -fx-pref-width: 150;
     -fx-text-fill: WHITE;
 }
+
+.jfx-tab-pane *.tab-header-background{
+    -fx-background-color: #2980b9;
+}

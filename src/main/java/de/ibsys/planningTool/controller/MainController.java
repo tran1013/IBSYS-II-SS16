@@ -107,6 +107,8 @@ public class MainController extends BaseTabController {
         exportButton.setVisible(false);
 
 		changeUILanguage();
+
+        mainTabPane.getStyleClass().add("jfx-tab-pane");
 	}
 
 	public XmlInputData getXmlInputData() {
