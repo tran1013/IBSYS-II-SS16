@@ -1,6 +1,7 @@
 package de.ibsys.planningTool.model;
 
 import de.ibsys.planningTool.model.xmlInputModel.*;
+import org.apache.log4j.Logger;
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.JDOMException;
@@ -16,13 +17,12 @@ import java.util.*;
 import static de.ibsys.planningTool.model.Constants.*;
 
 /**
- * XML Parser
- * TODO Maybe Store the Data in a Database
- * TODO GETTER AND SETTER AND SEARCH BY ID
- * IF YOU WANT TO USE MAKE THE MAPS PUBLIC
+ * XML Parser because of yolo !!
  * Created by minhnguyen on 12.07.16.
  */
 public class XmlInputData {
+
+    private Logger logger = Logger.getLogger(XmlInputData.class);
 
     // The reason to use map and hashmaps are that it increase the performace
     // by quering the right articleID
@@ -44,6 +44,7 @@ public class XmlInputData {
         try {
             document = new SAXBuilder().build(file);
         } catch (JDOMException e) {
+            logger.error(e);
             throw new IOException("Something went wrong during parsing!");
         }
 
@@ -72,9 +73,8 @@ public class XmlInputData {
             extractMissingParts(waitingListStock);
             parseFine = true;
         } catch (ParseException e) {
-            e.printStackTrace();
+            logger.info(e);
         }
-        System.out.println("Parse fine!");
         return parseFine;
     }
 
@@ -89,13 +89,13 @@ public class XmlInputData {
         try {
             document = new SAXBuilder().build(file);
         } catch (JDOMException e) {
+            logger.info(e);
             throw new IOException("Incorrect Xml File");
         }
         Element root = document.getRootElement();
         if (!root.getName().equals("results")) {
             isDocumentOK = false;
         }
-        System.out.println("Document OK!");
         return isDocumentOK;
     }
 
@@ -249,5 +249,15 @@ public class XmlInputData {
         return period;
     }
 
-
+    @Override
+    public String toString() {
+        return "XmlInputData{" +
+                "wareHouseArticles=" + wareHouseArticles +
+                ", futureInComingOrderMap=" + futureInComingOrderMap +
+                ", stringWaitingListMissingPartsMap=" + stringWaitingListMissingPartsMap +
+                ", ordersInWorkMap=" + ordersInWorkMap +
+                ", waitingListWorkPlaceMap=" + waitingListWorkPlaceMap +
+                ", period=" + period +
+                '}';
+    }
 }

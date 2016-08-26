@@ -1,35 +1,58 @@
 package de.ibsys.planningTool.controller;
 
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXTabPane;
+import de.ibsys.planningTool.controller.tab.BaseTabController;
 import de.ibsys.planningTool.controller.tab.CapPlaController;
-import de.ibsys.planningTool.controller.tab.ExportController;
+import de.ibsys.planningTool.controller.tab.SettingsController;
 import de.ibsys.planningTool.controller.tab.ForeCastController;
-import de.ibsys.planningTool.controller.tab.XmlInputController;
+import de.ibsys.planningTool.model.XmlExport;
 import de.ibsys.planningTool.model.XmlInputData;
 import de.ibsys.planningTool.model.xmlExportModel.DirectSell;
 import de.ibsys.planningTool.model.xmlExportModel.Item;
 import de.ibsys.planningTool.model.xmlExportModel.Order;
 import de.ibsys.planningTool.model.xmlExportModel.WorkTime;
 import de.ibsys.planningTool.util.I18N;
+import de.ibsys.planningTool.util.MockObject;
 import javafx.fxml.FXML;
 import javafx.scene.control.Tab;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+import org.apache.log4j.Logger;
 
+import java.io.File;
 import java.util.*;
 
 import static de.ibsys.planningTool.util.I18N.*;
 
 /**
+ * God Class !!
  * Created by minhnguyen on 17.07.16.
  */
-public class MainController {
+public class MainController extends BaseTabController {
 
-	private String language = "de";
+    Logger logger = Logger.getLogger(MainController.class);
+
+    private Stage savedStage;
+
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+        this.savedStage = primaryStage;
+    }
+
+    private String language = "de";
 	private String country = "DE";
 
 	private ResourceBundle translation;
 
-	// Init Tabs
+	// Export Button
 	@FXML
-	public Tab welcome;
+	public JFXButton exportButton;
+
+	// Init Tabs
+
+    @FXML
+    public JFXTabPane mainTabPane;
 
 	@FXML
 	public Tab forecast;
@@ -38,7 +61,7 @@ public class MainController {
 	public Tab disposition;
 
 	@FXML
-	public Tab exportTab;
+	public Tab settingsTab;
 
 	@FXML
 	public Tab cappla;
@@ -65,17 +88,13 @@ public class MainController {
 	private ForeCastController foreCastController;
 
 	@FXML
-	private XmlInputController xmlInputController;
-
-	@FXML
-	private ExportController exportController;
+	private SettingsController settingsController;
 
 	@FXML
 	public void initialize() {
-		System.out.println("Start Application");
+	    logger.info("Start Application");
 		foreCastController.init(this);
-		xmlInputController.init(this);
-		exportController.init(this);
+		settingsController.init(this);
 		capPlaController.init(this);
 		xmlInputData = new XmlInputData();
 		sellWish = new ArrayList<>();
@@ -84,6 +103,8 @@ public class MainController {
 		productionList = new ArrayList<>();
 		workTimeList = new ArrayList<>();
 		forecastProductionList = new HashMap<>();
+
+        exportButton.setVisible(false);
 
 		changeUILanguage();
 	}
@@ -170,23 +191,36 @@ public class MainController {
 		return translation;
 	}
 
-	public void setTranslation(ResourceBundle translation) {
-		this.translation = translation;
-	}
-
 	public void changeUILanguage() {
 		translation = I18N.translation(language, country);
 
-		welcome.setText(translation.getString(WELCOME));
 		forecast.setText(translation.getString(FORECAST));
 		disposition.setText(translation.getString(DISPOSITION));
-		exportTab.setText(translation.getString(Export_TAB));
+		settingsTab.setText(translation.getString(Export_TAB));
 		cappla.setText(translation.getString(CAPPLA));
 
 		foreCastController.initUIComponents();
-		exportController.initUIComponents();
-		xmlInputController.initUIComponents();
+		settingsController.initUIComponents();
 		capPlaController.initUIComponents();
 	}
 
+	@FXML
+    public void exportButtonTapped() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle(translation.getString(I18N.XML_EXPORT_SAVED_TITLE));
+        FileChooser.ExtensionFilter filter = new FileChooser.ExtensionFilter("XML Files", "*.xml");
+        fileChooser.getExtensionFilters().add(filter);
+
+        File file = fileChooser.showSaveDialog(savedStage);
+
+        //TODO Adding the other list in here
+        if (file != null) {
+            new XmlExport().exportXmlInputData(sellWish
+                    , directSellList
+                    , new MockObject().orderListMockData()
+                    , new MockObject().productionListMockData()
+                    , workTimeList
+                    , file.getPath());
+        }
+    }
 }

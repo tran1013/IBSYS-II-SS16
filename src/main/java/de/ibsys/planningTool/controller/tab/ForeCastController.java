@@ -1,11 +1,14 @@
 package de.ibsys.planningTool.controller.tab;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.*;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 
 import de.ibsys.planningTool.controller.MainController;
+import de.ibsys.planningTool.model.XmlInputData;
 import de.ibsys.planningTool.model.xmlExportModel.DirectSell;
 import de.ibsys.planningTool.model.xmlExportModel.Item;
 import de.ibsys.planningTool.util.I18N;
@@ -13,12 +16,24 @@ import de.ibsys.planningTool.util.JFXIntegerTextField;
 import de.ibsys.planningTool.util.Dialogs.DialogMessages;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import org.apache.log4j.Logger;
+
+import javax.xml.parsers.ParserConfigurationException;
 
 /**
  * Created by minhnguyen on 11.07.16.
  */
-public class ForeCastController extends BaseTabController{
+public class ForeCastController extends BaseTabController {
+
+    private Logger logger = Logger.getLogger(ForeCastController.class);
+
+    private Stage savedStage;
+
+    @FXML
+    JFXTextField xmlInputTextField;
 
     @FXML
     Label priceLabel;
@@ -93,20 +108,21 @@ public class ForeCastController extends BaseTabController{
 
     @FXML
     private void saveForeCastInformation() {
-        if (!checkInputViewsContainsData()) {
-            System.out.println("store data");
-            if (main.getSellWish().size() != 0) {
-               main.deleteSellLists();
-                storeData();
-
+        if (main.getXmlInputData() != null) {
+            logger.info("store data");
+            if (!checkInputViewsContainsData()) {
+                if (main.getSellWish().size() != 0) {
+                    main.deleteSellLists();
+                    storeData();
+                } else {
+                    storeData();
+                }
+                main.exportButton.setVisible(true);
             } else {
-                storeData();
+                DialogMessages.ErrorDialog(main.getTranslation().getString(I18N.FORECAST_INPUT_ERROR));
             }
-
-            main.getSellWish().parallelStream().forEach((Item item) -> System.out.println(item.toString()));
-
         } else {
-            DialogMessages.ErrorDialog("Unvollständige Datensätze");
+            DialogMessages.ErrorDialog(main.getTranslation().getString(I18N.XML_INPUT_ERROR_NO_XML));
         }
     }
 
@@ -166,7 +182,7 @@ public class ForeCastController extends BaseTabController{
         return directSells;
     }
 
-    private Map<String, Item> storeProductionData () {
+    private Map<String, Item> storeProductionData() {
         Map<String, Item> productionData = new HashMap<>();
 
         productionData.put("p1n", new Item("1", getIntegerFromTextField(p1nTextField)));
@@ -184,8 +200,34 @@ public class ForeCastController extends BaseTabController{
         productionData.put("p3n2", new Item("3", getIntegerFromTextField(p3n2TextField)));
         productionData.put("p3n3", new Item("3", getIntegerFromTextField(p3n3TextField)));
 
-
         return productionData;
+    }
+
+    private XmlInputData initXmlImport() {
+        FileChooser fileChooser = new FileChooser();
+        FileChooser.ExtensionFilter filter = new FileChooser.ExtensionFilter("XML Files(*.xml)", "*.xml");
+        fileChooser.getExtensionFilters().addAll(filter);
+        File selectedFile = fileChooser.showOpenDialog(savedStage);
+        XmlInputData xmlInputData = new XmlInputData();
+        if (selectedFile != null) {
+            xmlInputTextField.setText(selectedFile.getName());
+            try {
+                if (xmlInputData.checkXMLFile(selectedFile)) {
+                    if (!xmlInputData.parseXML(selectedFile)) {
+                        logger.info("xml input parse failure");
+                        DialogMessages.ErrorDialog(main.getTranslation().getString(I18N.XML_INPUT_FAILURE_PARSING));
+                    }
+                } else {
+                    logger.info("xml input structure is wrong");
+                    DialogMessages.ErrorDialog(main.getTranslation().getString(I18N.XML_INPUT_ERROR_WRONG_XML_STRUCTURE));
+                }
+            } catch (IOException e) {
+                logger.info(e);
+            } catch (ParserConfigurationException e) {
+                logger.info(e);
+            }
+        }
+        return xmlInputData;
     }
 
     @Override
@@ -200,7 +242,7 @@ public class ForeCastController extends BaseTabController{
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-
+        this.savedStage = primaryStage;
     }
 
     public void initUIComponents() {
@@ -211,5 +253,11 @@ public class ForeCastController extends BaseTabController{
         productionPlanningLabel.setText(main.getTranslation().getString(I18N.PRODUCTION_PLAN));
         sellingLabel.setText(main.getTranslation().getString(I18N.SELLING));
         saveForeCastViewButton.setText(main.getTranslation().getString(I18N.SAVE));
+        xmlInputTextField.setText(main.getTranslation().getString(I18N.XML_INPUT));
+    }
+
+    @FXML
+    public void importSimulationXml() {
+        main.setXmlInputData(initXmlImport());
     }
 }

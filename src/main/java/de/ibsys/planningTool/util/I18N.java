@@ -29,6 +29,12 @@ public class I18N {
 	public static final String LABEL03 = "LABEL03";
 	public static final String LABEL04 = "LABEL04";
 	public static final String LABEL05 = "LABEL05";
+	public static final String XML_INPUT_ERROR_NO_XML = "XML_INPUT_ERROR_NO_XML";
+	public static final String XML_INPUT_FAILURE_PARSING = "XML_INPUT_FAILURE_PARSING";
+	public static final String XML_INPUT_ERROR_WRONG_XML_STRUCTURE = "XML_INPUT_ERROR_WRONG_XML_STRUCTURE";
+	public static final String FORECAST_INPUT_ERROR = "FORECAST_INPUT_ERROR";
+	public static final String XML_EXPORT_SAVED_TITLE = "XML_EXPORT_SAVED_TITLE";
+
 
 
 	public static ResourceBundle translation(String language, String country) {

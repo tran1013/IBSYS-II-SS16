@@ -1,57 +1,62 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
+<?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXTabPane?>
-<?import javafx.scene.control.Tab?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.76-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.ibsys.planningTool.controller.MainController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.ibsys.planningTool.controller.MainController">
     <children>
-        <JFXTabPane prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-            <tabs>
-                <Tab text="Welcome" fx:id="welcome">
-                    <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                            <fx:include source="tab/xmlinput.fxml" fx:id="xmlInput" />
-                        </AnchorPane>
-                    </content>
-                </Tab>
-                <Tab text="Prognose" fx:id="forecast">
-                    <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                            <fx:include fx:id="foreCast" source="tab/forecast.fxml" />
-                        </AnchorPane>
-                    </content>
-                </Tab>
-                <Tab text="Fertigungsaufträge" fx:id="disposition">
-                    <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                        </AnchorPane>
-                    </content>
-                </Tab>
-                <Tab text="Kapazitätsplan" fx:id="cappla">
-                    <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                            <fx:include fx:id="capPla" source="tab/cappla.fxml" />
-                    </content>
-                </Tab>
-                <Tab text="Bestellung">
-                    <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                    </content>
-                </Tab>
-                <Tab text="Priorisierung">
-                    <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                    </content>
-                </Tab>
-                <Tab text="Export" fx:id="exportTab">
-                    <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                            <fx:include fx:id="export" source="tab/export.fxml" />
-                        </AnchorPane>
-                    </content>
-                </Tab>
-            </tabs>
-        </JFXTabPane>
+        <BorderPane minHeight="650.0" minWidth="1100.0">
+            <center>
+                <JFXTabPane prefHeight="400.0" prefWidth="600.0" BorderPane.alignment="CENTER" fx:id="mainTabPane">
+                    <tabs>
+                        <Tab fx:id="forecast" text="Forecast">
+                            <content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                    <fx:include fx:id="foreCast" source="tab/forecast.fxml"/>
+                                </AnchorPane>
+                            </content>
+                        </Tab>
+                        <Tab fx:id="disposition" text="Fertigungsaufträge">
+                            <content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                </AnchorPane>
+                            </content>
+                        </Tab>
+                        <Tab fx:id="cappla" text="Kapazitätsplan">
+                            <content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                <fx:include fx:id="capPla" source="tab/cappla.fxml" />
+                            </content>
+                        </Tab>
+                        <Tab text="Bestellung">
+                            <content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                            </content>
+                        </Tab>
+                        <Tab text="Priorisierung">
+                            <content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                            </content>
+                        </Tab>
+                        <Tab fx:id="settingsTab" text="Settings">
+                            <content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                    <children>
+                                        <fx:include source="tab/settings.fxml" fx:id="settings" />
+                                    </children>
+                                </AnchorPane>
+                            </content>
+                        </Tab>
+                    </tabs>
+                </JFXTabPane>
+            </center>
+            <bottom>
+                <JFXButton fx:id="exportButton" buttonType="RAISED" text="Export" BorderPane.alignment="CENTER"  onAction="#exportButtonTapped"/>
+            </bottom>
+        </BorderPane>
     </children>
 </AnchorPane>

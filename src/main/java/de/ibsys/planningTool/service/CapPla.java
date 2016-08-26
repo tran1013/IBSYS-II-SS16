@@ -1,6 +1,6 @@
 package de.ibsys.planningTool.service;
 
-import de.ibsys.planningTool.controller.tab.XmlInputController;
+import de.ibsys.planningTool.controller.tab.ForeCastController;
 import de.ibsys.planningTool.database.capPlaDB;
 import de.ibsys.planningTool.mock.sellData;
 import de.ibsys.planningTool.model.CapPlaResult;
@@ -23,7 +23,7 @@ import java.util.*;
 public class CapPla {
 
     XmlInputData input;
-    XmlInputController inputCon = new XmlInputController();
+    ForeCastController inputCon = new ForeCastController();
     capPlaDB prod = new capPlaDB();
 
     /**
