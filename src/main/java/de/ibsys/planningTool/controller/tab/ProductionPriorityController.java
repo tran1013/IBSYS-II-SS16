@@ -27,7 +27,6 @@ import java.util.List;
  */
 public class ProductionPriorityController extends BaseTabController {
 
-    Logger logger = Logger.getLogger(ProductionPriorityController.class.getSimpleName());
 
     @FXML
     private JFXListView listView;
@@ -100,10 +99,8 @@ public class ProductionPriorityController extends BaseTabController {
                 }
 
                 List<Item> rotatingItems = listView.getItems().subList(dragItemsStartIndex, dragItemsEndIndex);
-                logger.info(rotatingItems);
 
                 List<Item> rotatingItemsCopy = new ArrayList<>(rotatingItems);
-                logger.info(rotatingItemsCopy);
 
                 Collections.rotate(rotatingItemsCopy, direction);
                 rotatingItems.clear();

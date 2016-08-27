@@ -28,8 +28,6 @@ import javax.xml.parsers.ParserConfigurationException;
  */
 public class ForeCastController extends BaseTabController {
 
-    private Logger logger = Logger.getLogger(ForeCastController.class);
-
     private Stage savedStage;
 
     @FXML

@@ -28,8 +28,6 @@ import static de.ibsys.planningTool.util.I18N.*;
  */
 public class MainController extends BaseTabController {
 
-    Logger logger = Logger.getLogger(MainController.class);
-
     private Stage savedStage;
 
     @Override
