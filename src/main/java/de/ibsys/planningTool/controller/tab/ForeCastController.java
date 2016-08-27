@@ -28,8 +28,6 @@ import javax.xml.parsers.ParserConfigurationException;
  */
 public class ForeCastController extends BaseTabController {
 
-    private Logger logger = Logger.getLogger(ForeCastController.class);
-
     private Stage savedStage;
 
     @FXML
@@ -215,11 +213,11 @@ public class ForeCastController extends BaseTabController {
                 if (xmlInputData.checkXMLFile(selectedFile)) {
                     if (!xmlInputData.parseXML(selectedFile)) {
                         logger.info("xml input parse failure");
-                        DialogMessages.ErrorDialog(main.getTranslation().getString(I18N.XML_INPUT_FAILURE_PARSING));
+                        DialogMessages.ErrorDialog(getI18NText(I18N.XML_INPUT_FAILURE_PARSING));
                     }
                 } else {
                     logger.info("xml input structure is wrong");
-                    DialogMessages.ErrorDialog(main.getTranslation().getString(I18N.XML_INPUT_ERROR_WRONG_XML_STRUCTURE));
+                    DialogMessages.ErrorDialog(getI18NText(I18N.XML_INPUT_ERROR_WRONG_XML_STRUCTURE));
                 }
             } catch (IOException e) {
                 logger.info(e);
@@ -246,14 +244,14 @@ public class ForeCastController extends BaseTabController {
     }
 
     public void initUIComponents() {
-        priceLabel.setText(main.getTranslation().getString(I18N.PRICE));
-        amountLabel.setText(main.getTranslation().getString(I18N.AMOUNT));
-        costLabel.setText(main.getTranslation().getString(I18N.PUNISHMENT));
-        directSellsLabel.setText(main.getTranslation().getString(I18N.DIRECT_SELLS));
-        productionPlanningLabel.setText(main.getTranslation().getString(I18N.PRODUCTION_PLAN));
-        sellingLabel.setText(main.getTranslation().getString(I18N.SELLING));
-        saveForeCastViewButton.setText(main.getTranslation().getString(I18N.SAVE));
-        xmlInputTextField.setText(main.getTranslation().getString(I18N.XML_INPUT));
+        priceLabel.setText(getI18NText(I18N.PRICE));
+        amountLabel.setText(getI18NText(I18N.AMOUNT));
+        costLabel.setText(getI18NText(I18N.PUNISHMENT));
+        directSellsLabel.setText(getI18NText(I18N.DIRECT_SELLS));
+        productionPlanningLabel.setText(getI18NText(I18N.PRODUCTION_PLAN));
+        sellingLabel.setText(getI18NText(I18N.SELLING));
+        saveForeCastViewButton.setText(getI18NText(I18N.SAVE));
+        xmlInputTextField.setText(getI18NText(I18N.XML_INPUT));
     }
 
     @FXML

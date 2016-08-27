@@ -6,6 +6,8 @@ import java.util.ResourceBundle;
 public class I18N {
 	public static final String FORECAST = "FORECAST";
 	public static final String DISPOSITION = "DISPOSITION";
+	public static final String ARTICLE_ID = "ARTICLE_ID";
+	public static final String PRIORITY = "PRIORITY";
 	public static final String WELCOME = "WELCOME";
 	public static final String CHANGE_LANGUAGE_BUTTON = "CHANGE_LANGUAGE_BUTTON";
 	public static final String Export_TAB = "EXPORT_TAB";
@@ -34,8 +36,16 @@ public class I18N {
 	public static final String XML_INPUT_ERROR_WRONG_XML_STRUCTURE = "XML_INPUT_ERROR_WRONG_XML_STRUCTURE";
 	public static final String FORECAST_INPUT_ERROR = "FORECAST_INPUT_ERROR";
 	public static final String XML_EXPORT_SAVED_TITLE = "XML_EXPORT_SAVED_TITLE";
-
-
+	public static final String SPLIT_PRIORITY_DIALOG_TITLE = "SPLIT_PRIORITY_DIALOG_TITLE";
+	public static final String SPLIT_PRIORITY_DIALOG_MESSAGE = "SPLIT_PRIORITY_DIALOG_MESSAGE";
+	public static final String SPLIT_PRIORITY_DIALOG_CONTENT = "SPLIT_PRIORITY_DIALOG_CONTENT";
+	public static final String DIALOG_MESSAGE_ERROR_WHOLE_NUMBER = "DIALOG_MESSAGE_ERROR_WHOLE_NUMBER";
+	public static final String DIALOG_MESSAGE_ERROR_BIG_NUMBER = "DIALOG_MESSAGE_ERROR_BIG_NUMBER";
+	public static final String DIALOG_MESSAGE_ERROR_ONLY_NUMBER = "DIALOG_MESSAGE_ERROR_ONLY_NUMBER";
+	public static final String DIALOG_MESSAGE_ERROR_TITLE = "DIALOG_MESSAGE_ERROR_TITLE";
+	public static final String DIALOG_MESSAGE_INFO_TITLE = "DIALOG_MESSAGE_INFO_TITLE";
+	public static final String DIALOG_MESSAGE_INFO_MESSAGE = "DIALOG_MESSAGE_INFO_MESSAGE";
+	public static final String DIALOG_MESSAGE_ERROR_MESSAGE = "DIALOG_MESSAGE_ERROR_MESSAGE";
 
 	public static ResourceBundle translation(String language, String country) {
 		Locale currentLocale;
