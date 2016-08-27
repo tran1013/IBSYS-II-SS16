@@ -19,4 +19,8 @@ public abstract class BaseTabController extends Application {
     public void init(MainController main) {
         this.main = main;
     }
+
+    protected String getI18NText(String splitPriorityDialogTitle) {
+        return main.getTranslation().getString(splitPriorityDialogTitle);
+    }
 }

@@ -4,6 +4,7 @@ import com.jfoenix.controls.JFXListView;
 import de.ibsys.planningTool.controller.MainController;
 import de.ibsys.planningTool.model.xmlExportModel.Item;
 import de.ibsys.planningTool.util.Dialogs.DialogMessages;
+import de.ibsys.planningTool.util.I18N;
 import de.ibsys.planningTool.util.MockObject;
 import de.ibsys.planningTool.util.PriorityCell;
 import javafx.beans.property.IntegerProperty;
@@ -11,6 +12,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
@@ -136,32 +138,35 @@ public class ProductionPriorityController extends BaseTabController {
         cell.setOnMouseClicked(event -> {
             MouseButton mouseButton = event.getButton();
             if (mouseButton.equals(MouseButton.SECONDARY)) {
-                logger.info("Right Click happens");
-
-                logger.info(listView.getItems().get(cell.getIndex()));
 
                 Item item = (Item) listView.getItems().get(cell.getIndex());
 
+                // TODO I18N Text files
                 TextInputDialog dialog = new TextInputDialog();
-                dialog.setTitle("Split things up");
-                dialog.setHeaderText("quantity = " + item.getQuantity());
-                dialog.setContentText("Please put in a number");
+                dialog.setTitle(getI18NText(I18N.SPLIT_PRIORITY_DIALOG_TITLE));
+                dialog.setHeaderText(getI18NText(I18N.SPLIT_PRIORITY_DIALOG_MESSAGE) + " : "+ item.getQuantity());
+                dialog.setContentText(getI18NText(I18N.SPLIT_PRIORITY_DIALOG_CONTENT));
 
 
                 dialog.showAndWait().ifPresent(number -> {
                     try {
-                        if (Integer.valueOf(number) > 0) {
-                            int tmpResult = item.getQuantity() - Integer.valueOf(number);
+                        int spiltNumber = Integer.valueOf(number);
+                        if (spiltNumber < 0) {
+                            DialogMessages.ErrorDialog(getI18NText(I18N.DIALOG_MESSAGE_ERROR_WHOLE_NUMBER));
+                            logger.error("Number to small");
+                        } else if (spiltNumber > item.getQuantity()) {
+                            DialogMessages.ErrorDialog(getI18NText(I18N.DIALOG_MESSAGE_ERROR_BIG_NUMBER));
+                            logger.error("number to big");
+                        } else {
+                            int tmpResult = item.getQuantity() - spiltNumber;
                             ((Item) listView.getItems().get(cell.getIndex())).setQuantity(tmpResult);
-                            Item splitItem = new Item(item.getArticleId(), Integer.valueOf(number));
+                            Item splitItem = new Item(item.getArticleId(), spiltNumber);
                             listView.getItems().add(splitItem);
                             updateProductionList();
-                        } else {
-                            DialogMessages.InfoDialog("Bitte nur ganze zahlen eingeben");
                         }
                     } catch (Exception e) {
-                        DialogMessages.ErrorDialog("Bitte nur Zahlen eingeben");
                         logger.error("INFO",e);
+                        DialogMessages.ErrorDialog(getI18NText(I18N.DIALOG_MESSAGE_ERROR_ONLY_NUMBER));
                     }
                 });
             }

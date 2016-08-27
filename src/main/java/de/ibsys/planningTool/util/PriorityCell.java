@@ -39,6 +39,22 @@ public class PriorityCell extends JFXListCell<Item> implements ChangeListener<Nu
     private IntegerProperty dragFromIndex = new SimpleIntegerProperty(-1);
 
 
+    public Label getItem_id() {
+        return item_id;
+    }
+
+    public void setItem_id(Label item_id) {
+        this.item_id = item_id;
+    }
+
+    public Label getItem_quantity() {
+        return item_quantity;
+    }
+
+    public void setItem_quantity(Label item_quantity) {
+        this.item_quantity = item_quantity;
+    }
+
     public PriorityCell(ObservableList<Item> items) {
         this.items = items;
     }

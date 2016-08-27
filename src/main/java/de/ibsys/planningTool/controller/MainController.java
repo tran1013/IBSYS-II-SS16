@@ -9,6 +9,7 @@ import de.ibsys.planningTool.model.xmlExportModel.DirectSell;
 import de.ibsys.planningTool.model.xmlExportModel.Item;
 import de.ibsys.planningTool.model.xmlExportModel.Order;
 import de.ibsys.planningTool.model.xmlExportModel.WorkTime;
+import de.ibsys.planningTool.util.Dialogs.DialogMessages;
 import de.ibsys.planningTool.util.I18N;
 import de.ibsys.planningTool.util.MockObject;
 import javafx.fxml.FXML;
@@ -58,6 +59,9 @@ public class MainController extends BaseTabController {
 	@FXML
 	public Tab settingsTab;
 
+    @FXML
+    public Tab productionpriorityTab;
+
 	@FXML
 	public Tab cappla;
 
@@ -97,7 +101,7 @@ public class MainController extends BaseTabController {
 		capPlaController.init(this);
         productionPriorityController.init(this);
 
-		xmlInputData = new XmlInputData();
+		xmlInputData = null;
 		sellWish = new ArrayList<>();
 		directSellList = new ArrayList<>();
 		orderList = new ArrayList<>();
@@ -111,6 +115,7 @@ public class MainController extends BaseTabController {
 		changeUILanguage();
 
         mainTabPane.getStyleClass().add("jfx-tab-pane");
+        new DialogMessages().setMainController(this);
 	}
 
 	public XmlInputData getXmlInputData() {
@@ -202,6 +207,7 @@ public class MainController extends BaseTabController {
 		disposition.setText(translation.getString(DISPOSITION));
 		settingsTab.setText(translation.getString(Export_TAB));
 		cappla.setText(translation.getString(CAPPLA));
+        productionpriorityTab.setText(translation.getString(I18N.PRIORITY));
 
 		foreCastController.initUIComponents();
 		settingsController.initUIComponents();
