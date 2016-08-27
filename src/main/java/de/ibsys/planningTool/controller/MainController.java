@@ -101,6 +101,7 @@ public class MainController extends BaseTabController {
 		sellWish = new ArrayList<>();
 		directSellList = new ArrayList<>();
 		orderList = new ArrayList<>();
+		// TODO Replace this this again with real data (setter is there)
 		productionList = new ArrayList<>();
 		workTimeList = new ArrayList<>();
 		forecastProductionList = new HashMap<>();
@@ -221,7 +222,7 @@ public class MainController extends BaseTabController {
             new XmlExport().exportXmlInputData(sellWish
                     , directSellList
                     , new MockObject().orderListMockData()
-                    , new MockObject().productionListMockData()
+                    , productionList
                     , workTimeList
                     , file.getPath());
         }
