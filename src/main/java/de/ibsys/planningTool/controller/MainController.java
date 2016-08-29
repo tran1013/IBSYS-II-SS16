@@ -2,6 +2,7 @@ package de.ibsys.planningTool.controller;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTabPane;
+import com.jfoenix.controls.JFXToggleButton;
 import de.ibsys.planningTool.controller.tab.*;
 import de.ibsys.planningTool.model.XmlExport;
 import de.ibsys.planningTool.model.XmlInputData;
@@ -64,6 +65,9 @@ public class MainController extends BaseTabController {
 
 	@FXML
 	public Tab cappla;
+
+	@FXML
+	public JFXToggleButton langBtn;
 
 	private XmlInputData xmlInputData;
 
@@ -208,6 +212,7 @@ public class MainController extends BaseTabController {
 		settingsTab.setText(translation.getString(Export_TAB));
 		cappla.setText(translation.getString(CAPPLA));
         productionpriorityTab.setText(translation.getString(I18N.PRIORITY));
+		langBtn.setText(translation.getString(I18N.LANGUAGE));
 
 		foreCastController.initUIComponents();
 		settingsController.initUIComponents();
@@ -233,4 +238,16 @@ public class MainController extends BaseTabController {
                     , file.getPath());
         }
     }
+
+	@FXML
+	public void changeLanguageButtonTapped() {
+		if (this.getLanguage().equals("de")) {
+			this.setLanguage("en");
+			this.setCountry("US");
+		} else {
+			this.setLanguage("de");
+			this.setCountry("DE");
+		}
+		this.changeUILanguage();
+	}
 }
