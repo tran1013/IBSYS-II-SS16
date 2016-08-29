@@ -47,6 +47,8 @@ public class I18N {
 	public static final String DIALOG_MESSAGE_INFO_MESSAGE = "DIALOG_MESSAGE_INFO_MESSAGE";
 	public static final String DIALOG_MESSAGE_ERROR_MESSAGE = "DIALOG_MESSAGE_ERROR_MESSAGE";
 	public static final String LANGUAGE = "LANGUAGE";
+	public static final String OK = "OK";
+	public static final String CANCEL = "CANCEL";
 
 	public static ResourceBundle translation(String language, String country) {
 		Locale currentLocale;
