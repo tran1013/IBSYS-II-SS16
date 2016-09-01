@@ -130,8 +130,7 @@ public class XmlInputData {
                     reserve = reserve * 3;
                     break;
             }
-            Article article = new Article(Integer.valueOf(id), amount, reserve, pct, price, stockValue);
-            wareHouseArticles.put(id, article);
+            wareHouseArticles.put(id, new Article(Integer.valueOf(id), amount, reserve, pct, price, stockValue));
         }
     }
 
@@ -169,8 +168,7 @@ public class XmlInputData {
             int period = Integer.valueOf(getFirstChildElement(orderInWork, i).getAttribute(PERIOD).getValue());
             int order = Integer.valueOf(getFirstChildElement(orderInWork, i).getAttribute(ORDER).getValue());
 
-            OrdersInWork workplace = new OrdersInWork(workplaceId, articleId, period, order, amount, timeNeed);
-            ordersInWorkMap.put(workplaceId, workplace);
+            ordersInWorkMap.put(workplaceId, new OrdersInWork(workplaceId, articleId, period, order, amount, timeNeed));
         }
     }
 
@@ -190,12 +188,10 @@ public class XmlInputData {
                     String articleId = getFirstChildElement(waitingListWorkStations, index).getChildren().get(secondIndex).getAttribute(ITEM_ID).getValue();
                     Integer amount = Integer.valueOf(getFirstChildElement(waitingListWorkStations, index).getChildren().get(secondIndex).getAttribute(AMOUNT).getValue());
                     Integer timeNeedWaitingList = Integer.valueOf(getFirstChildElement(waitingListWorkStations, index).getChildren().get(secondIndex).getAttribute(TIME_NEED).getValue());
-                    WaitingList waitingList = new WaitingList(articleId, amount, timeNeedWaitingList);
-                    waitingLists.add(waitingList);
+                    waitingLists.add(new WaitingList(articleId, amount, timeNeedWaitingList));
                 }
             }
-            WaitingListWorkPlace waitingListWorkPlace = new WaitingListWorkPlace(workplaceId, timeNeed, waitingLists);
-            waitingListWorkPlaceMap.put(workplaceId, waitingListWorkPlace);
+            waitingListWorkPlaceMap.put(workplaceId, new WaitingListWorkPlace(workplaceId, timeNeed, waitingLists));
         }
     }
 
@@ -212,12 +208,10 @@ public class XmlInputData {
                     int amount = Integer.valueOf(getFirstChildElement(waitingListStock, index).getChildren().get(secondIndex).getAttribute(AMOUNT).getValue());
                     String itemId = getFirstChildElement(waitingListStock, index).getChildren().get(secondIndex).getAttribute(ITEM_ID).getValue();
                     //Zero because we must wait that the maschines finish the parts
-                    WaitingList waitingList = new WaitingList(itemId, amount, 0);
-                    waitingLists.add(waitingList);
+                    waitingLists.add(new WaitingList(itemId, amount, 0));
                 }
             }
-            WaitingListMissingParts missingParts = new WaitingListMissingParts(id, waitingLists);
-            stringWaitingListMissingPartsMap.put(id, missingParts);
+            stringWaitingListMissingPartsMap.put(id, new WaitingListMissingParts(id, waitingLists));
         }
     }
 
