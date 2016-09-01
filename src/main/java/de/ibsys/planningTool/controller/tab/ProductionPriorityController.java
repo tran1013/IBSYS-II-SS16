@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * TODO Refactor all this cell stuff in the cell class
@@ -176,11 +177,10 @@ public class ProductionPriorityController extends BaseTabController {
     }
 
     private void updateProductionList() {
-        List<Item> updatedProductionList = new ArrayList<>();
         main.getProductionList().clear();
-        Arrays.stream(listView.getItems().toArray()).forEach(results -> {
-            updatedProductionList.add((Item) results);
-        });
-        main.setProductionList(updatedProductionList);
+        main.setProductionList(Arrays
+                .stream(listView.getItems().toArray())
+                .map(results ->  (Item) results)
+                .collect(Collectors.toList()));
     }
 }
