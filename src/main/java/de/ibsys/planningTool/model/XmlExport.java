@@ -21,6 +21,7 @@ import static de.ibsys.planningTool.model.Constants.WORK_STATION;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 
 import org.jdom2.Document;
 import org.jdom2.Element;
@@ -88,7 +89,7 @@ public class XmlExport {
         });
         inputElement.addContent(orderList);
 
-        productionListInformation.forEach((Item productionElement) -> {
+        productionListInformation.stream().filter(Objects::nonNull).forEach((Item productionElement) -> {
             Element production = new Element(PRODUCTION);
             production.setAttribute(ARTICLE, productionElement.getArticleId());
             production.setAttribute(QUANTITY, String.valueOf(productionElement.getQuantity()));
