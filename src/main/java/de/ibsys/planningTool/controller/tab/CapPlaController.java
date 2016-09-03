@@ -2,10 +2,12 @@ package de.ibsys.planningTool.controller.tab;
 
 
 import de.ibsys.planningTool.model.CapPlaResult;
+import de.ibsys.planningTool.model.XmlInputData;
 import de.ibsys.planningTool.model.xmlExportModel.WorkTime;
 import de.ibsys.planningTool.model.xmlInputModel.OrdersInWork;
 import de.ibsys.planningTool.model.xmlInputModel.WaitingListWorkPlace;
 import de.ibsys.planningTool.service.CapPla;
+import de.ibsys.planningTool.util.Dialogs.DialogMessages;
 import de.ibsys.planningTool.util.I18N;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -26,7 +28,6 @@ import java.util.List;
  * TODO: Test class or take a deep breath and get to it?
  */
 public class CapPlaController extends BaseTabController {
-
 
 
     @FXML
@@ -69,8 +70,6 @@ public class CapPlaController extends BaseTabController {
     private Label label_05;
 
 
-
-
     @Override
     public void start(Stage primaryStage) throws Exception {
 
@@ -104,10 +103,7 @@ public class CapPlaController extends BaseTabController {
         ObservableList<CapPlaResult> results = FXCollections.observableArrayList();
         List<CapPlaResult> capPlaList = this.getMasterResult();
 
-        Integer workplaceId;
-        Integer reqCapacity;
-        Integer shifts;
-        Integer overtime;
+        Integer workplaceId, reqCapacity, shifts, overtime;
 
         for (CapPlaResult cap : capPlaList) {
             workplaceId = cap.getWorkplaceId();
@@ -130,8 +126,7 @@ public class CapPlaController extends BaseTabController {
         XYChart.Series dataSet = new XYChart.Series();
         List<CapPlaResult> capPlaList = this.getMasterResult();
 
-        Integer workplaceId;
-        Integer reqCapacity;
+        Integer workplaceId, reqCapacity;
 
 
         for (CapPlaResult cap : capPlaList) {
@@ -150,21 +145,24 @@ public class CapPlaController extends BaseTabController {
      */
     @FXML
     private void getCapPlaUI() {
-        XYChart.Series dataSet;
 
-        workplaceCol.setCellValueFactory(new PropertyValueFactory<>("workplaceId"));
-        capacityCol.setCellValueFactory(new PropertyValueFactory<>("reqCapacity"));
-        shiftsCol.setCellValueFactory(new PropertyValueFactory<>("shifts"));
-        overtimeCol.setCellValueFactory(new PropertyValueFactory<>("overtime"));
+        try {
+            XYChart.Series dataSet;
 
-        this.storeData();
-        tableView.setItems(getTableData());
+            workplaceCol.setCellValueFactory(new PropertyValueFactory<>("workplaceId"));
+            capacityCol.setCellValueFactory(new PropertyValueFactory<>("reqCapacity"));
+            shiftsCol.setCellValueFactory(new PropertyValueFactory<>("shifts"));
+            overtimeCol.setCellValueFactory(new PropertyValueFactory<>("overtime"));
 
-
-        dataSet = this.getBarChartData();
-        barChart.getData().clear();
-        barChart.getData().add(dataSet);
-        barChart.setLegendVisible(false);
+            this.storeData();
+            tableView.setItems(getTableData());
+            dataSet = this.getBarChartData();
+            barChart.getData().clear();
+            barChart.getData().add(dataSet);
+            barChart.setLegendVisible(false);
+        } catch (NullPointerException e) {
+            logger.info(e);
+        }
     }
 
     /**

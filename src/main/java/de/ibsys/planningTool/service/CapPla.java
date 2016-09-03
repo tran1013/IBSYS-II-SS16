@@ -1,12 +1,10 @@
 package de.ibsys.planningTool.service;
 
-import de.ibsys.planningTool.controller.tab.ForeCastController;
 import de.ibsys.planningTool.database.capPlaDB;
 import de.ibsys.planningTool.mock.sellData;
 import de.ibsys.planningTool.model.CapPlaResult;
 import de.ibsys.planningTool.model.Constants;
 import de.ibsys.planningTool.model.ProductionSteps;
-import de.ibsys.planningTool.model.XmlInputData;
 import de.ibsys.planningTool.model.xmlInputModel.OrdersInWork;
 import de.ibsys.planningTool.model.xmlInputModel.WaitingList;
 import de.ibsys.planningTool.model.xmlInputModel.WaitingListWorkPlace;
@@ -22,8 +20,6 @@ import java.util.*;
  */
 public class CapPla {
 
-    XmlInputData input;
-    ForeCastController inputCon = new ForeCastController();
     capPlaDB prod = new capPlaDB();
 
     /**
@@ -34,16 +30,14 @@ public class CapPla {
     public List<CapPlaResult> calculateCap(Map<String, OrdersInWork> ordersInWorkMap, Map<String, WaitingListWorkPlace> waitingListWorkPlaceMap) {
 
         List<Integer> workplaceIDs;
+        List<CapPlaResult> resultCapPla = new ArrayList<>();
         Map<String, Integer> capResult = new HashMap<>();
         Map<String, Integer> setupTimeList = new HashMap<>();
         Map<String, Integer> ordersInWorkTime = new HashMap<>();
         Integer setupTimeLastPeriod = 0;
 
-        List<CapPlaResult> resultCapPla = new ArrayList<>();
-
         //TODO: Replace mock datas with real from dispo (1/2)
         sellData mock = new sellData();
-
 
         try {
             workplaceIDs = prod.findWorkplaceID();
@@ -53,15 +47,9 @@ public class CapPla {
             List<ProductionSteps> prodSteps = mock.getProdSteps();
 
             for (Integer i : workplaceIDs) {
-                Integer capacity = 0;
-                Integer CapSetupTime = 0;
-                Integer workplace = 0;
-                Integer result;
-                Integer productionTime = 0;
-                Integer setup = 0;
-                Integer requirePeriod;
-                Integer shifts;
-                Integer overtime;
+
+                Integer capacity = 0, CapSetupTime = 0, workplace = 0, productionTime = 0, setup = 0;
+                Integer result, requirePeriod, shifts, overtime;
 
                 for (ProductionSteps ps : prod.findByWorkplacID(i)) {
 
@@ -121,7 +109,7 @@ public class CapPla {
      * @return
      */
     @FXML
-    public Integer getOrdersinWorkAmount(Integer workplace, Map<String, OrdersInWork> ordersInWorkMap) {
+    public Integer getOrdersInWorkAmount(Integer workplace, Map<String, OrdersInWork> ordersInWorkMap) {
 
         Integer amount = 0;
         Map<String, OrdersInWork> order = new TreeMap<>(ordersInWorkMap);
@@ -212,8 +200,8 @@ public class CapPla {
      * @return
      */
     public Integer getAllScheduledTime(Integer workplace, Map<String, OrdersInWork> ordersInWorkMap, Map<String, WaitingListWorkPlace> waitingListWorkPlaceMap) {
-        Integer result = null;
-        Integer scheduledOrdersInWork = this.getOrdersinWorkAmount(workplace, ordersInWorkMap);
+        Integer result;
+        Integer scheduledOrdersInWork = this.getOrdersInWorkAmount(workplace, ordersInWorkMap);
         Integer waitinglistAmount = this.getWaitinglistAmount(workplace, waitingListWorkPlaceMap);
 
         result = scheduledOrdersInWork + waitinglistAmount;
