@@ -13,7 +13,7 @@ import java.sql.Statement;
 /**
  * Created by Che on 16.08.2016.
  */
-public class itemDB {
+public class ItemDB {
 
     public ItemComponents findById(String id) throws  SQLException {
         ItemComponents itemComponents = new ItemComponents();
