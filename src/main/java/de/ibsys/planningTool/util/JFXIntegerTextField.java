@@ -3,7 +3,7 @@ package de.ibsys.planningTool.util;
 import com.jfoenix.controls.JFXTextField;
 
 /**
- *
+ * custom textfield which only allows digits
  * Created by minhnguyen on 18.07.16.
  */
 public class JFXIntegerTextField extends JFXTextField {

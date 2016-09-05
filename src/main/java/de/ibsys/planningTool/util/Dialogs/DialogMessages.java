@@ -1,16 +1,15 @@
 package de.ibsys.planningTool.util.Dialogs;
 
-import com.jfoenix.controls.JFXButton;
 import de.ibsys.planningTool.controller.MainController;
 import de.ibsys.planningTool.util.I18N;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 
 import static javafx.scene.control.ButtonBar.ButtonData.OK_DONE;
 
 /**
+ * dialog message class which contains some dialogs for everyone
  * Created by minhnguyen on 13.07.16.
  */
 public class DialogMessages {

@@ -6,9 +6,7 @@ import java.util.ResourceBundle;
 public class I18N {
 	public static final String FORECAST = "FORECAST";
 	public static final String DISPOSITION = "DISPOSITION";
-	public static final String ARTICLE_ID = "ARTICLE_ID";
 	public static final String PRIORITY = "PRIORITY";
-	public static final String WELCOME = "WELCOME";
 	public static final String CHANGE_LANGUAGE_BUTTON = "CHANGE_LANGUAGE_BUTTON";
 	public static final String Export_TAB = "EXPORT_TAB";
 	public static final String SELLING = "SELLING";
@@ -19,7 +17,6 @@ public class I18N {
 	public static final String PUNISHMENT = "PUNISHMENT";
 	public static final String SAVE = "SAVE";
 	public static final String XML_INPUT = "XML_INPUT";
-	public static final String XML_EXPORT = "XML_EXPORT";
 	public static final String CAPPLA = "CAPPLA";
 	public static final String WORKPLACE = "WORKPLACE";
 	public static final String CAPACITY = "CAPACITY";
@@ -44,11 +41,11 @@ public class I18N {
 	public static final String DIALOG_MESSAGE_ERROR_ONLY_NUMBER = "DIALOG_MESSAGE_ERROR_ONLY_NUMBER";
 	public static final String DIALOG_MESSAGE_ERROR_TITLE = "DIALOG_MESSAGE_ERROR_TITLE";
 	public static final String DIALOG_MESSAGE_INFO_TITLE = "DIALOG_MESSAGE_INFO_TITLE";
-	public static final String DIALOG_MESSAGE_INFO_MESSAGE = "DIALOG_MESSAGE_INFO_MESSAGE";
 	public static final String DIALOG_MESSAGE_ERROR_MESSAGE = "DIALOG_MESSAGE_ERROR_MESSAGE";
 	public static final String LANGUAGE = "LANGUAGE";
 	public static final String OK = "OK";
 	public static final String CANCEL = "CANCEL";
+	public static final String DIGIT_SMALLER_ZERO = "DIGIT_SMALLER_ZERO";
 
 	public static ResourceBundle translation(String language, String country) {
 		Locale currentLocale;

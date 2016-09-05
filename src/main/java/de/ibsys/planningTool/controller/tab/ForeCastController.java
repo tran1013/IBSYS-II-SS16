@@ -1,27 +1,26 @@
 package de.ibsys.planningTool.controller.tab;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.*;
-
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
-
 import de.ibsys.planningTool.controller.MainController;
 import de.ibsys.planningTool.model.XmlInputData;
 import de.ibsys.planningTool.model.xmlExportModel.DirectSell;
 import de.ibsys.planningTool.model.xmlExportModel.Item;
+import de.ibsys.planningTool.util.Dialogs.DialogMessages;
 import de.ibsys.planningTool.util.I18N;
 import de.ibsys.planningTool.util.JFXIntegerTextField;
-import de.ibsys.planningTool.util.Dialogs.DialogMessages;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import org.apache.log4j.Logger;
 
 import javax.xml.parsers.ParserConfigurationException;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by minhnguyen on 11.07.16.
@@ -34,100 +33,57 @@ public class ForeCastController extends BaseTabController {
     JFXTextField xmlInputTextField;
 
     @FXML
-    Label priceLabel;
-
-    @FXML
-    Label amountLabel;
-
-    @FXML
-    Label costLabel;
-
-    @FXML
-    Label sellingLabel;
-
-    @FXML
-    Label productionPlanningLabel;
-
-    @FXML
-    Label directSellsLabel;
+    Label priceLabel, amountLabel, costLabel, sellingLabel, productionPlanningLabel, directSellsLabel;
 
     @FXML
     private JFXButton saveForeCastViewButton;
 
     @FXML
-    private JFXIntegerTextField forecast1TextField;
+    private JFXIntegerTextField forecast1TextField, forecast2TextField, forecast3TextField;
     @FXML
-    private JFXIntegerTextField forecast2TextField;
+    private JFXIntegerTextField p1nTextField, p1n1TextField, p1n2TextField, p1n3TextField;
     @FXML
-    private JFXIntegerTextField forecast3TextField;
+    private JFXIntegerTextField p2nTextField, p2n1TextField, p2n2TextField, p2n3TextField;
     @FXML
-    private JFXIntegerTextField p1nTextField;
-    @FXML
-    private JFXIntegerTextField p1n1TextField;
-    @FXML
-    private JFXIntegerTextField p1n2TextField;
-    @FXML
-    private JFXIntegerTextField p1n3TextField;
-    @FXML
-    private JFXIntegerTextField p2nTextField;
-    @FXML
-    private JFXIntegerTextField p2n1TextField;
-    @FXML
-    private JFXIntegerTextField p2n2TextField;
-    @FXML
-    private JFXIntegerTextField p2n3TextField;
-    @FXML
-    private JFXIntegerTextField p3nTextField;
-    @FXML
-    private JFXIntegerTextField p3n1TextField;
-    @FXML
-    private JFXIntegerTextField p3n2TextField;
-    @FXML
-    private JFXIntegerTextField p3n3TextField;
+    private JFXIntegerTextField p3nTextField, p3n1TextField, p3n2TextField, p3n3TextField;
 
     @FXML
-    private JFXIntegerTextField directSalesPriceP1TextField;
+    private JFXIntegerTextField directSalesPriceP1TextField, directSalesPriceP2TextField, directSalesPriceP3TextField;
     @FXML
-    private JFXIntegerTextField directSalesPriceP2TextField;
+    private JFXIntegerTextField directSalesAmountP1TextField, directSalesAmountP2TextField, directSalesAmountP3TextField;
     @FXML
-    private JFXIntegerTextField directSalesPriceP3TextField;
-    @FXML
-    private JFXIntegerTextField directSalesAmountP1TextField;
-    @FXML
-    private JFXIntegerTextField directSalesAmountP2TextField;
-    @FXML
-    private JFXIntegerTextField directSalesAmountP3TextField;
-    @FXML
-    private JFXTextField directSalesPunishmentP1TextField;
-    @FXML
-    private JFXTextField directSalesPunishmentP2TextField;
-    @FXML
-    private JFXTextField directSalesPunishmentP3TextField;
+    private JFXTextField directSalesPunishmentP1TextField, directSalesPunishmentP2TextField, directSalesPunishmentP3TextField;
 
     @FXML
     private void saveForeCastInformation() {
         if (main.getXmlInputData() != null) {
             logger.info("store data");
-            if (!checkInputViewsContainsData()) {
-                if (main.getSellWish().size() != 0) {
-                    main.deleteSellLists();
-                    storeData();
+            if (Integer.valueOf(directSalesPunishmentP1TextField.getText()) >= 0 &&
+                    Integer.valueOf(directSalesPunishmentP2TextField.getText()) >= 0 &&
+                    Integer.valueOf(directSalesPunishmentP3TextField.getText()) >= 0) {
+                if (!checkInputViewsContainsData()) {
+                    if (main.getSellWish().size() != 0) {
+                        main.deleteSellLists();
+                        storeData();
+                    } else {
+                        storeData();
+                    }
+                    main.exportButton.setVisible(true);
                 } else {
-                    storeData();
+                    DialogMessages.ErrorDialog(getI18NText(I18N.FORECAST_INPUT_ERROR));
                 }
-                main.exportButton.setVisible(true);
             } else {
-                DialogMessages.ErrorDialog(main.getTranslation().getString(I18N.FORECAST_INPUT_ERROR));
+                DialogMessages.ErrorDialog(getI18NText(I18N.XML_INPUT_ERROR_NO_XML));
             }
         } else {
-            DialogMessages.ErrorDialog(main.getTranslation().getString(I18N.XML_INPUT_ERROR_NO_XML));
+            DialogMessages.ErrorDialog(getI18NText(I18N.DIGIT_SMALLER_ZERO));
         }
     }
 
     private void storeData() {
         main.setSellWish(storeSellWish());
-        main.setDirectSellList(storeDirectSells());
         main.setForecastProductionList(storeProductionData());
+        main.setDirectSellList(storeDirectSells());
     }
 
     private boolean checkInputViewsContainsData() {

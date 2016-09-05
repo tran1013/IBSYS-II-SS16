@@ -28,6 +28,7 @@ import java.util.stream.Collectors;
 
 /**
  * TODO Refactor all this cell stuff in the cell class
+ * This class override the productionlist
  * Created by minhnguyen on 26.08.16.
  */
 public class ProductionPriorityController extends BaseTabController {
@@ -101,9 +102,7 @@ public class ProductionPriorityController extends BaseTabController {
          */
         cell.setOnDragDropped(event -> {
 
-            int dragItemsStartIndex;
-            int dragItemsEndIndex;
-            int direction;
+            int dragItemsStartIndex, dragItemsEndIndex, direction;
             if (cell.isEmpty()) {
                 dragItemsStartIndex = dragFromIndex.get();
                 dragItemsEndIndex = listView.getItems().size();
@@ -142,7 +141,6 @@ public class ProductionPriorityController extends BaseTabController {
 
                 Item item = (Item) listView.getItems().get(cell.getIndex());
 
-                // TODO I18N Text files
                 TextInputDialog dialog = new TextInputDialog();
                 dialog.setTitle(getI18NText(I18N.SPLIT_PRIORITY_DIALOG_TITLE));
                 dialog.setHeaderText(getI18NText(I18N.SPLIT_PRIORITY_DIALOG_MESSAGE) + " : "+ item.getQuantity());
