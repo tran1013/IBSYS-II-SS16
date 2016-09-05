@@ -1,25 +1,21 @@
 package de.ibsys.planningTool.service;
 
-import com.sun.org.apache.xpath.internal.operations.Or;
-import de.ibsys.planningTool.controller.tab.ForeCastController;
-import de.ibsys.planningTool.controller.tab.XmlInputController;
 import de.ibsys.planningTool.controller.MainController;
+import de.ibsys.planningTool.controller.tab.ForeCastController;
 import de.ibsys.planningTool.database.ItemDB;
 import de.ibsys.planningTool.database.OrderDB;
-import de.ibsys.planningTool.model.*;
-import de.ibsys.planningTool.model.xmlExportModel.Item;
-import de.ibsys.planningTool.model.xmlInputModel.OrdersInWork;
-import de.ibsys.planningTool.model.xmlInputModel.FutureInComingOrder;
-import de.ibsys.planningTool.model.XmlInputData;
-import de.ibsys.planningTool.model.xmlInputModel.WaitingList;
-import de.ibsys.planningTool.model.xmlInputModel.WaitingListMissingParts;
-import javafx.fxml.FXML;
 import de.ibsys.planningTool.mock.MockProductionResult;
-import org.springframework.beans.factory.annotation.Autowired;
+import de.ibsys.planningTool.model.ItemComponents;
+import de.ibsys.planningTool.model.ProductionResult;
+import de.ibsys.planningTool.model.TermsOfSaleData;
+import de.ibsys.planningTool.model.XmlInputData;
+import de.ibsys.planningTool.model.xmlExportModel.Item;
 
-import java.util.HashMap;
 import java.sql.SQLException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Che on 20.08.2016.
