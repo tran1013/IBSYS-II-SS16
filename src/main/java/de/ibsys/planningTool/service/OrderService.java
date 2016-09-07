@@ -5,17 +5,20 @@ import de.ibsys.planningTool.controller.tab.ForeCastController;
 import de.ibsys.planningTool.database.ItemDB;
 import de.ibsys.planningTool.database.OrderDB;
 import de.ibsys.planningTool.mock.MockProductionResult;
-import de.ibsys.planningTool.model.ItemComponents;
-import de.ibsys.planningTool.model.ProductionResult;
-import de.ibsys.planningTool.model.TermsOfSaleData;
-import de.ibsys.planningTool.model.XmlInputData;
+import de.ibsys.planningTool.model.*;
 import de.ibsys.planningTool.model.xmlExportModel.Item;
+import de.ibsys.planningTool.model.xmlInputModel.FutureInComingOrder;
+import de.ibsys.planningTool.model.xmlInputModel.WaitingList;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static de.ibsys.planningTool.model.Constants.FAST_DELIVERY;
+import static de.ibsys.planningTool.model.Constants.NORMAL_DELIVERY;
+import static de.ibsys.planningTool.model.Constants.REPLACEMENT_TIME;
 
 /**
  * Created by Che on 20.08.2016.
@@ -40,31 +43,58 @@ public class OrderService {
 
     ItemDB itemDB = new ItemDB();
 
-    //public ItemDB itemDB;
-
     XmlInputData inputData;
 
     ForeCastController foreCastController = new ForeCastController();
 
-    MainController mainController = new MainController();
+    MainController main = new MainController();
 
     ItemComponents itemComponents = new ItemComponents();
 
-    //Map<String, OrdersInWork> ordersInWorkMap = inputData.getOrdersInWorkMap();
 
-    //Map<String, WaitingListMissingParts> stringWaitingListMissingPart = inputData.getStringWaitingListMissingPartsMap();
+    public List<OrderResult> calculateOrders(List<ProductionResult> productionResults, Map<String, Item> forecastProductionList) {
 
-    Map<String, Item> forecastProductionList = mainController.getForecastProductionList();
+        List<OrderResult> orderResults = new ArrayList<>();
 
-    MockProductionResult mockProductionResult = new MockProductionResult();
+        List<Map<String, Integer>> kUsageList = calculateConsumption(calculateProgramm(productionResults, forecastProductionList));
 
+        try {
+            List<TermsOfSaleData> terms = orderDB.findAll();
 
-    public List<ProductionResult> calculateOrders() {
+            for(TermsOfSaleData term : terms) {
+                String itemConfigId = term.getItemConfigId();
 
-        List<ProductionResult> productionResults = new ArrayList<>();
+                double avg = calculateAverage(kUsageList, itemConfigId);
+                double max = calculateMaxUsage(kUsageList, itemConfigId);
+                double orderpoint = avg * (term.getDeliveryTime() + term.getVariance() + REPLACEMENT_TIME);
+                double stock = main.getXmlInputData().getWareHouseArticles().get(itemConfigId).getAmount();
+                double stockRange = calculateStockRange(kUsageList, term);
+                if(stock <= orderpoint) {
+                    double maxDeliveryTime = term.getVariance() + term.getDeliveryTime();
+                    int orderQuantity = (int) Math.round((avg* term.getDeliveryTime() + max * maxDeliveryTime)/2);
 
-        return productionResults;
+                    int orderMode;
+                    if (stockRange/maxDeliveryTime<=1) {
+                        orderMode = FAST_DELIVERY;
+                    } else {
+                        orderMode = NORMAL_DELIVERY;
+                    }
+
+                    double deliveryTime = term.getDeliveryTime();
+                    int discont = term.getDiscountQuantity();
+                    int orderingCosts = term.getOrderingCosts();
+                    double variance = term.getVariance();
+
+                    orderResults.add(new OrderResult(itemConfigId, orderQuantity, orderMode, orderingCosts, discont, deliveryTime, variance));
+                }
+            }
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return orderResults;
     }
+
 
     public double calculateAverage(List<Map<String, Integer>> kUsageList, String itemConfigId) {
 
@@ -75,6 +105,36 @@ public class OrderService {
         System.out.println("AVG " + Math.round(avg/4.0));
         return Math.round(avg/4.0);
     }
+
+    public double calculateWeightedAverage(List<Map<String, Integer>> kUsageList, String itemConfigId, double g1, double g2, double g3, double g4) {
+
+        double p1 = 0.0;
+        double p2 = 0.0;
+        double p3 = 0.0;
+        double p4 = 0.0;
+
+        int z = 0;
+        for(Map<String, Integer> entry : kUsageList) {
+            if(z==0) {
+                p1 = entry.get(itemConfigId);
+            }
+            else if(z==1) {
+                p2 = entry.get(itemConfigId);
+            }
+            else if(z ==2) {
+                p3 = entry.get(itemConfigId);
+            }
+            else p4 = entry.get(itemConfigId);
+            ++z;
+        }
+
+
+        System.out.println(Math.round(p1*0.5+p2*0.2+p3*0.2+p4+0.1));
+        //return Math.round(p1*g1+p2*g2+p3*g3+p4+g4);
+        return Math.round((p1*0.5+p2*0.2+p3*0.2+p4+0.1));
+
+    }
+
 
     public double calculateMaxUsage(List<Map<String, Integer>> kUsageList, String itemConfigId) {
         double maxUsage = 0.0;
@@ -110,24 +170,58 @@ public class OrderService {
         System.out.println(maxTime);
         return maxTime;
     }
-/*
+
+    public double getDiscontQuantity(String itemConfigId) {
+        double discont = 0.0;
+         try {
+             List<TermsOfSaleData> terms = orderDB.findAll();
+
+             for(TermsOfSaleData data : terms) {
+                 if(data.getItemConfigId().equals(itemConfigId)) {
+                    discont = data.getDiscountQuantity();
+                 }
+             }
+
+         }
+         catch (SQLException e) {
+             e.printStackTrace();
+         }
+        return discont;
+    }
+
+    // TODO Check access to XmlInputData
     public double calculateStockRange(List<Map<String, Integer>> kUsageList, TermsOfSaleData terms) {
         double stockRange = 0.0;
         String itemConfigId = terms.getItemConfigId();
-        //double maxTime = calculateMaxDeliveryTime(terms.getItemConfigId());
+
         double avg = calculateAverage(kUsageList, terms.getItemConfigId());
-        double stock = mainController.getXmlInputData().getWareHouseArticles().get(itemConfigId).getStockValue();
+        //double stock = inputData.getWareHouseArticles().get(itemConfigId).getAmount();
+        double stock = main.getXmlInputData().getWareHouseArticles().get(itemConfigId).getAmount();
+        //TODO Test if it works
+        double futureIncomingAmount = getFutureInComingOrderAmount(itemConfigId);
+
 
         stockRange = Math.round(stock/avg);
-        System.out.println(stockRange);
+        System.out.println("STOCKRANGE" + stockRange);
+
         return stockRange;
+
     }
-    */
+
+    public double getFutureInComingOrderAmount(String itemConfigId) {
+        double incomingAmount = 0.0;
+        Map<String, FutureInComingOrder> futureInComingOrderMap = main.getXmlInputData().getFutureInComingOrderMap();
+
+        for(Map.Entry<String, FutureInComingOrder> entry : futureInComingOrderMap.entrySet()) {
+            if(entry.getKey().equals(itemConfigId)) {
+                incomingAmount += entry.getValue().getAmount();
+            }
+        }
+        return incomingAmount;
+    }
 
 
-
-    // Map<String, Item> forecastProductionList input
-    //TODO Add OrderInWork and WaitingList
+    //TODO Check access to OrderInMao and Waitinglist and values
     public List<Map<String, Integer>> calculateProgramm(List<ProductionResult> productionResults, Map<String, Item> forecastProductionList) {
 
         List<Map<String, Integer>> productionProgram = new ArrayList<>();
@@ -145,47 +239,33 @@ public class OrderService {
                 try {
                     itemComponent = itemDB.findById(itemConfigId);
                     System.out.println(itemComponent);
+                    /*
+                   List<WaitingList> waitingLists = main.getXmlInputData().getStringWaitingListMissingPartsMap().get(itemConfigId).getWaitingLists();
 
+                    int amountofWaitingList = 0;
+
+                    for(WaitingList list : waitingLists){
+                        if(list.getArticleId().equals(itemConfigId)){
+                            amountofWaitingList = list.getAmount();
+                        }
+
+                    }
+
+                    int orderInMapAmount = main.getXmlInputData().getOrdersInWorkMap().get(itemConfigId).getAmount();
+
+                    int quantity1 = productionResult.getQuantity() + orderInMapAmount + amountofWaitingList;
+                    */
                     int quantity = productionResult.getQuantity();
-                    //System.out.println("MENGE " + quantity + " ID " + itemConfigId);
-                    productionMap.put(itemConfigId, quantity);
 
+
+                    //System.out.println("MENGE " + quantity + " ID " + itemConfigId);
+
+                    productionMap.put(itemConfigId, quantity);
 
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
-
-
             }
-
-           /*
-            if(itemConfigId.startsWith("P")) {
-                ItemComponents itemComponent;
-                try {
-                    itemComponent = itemDB.findById(itemConfigId);
-
-                    List<WaitingList> waitingLists = stringWaitingListMissingPart.get(itemConfigId).getWaitingLists();
-
-                    Integer amountofWaitingList = 0;
-                    /*
-                    get amount of an article in the waiting list
-                     */
-           /*
-                    for(WaitingList list : waitingLists){
-                        if(list.getArticleId().equals(itemComponent)){
-                            amountofWaitingList = list.getAmount();
-                        }
-                    }
-
-                    int quantity = productionResult.getQuantity() + ordersInWorkMap.get(itemComponent).getAmount() + amountofWaitingList;
-                    System.out.print("Menge "+quantity);
-                    map.put(itemConfigId, quantity);
-                    productionProgram.add(map);
-                }
-                catch (SQLException ex) {
-                    ex.printStackTrace();
-                }
-            }*/
         }
         /*
         for(Map.Entry<String, Integer> mapentry : productionMap.entrySet()) {
@@ -216,10 +296,7 @@ public class OrderService {
                 forecastMap3.put(itemEntry.getKey(), itemEntry.getValue().getQuantity());
             }
             else continue;
-            //System.out.print("ITEMENTRY "+itemEntry);
-
         }
-
 
         productionProgram.add(forecastMap1);
         productionProgram.add(forecastMap2);
@@ -233,7 +310,7 @@ public class OrderService {
 
     }
 
-    public List<Map<String, Integer>> calculateConsumption(List<Map<String, Integer>> productionProgram, int[][] purchase_parts) {
+    public List<Map<String, Integer>> calculateConsumption(List<Map<String, Integer>> productionProgram) {
         List<Map<String, Integer>> kUsageList = new ArrayList<Map<String, Integer>>();
 
         Map<String, Integer> map = new HashMap<String, Integer>();
@@ -281,23 +358,17 @@ public class OrderService {
                 if(wert==29) {
                     wert = 0;
                 }
-
             }
-
         }
         kUsageList.add(map);
         kUsageList.add(map_n1);
         kUsageList.add(map_n2);
         kUsageList.add(map_n3);
-
         // to test output of the list
         for(Map<String, Integer> entry : kUsageList) {
             System.out.println("ENTRIES in der kUsageList" + entry);
         }
-
         return kUsageList;
-
-
     }
 
 

@@ -46,6 +46,13 @@ public class I18N {
 	public static final String OK = "OK";
 	public static final String CANCEL = "CANCEL";
 	public static final String DIGIT_SMALLER_ZERO = "DIGIT_SMALLER_ZERO";
+	public static final String ORDER = "ORDER";
+	public static final String AVGLABEL = "AVGLABEL";
+	public static final String STOCKLABEL = "STOCKLABEL";
+	public static final String OPTIONLABEL = "OPTIONLABEL";
+	public static final String DISCONTLABEL = "DISCONTLABEL";
+	public static final String NRLABEL = "NRLABEL";
+	public static final String QUANTITYLABEL = "QUANTITYLABEL";
 
 	public static ResourceBundle translation(String language, String country) {
 		Locale currentLocale;
