@@ -67,7 +67,7 @@ public class MainController extends BaseTabController {
 	public Tab cappla;
 
 	@FXML
-	public Tab order;
+	public Tab orderTab;
 
 	@FXML
 	public JFXToggleButton langBtn;
@@ -110,7 +110,7 @@ public class MainController extends BaseTabController {
 		settingsController.init(this);
 		capPlaController.init(this);
         productionPriorityController.init(this);
-		//orderController.init(this);
+		orderController.init(this);
 
 		xmlInputData = null;
 		sellWish = new ArrayList<>();
@@ -218,7 +218,7 @@ public class MainController extends BaseTabController {
 		disposition.setText(translation.getString(DISPOSITION));
 		settingsTab.setText(translation.getString(Export_TAB));
 		cappla.setText(translation.getString(CAPPLA));
-		order.setText(translation.getString(ORDER));
+		orderTab.setText(translation.getString(ORDER));
         productionpriorityTab.setText(translation.getString(I18N.PRIORITY));
 		langBtn.setText(translation.getString(I18N.LANGUAGE));
 

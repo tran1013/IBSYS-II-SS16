@@ -33,10 +33,10 @@
                                 <fx:include fx:id="capPla" source="tab/cappla.fxml" />
                             </content>
                         </Tab>
-                        <Tab fx:id="order" text="Bestellverwaltung">
+                        <Tab fx:id="orderTab" text="Bestellverwaltung">
                             <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                                <fx:include fx:id="ordeR" source="tab/order.fxml" />
+                                <fx:include fx:id="order" source="tab/order.fxml" />
                             </content>
                         </Tab>
                         <Tab fx:id="productionpriorityTab" text="Priorisierung">
