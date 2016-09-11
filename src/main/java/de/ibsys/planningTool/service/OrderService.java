@@ -7,6 +7,7 @@ import de.ibsys.planningTool.database.OrderDB;
 import de.ibsys.planningTool.mock.MockProductionResult;
 import de.ibsys.planningTool.model.*;
 import de.ibsys.planningTool.model.xmlExportModel.Item;
+import de.ibsys.planningTool.model.xmlInputModel.Article;
 import de.ibsys.planningTool.model.xmlInputModel.FutureInComingOrder;
 import de.ibsys.planningTool.model.xmlInputModel.WaitingList;
 
@@ -51,7 +52,7 @@ public class OrderService {
 
     ItemComponents itemComponents = new ItemComponents();
 
-
+    /*
     public List<OrderResult> calculateOrders(List<ProductionResult> productionResults, Map<String, Item> forecastProductionList) {
 
         List<OrderResult> orderResults = new ArrayList<>();
@@ -67,8 +68,9 @@ public class OrderService {
                 double avg = calculateAverage(kUsageList, itemConfigId);
                 double max = calculateMaxUsage(kUsageList, itemConfigId);
                 double orderpoint = avg * (term.getDeliveryTime() + term.getVariance() + REPLACEMENT_TIME);
-                double stock = main.getXmlInputData().getWareHouseArticles().get(itemConfigId).getAmount();
-                double stockRange = calculateStockRange(kUsageList, term);
+                String itemConfigSub = itemConfigId.substring(1);
+                double stock = main.getXmlInputData().getWareHouseArticles().get(itemConfigSub).getAmount();
+                double stockRange = Math.round(stock/avg);
                 if(stock <= orderpoint) {
                     double maxDeliveryTime = term.getVariance() + term.getDeliveryTime();
                     int orderQuantity = (int) Math.round((avg* term.getDeliveryTime() + max * maxDeliveryTime)/2);
@@ -92,9 +94,17 @@ public class OrderService {
         catch (SQLException e) {
             e.printStackTrace();
         }
+
+        for(OrderResult res : orderResults){
+            System.out.println("ID "+res.getItemConfigId());
+            System.out.println("Q "+res.getQuantity());
+            System.out.println("MODE "+res.getOrderingMode());
+
+        }
+
         return orderResults;
     }
-
+    */
 
     public double calculateAverage(List<Map<String, Integer>> kUsageList, String itemConfigId) {
 
@@ -102,8 +112,21 @@ public class OrderService {
         for(Map<String, Integer> entry : kUsageList) {
             avg += entry.get(itemConfigId);
         }
-        System.out.println("AVG " + Math.round(avg/4.0));
+        //System.out.println("AVG " + Math.round(avg/4.0));
         return Math.round(avg/4.0);
+    }
+
+    public int getStockAmount(String itemConfigId) {
+        Map<String, Article> warehouse = main.getXmlInputData().getWareHouseArticles();
+        itemConfigId = itemConfigId.substring(1);
+        int stock = 0;
+        System.out.println("sub " + itemConfigId);
+        for(Map.Entry<String, Article> entry : warehouse.entrySet()) {
+            if(entry.getKey().equals(itemConfigId)) {
+                stock = entry.getValue().getAmount();
+            }
+        }
+        return stock;
     }
 
     public double calculateWeightedAverage(List<Map<String, Integer>> kUsageList, String itemConfigId, double g1, double g2, double g3, double g4) {
@@ -144,7 +167,7 @@ public class OrderService {
                 maxUsage = req;
             }
         }
-        System.out.println(Math.round(maxUsage * 100.0) / 100.0);
+        //System.out.println(Math.round(maxUsage * 100.0) / 100.0);
         return Math.round(maxUsage * 100.0) / 100.0;
 
     }
@@ -206,6 +229,45 @@ public class OrderService {
 
         return stockRange;
 
+    }
+
+
+    //maybe i will add ordercosts
+    //then i have to add in DB partValue, change model, db class
+    private double calculateOrderCosts(OrderResult orderResult) {
+        double orderCosts = 0.0;
+        try {
+            List<TermsOfSaleData> terms = orderDB.findAll();
+            for(TermsOfSaleData term : terms) {
+                if(orderResult.getItemConfigId().equals(term.getItemConfigId())) {
+                    int orderFixCost = term.getOrderingCosts();
+                    int discount = term.getDiscountQuantity();
+                    int quantity = orderResult.getQuantity();
+                    double partValue = 0.1;
+                    //term.getPartyValue();
+
+                    if(orderResult.getOrderingMode()==FAST_DELIVERY){
+                        orderCosts = orderFixCost*10;
+                        if(orderResult.getQuantity() >= orderResult.getDiscountQuantity()) {
+                            orderCosts += (partValue*orderResult.getQuantity())*0.9;
+                        }
+                        else
+                            orderCosts += partValue*orderResult.getQuantity();
+
+                    }
+                    else {
+                        if (orderResult.getQuantity() >= orderResult.getDiscountQuantity()) {
+                            orderCosts = (partValue * orderResult.getQuantity()) * 0.9 + orderCosts;
+                        } else
+                            orderCosts = partValue * orderResult.getQuantity() + orderCosts;
+                    }
+                }
+            }
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return orderCosts;
     }
 
     public double getFutureInComingOrderAmount(String itemConfigId) {

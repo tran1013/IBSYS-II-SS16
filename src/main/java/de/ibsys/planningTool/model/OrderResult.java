@@ -5,6 +5,8 @@ package de.ibsys.planningTool.model;
  */
 public class OrderResult {
 
+    private String itemConfigId;
+    private int quantity;
     private int orderingMode;
     private int deliveryCosts;
     private int discountQuantity;
@@ -24,9 +26,6 @@ public class OrderResult {
         this.deliveryTime = deliveryTime;
         this.variance = variance;
     }
-
-    private String itemConfigId;
-    private int quantity;
 
     public String getItemConfigId() {
         return itemConfigId;

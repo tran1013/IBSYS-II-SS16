@@ -29,6 +29,7 @@ public class TermsOfSaleData {
     public void setItemConfigId(String itemConfigId) {
         this.itemConfigId = itemConfigId;
     }
+
     public double getDeliveryTime() {
         return deliveryTime;
     }

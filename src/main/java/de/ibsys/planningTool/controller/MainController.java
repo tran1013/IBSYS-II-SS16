@@ -225,7 +225,7 @@ public class MainController extends BaseTabController {
 		foreCastController.initUIComponents();
 		settingsController.initUIComponents();
 		capPlaController.initUIComponents();
-		//orderController.initUIComponents();
+		orderController.initUIComponents();
 	}
 
 	@FXML
