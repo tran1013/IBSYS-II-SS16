@@ -58,7 +58,7 @@
                                 <Label fx:id="avgL" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                                 <Label fx:id="discontL" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                                 <Label fx:id="nrL" text="Label" GridPane.columnIndex="1" />
-                                <JFXCheckBox fx:id="expressCB" text="CheckBox" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                <JFXCheckBox fx:id="expressCB" text=" " GridPane.columnIndex="1" GridPane.rowIndex="2" />
                         <Label fx:id="quantityL" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                             </children>
                         </GridPane>
@@ -68,8 +68,8 @@
         </SplitPane>
         <ButtonBar layoutX="275.0" layoutY="31.0" prefHeight="40.0" prefWidth="240.0">
             <buttons>
+                <JFXButton fx:id="changeBtn" onAction="#getData" text="Berechne!" />
                 <JFXButton fx:id="newBtn" onAction="#handleNewOrder" text="Neu" />
-                <JFXButton fx:id="changeBtn" onAction="#getData" text="Ändern" />
                 <JFXButton fx:id="deleteBtn" onAction="#handleDeleteOrder" text="Löschen" />
             </buttons>
         </ButtonBar>

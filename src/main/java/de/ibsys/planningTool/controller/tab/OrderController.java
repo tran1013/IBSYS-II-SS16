@@ -2,7 +2,6 @@ package de.ibsys.planningTool.controller.tab;
 
 
 import de.ibsys.planningTool.controller.MainController;
-import de.ibsys.planningTool.database.ItemDB;
 import de.ibsys.planningTool.database.OrderDB;
 import de.ibsys.planningTool.mock.MockProductionResult;
 import de.ibsys.planningTool.model.*;
@@ -13,28 +12,24 @@ import de.ibsys.planningTool.model.xmlInputModel.FutureInComingOrder;
 import de.ibsys.planningTool.model.xmlInputModel.WaitingList;
 import de.ibsys.planningTool.model.xmlInputModel.WaitingListMissingParts;
 import de.ibsys.planningTool.service.OrderService;
+import de.ibsys.planningTool.util.Dialogs.DialogMessages;
 import de.ibsys.planningTool.util.I18N;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.control.cell.TextFieldListCell;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.Stage;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
-import com.jfoenix.controls.JFXTextField;
 import javafx.fxml.FXML;
 import javafx.util.Callback;
-
+import javafx.util.converter.IntegerStringConverter;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+
 
 import static de.ibsys.planningTool.model.Constants.FAST_DELIVERY;
 import static de.ibsys.planningTool.model.Constants.NORMAL_DELIVERY;
@@ -56,7 +51,7 @@ public class OrderController extends BaseTabController{
     private TableColumn<OrderResult, Integer> quantityColumn;
 
     @FXML
-    private TableColumn<OrderResult, String> optionColumn;
+    private TableColumn<OrderResult, Integer> optionColumn;
 
     @FXML
     private Label nrLabel;
@@ -105,10 +100,11 @@ public class OrderController extends BaseTabController{
 
     OrderService orderService = new OrderService();
     OrderDB orderDB = new OrderDB();
+    NewOrderController newOrderController = new NewOrderController();
     MockProductionResult mockProductionResult = new MockProductionResult();
 
-    List<OrderResult> orderResults = new ArrayList<>();
-    ObservableList<OrderResult> results = FXCollections.observableArrayList();
+    private List<OrderResult> orderResults = new ArrayList<>();
+    private ObservableList<OrderResult> results = FXCollections.observableArrayList();
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -123,10 +119,56 @@ public class OrderController extends BaseTabController{
         deleteBtn.getStyleClass().add("button-raised");
         mockProductionResult.setProductionResultList();
 
+        orderTableView.setEditable(true);
+
+    /*
+        Callback<TableColumn<OrderResult, String>,
+                TableCell<OrderResult, String>> cellFactory
+                = (TableColumn<OrderResult, String> cell) -> new EditingCell();
+
+        nrColumn.setCellFactory(cellFactory);
+        nrColumn.setOnEditCommit(
+                new EventHandler<TableColumn.CellEditEvent<OrderResult, String>>() {
+                    @Override
+                    public void handle(TableColumn.CellEditEvent<OrderResult, String> event) {
+                        ((OrderResult) event.getTableView().getItems().get(
+                                event.getTablePosition().getRow())
+                        ).setItemConfigId(event.getNewValue());
+                    }
+                }
+        );
+
+        Callback<TableColumn<OrderResult, Integer>,
+                TableCell<OrderResult, Integer>> cellIntFactory
+                = (TableColumn<OrderResult, Integer> cell) -> new IntegerEditingCell();
+        */
+        quantityColumn.setCellFactory(TextFieldTableCell.<OrderResult, Integer>forTableColumn(new IntegerStringConverter()));
+        quantityColumn.setOnEditCommit(
+                new EventHandler<TableColumn.CellEditEvent<OrderResult, Integer>>() {
+                    @Override
+                    public void handle(TableColumn.CellEditEvent<OrderResult, Integer> event) {
+                        ((OrderResult) event.getTableView().getItems().get(
+                                event.getTablePosition().getRow())
+                        ).setQuantity(event.getNewValue());
+
+                    }
+                }
+        );
+
+        optionColumn.setCellFactory(TextFieldTableCell.<OrderResult, Integer>forTableColumn(new IntegerStringConverter()));
+        optionColumn.setOnEditCommit(
+                new EventHandler<TableColumn.CellEditEvent<OrderResult, Integer>>() {
+                    @Override
+                    public void handle(TableColumn.CellEditEvent<OrderResult, Integer> event) {
+                        ((OrderResult) event.getTableView().getItems().get(
+                                event.getTablePosition().getRow())
+                        ).setOrderingMode(event.getNewValue());
+                    }
+                }
+        );
+
 
     }
-
-
 
     /*
     orderResult is stored in Controller
@@ -148,33 +190,36 @@ public class OrderController extends BaseTabController{
     Change List<OrderResults> in ObservableList
      */
     public ObservableList<OrderResult> getOrderData() {
-        //ObservableList<OrderResult> results = FXCollections.observableArrayList();
+        ObservableList<OrderResult> results = FXCollections.observableArrayList();
         List<OrderResult> orderList = this.getOrderResults();
 
         for (OrderResult orderResult : orderList) {
+            if(orderResult.getQuantity() != 0) {
+                String itemConfigId = orderResult.getItemConfigId();
+                int quantity = orderResult.getQuantity();
+                int orderMode = orderResult.getOrderingMode();
+                int deliveryCosts = orderResult.getDeliveryCosts();
+                double time = orderResult.getDeliveryTime();
+                double variance = orderResult.getVariance();
+                int discount = orderResult.getDiscountQuantity();
 
-            String itemConfigId = orderResult.getItemConfigId();
-            int quantity = orderResult.getQuantity();
-            int orderMode = orderResult.getOrderingMode();
-            int deliveryCosts = orderResult.getDeliveryCosts();
-            double time = orderResult.getDeliveryTime();
-            double variance = orderResult.getVariance();
-            int discount = orderResult.getDiscountQuantity();
-
-            results.add(new OrderResult(itemConfigId, quantity, orderMode, deliveryCosts, discount, time, variance));
+                results.add(new OrderResult(itemConfigId, quantity, orderMode, deliveryCosts, discount, time, variance));
+            }
         }
         return results;
     }
 
+    /**
+     * fill data in tableView
+     */
     @FXML
     private void getData() {
 
         nrColumn.setCellValueFactory(new PropertyValueFactory<>("itemConfigId"));
         quantityColumn.setCellValueFactory(new PropertyValueFactory<>("quantity"));
         optionColumn.setCellValueFactory(new PropertyValueFactory<>("orderingMode"));
-
-        orderTableView.setItems(getOrderData());
-        String itemConfigId = "K21";
+        results = getOrderData();
+        orderTableView.setItems(results);
         showOrderDetails(null);
 
         orderTableView.getSelectionModel().selectedItemProperty().addListener(
@@ -183,9 +228,56 @@ public class OrderController extends BaseTabController{
     }
 
     @FXML
-    public void handleChangeOrder() {
+    void handleDeleteOrder(ActionEvent event) {
+        for(OrderResult or : results) {
+            System.out.println("VOR LÖSCHEN RESULT "+or.getItemConfigId() + " " + or.getQuantity() );
+        }
+        for(OrderResult order : orderResults) {
+            System.out.println("VOR LÖSCHEN ORDERRESULT "+order.getItemConfigId() + " " + order.getQuantity() );
+        }
+        // Get selected row and delete
+        int ix = orderTableView.getSelectionModel().getSelectedIndex();
+        OrderResult oneOrder = (OrderResult) orderTableView.getSelectionModel().getSelectedItem();
+        String itemConfigId = orderTableView.getSelectionModel().getSelectedItem().getItemConfigId();
 
+        results.remove(ix);
+        oneOrder.setQuantity(0);
+        oneOrder.setOrderingMode(0);
+
+        System.out.println("ID "+itemConfigId);
+
+        for(OrderResult order : orderResults) {
+            if(order.getItemConfigId().equals(itemConfigId)) {
+                order.setQuantity(0);
+                order.setOrderingMode(0);
+            }
+        }
+
+        //System.out.println(orderResults.get(ix).getItemConfigId() + " " + orderResults.get(ix).getQuantity());
+
+        for(OrderResult or : results) {
+
+            System.out.println("Nach Löschen RESULT "+or.getItemConfigId() + " " + or.getQuantity());
+        }
+        for(OrderResult order : orderResults) {
+
+            System.out.println("Nach LÖSCHEN ORDERRESULT "+order.getItemConfigId() + " " + order.getQuantity() );
+        }
+
+        if (orderTableView.getItems().size() == 0) {
+
+            System.out.println("No data in table !");
+            return;
+        }
+        if (ix != 0) {
+
+            ix = ix -1;
+        }
+        orderTableView.requestFocus();
+        orderTableView.getSelectionModel().select(ix);
+        orderTableView.getFocusModel().focus(ix);
     }
+    /*
     //maybe updateData for xml input ??
     @FXML
     public void handleDeleteOrder() {
@@ -194,10 +286,13 @@ public class OrderController extends BaseTabController{
             orderTableView.getItems().remove(selectedIndex);
             System.out.println("INDEX "+selectedIndex);
             //Delete selected Item from orderResults
+            //OrderResult order = (OrderResult) orderTableView.getSelectionModel().getSelectedItem();
             orderResults.remove(selectedIndex);
+            //results.remove(selectedIndex);
+            orderTableView.setItems(results);
 
             for(OrderResult orderResult : orderResults) {
-                System.out.println(orderResult.getItemConfigId());
+                System.out.println(orderResult.getItemConfigId() +  " " + orderResult.getQuantity());
             }
 
         } else {
@@ -210,23 +305,55 @@ public class OrderController extends BaseTabController{
             alert.showAndWait();
         }
     }
+    */
+
 
     @FXML
     public void handleNewOrder() {
+
+        ChoiceDialog<String> dialog = new ChoiceDialog<>("-", setCombobox());
+        dialog.setTitle("New Order");
+        dialog.setHeaderText("New Order");
+        dialog.setContentText("Choose your item:");
+
+        Optional<String> result = dialog.showAndWait();
+
         OrderResult tmpOrder = new OrderResult();
-        /*
-        tmpOrder.setItemConfigId("K21");
-        tmpOrder.setDiscountQuantity(1200);
-        tmpOrder.setQuantity(100);
-        tmpOrder.setDeliveryTime(1.2);
-        tmpOrder.setVariance(0.2);
-        tmpOrder.setOrderingMode(5);
-        tmpOrder.setDeliveryCosts(50);
-        */
-        results.add(tmpOrder);
+        String itemConfigId = "";
+
+        if (result.isPresent()){
+            System.out.println("Your choice: " + result.get());
+            itemConfigId = result.get();
+
+            for(OrderResult order : orderResults) {
+                if (order.getItemConfigId().equals(itemConfigId)) {
+
+                    results.add(order);
+                }
+            }
+            //results.add(tmpOrder);
+        }
+        else {
+         //   DialogMessages.ErrorDialog("Keine Auswahl!");
+        }
+        for(OrderResult orderResult : orderResults) {
+            System.out.println(orderResult.getItemConfigId() + " " + orderResult.getQuantity());
+        }
+        //refresh results
         orderTableView.setItems(results);
-        nrColumn.setEditable(true);
     }
+
+        protected List<String> setCombobox() {
+        List<String> choices = new ArrayList<>();
+
+        for(OrderResult order : orderResults) {
+            if(order.getQuantity()==0 && order.getOrderingMode() == 0) {
+               choices.add(order.getItemConfigId());
+            }
+        }
+        return choices;
+    }
+
 
     private void showOrderDetails(OrderResult orderResult) {
         if(orderResult != null) {
@@ -259,7 +386,7 @@ public class OrderController extends BaseTabController{
         //List<OrderResult> orderResults;
         List<Order> orderList = new ArrayList<>();
 
-        for(OrderResult orderResult : orderResults) {
+        for(OrderResult orderResult : results) {
             orderList.add(new Order(orderResult.getItemConfigId(), orderResult.getQuantity(), orderResult.getOrderingMode()));
         }
         main.setOrderList(orderList);
@@ -296,7 +423,10 @@ public class OrderController extends BaseTabController{
 
             for(TermsOfSaleData term : terms) {
                 String itemConfigId = term.getItemConfigId();
-
+                double deliveryTime = term.getDeliveryTime();
+                int discont = term.getDiscountQuantity();
+                int orderingCosts = term.getOrderingCosts();
+                double variance = term.getVariance();
                 double avg = orderService.calculateAverage(kUsageList, itemConfigId);
                 double max = orderService.calculateMaxUsage(kUsageList, itemConfigId);
                 double orderpoint = avg * (term.getDeliveryTime() + term.getVariance() + REPLACEMENT_TIME);
@@ -316,14 +446,15 @@ public class OrderController extends BaseTabController{
                     } else {
                         orderMode = NORMAL_DELIVERY;
                     }
-
+                    /*
                     double deliveryTime = term.getDeliveryTime();
                     int discont = term.getDiscountQuantity();
                     int orderingCosts = term.getOrderingCosts();
                     double variance = term.getVariance();
-
+                    */
                     orderResults.add(new OrderResult(itemConfigId, orderQuantity, orderMode, orderingCosts, discont, deliveryTime, variance));
                 }
+                else orderResults.add(new OrderResult(itemConfigId, 0, 0, orderingCosts, discont, deliveryTime, variance));
             }
         }
         catch (SQLException e) {

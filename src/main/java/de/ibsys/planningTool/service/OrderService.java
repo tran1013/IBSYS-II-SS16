@@ -28,8 +28,7 @@ import static de.ibsys.planningTool.model.Constants.REPLACEMENT_TIME;
 /*
 TODO Clean up unused imports
 TODO Delete comments... System.out.prints
-TODO calculateStockRange
-TODO Access to InputData;
+
  */
 public class OrderService {
 
@@ -283,7 +282,6 @@ public class OrderService {
     }
 
 
-    //TODO Check access to OrderInMao and Waitinglist and values
     public List<Map<String, Integer>> calculateProgramm(List<ProductionResult> productionResults, Map<String, Item> forecastProductionList) {
 
         List<Map<String, Integer>> productionProgram = new ArrayList<>();
