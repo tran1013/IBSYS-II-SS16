@@ -57,7 +57,7 @@
                                 <Label fx:id="stockL" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                                 <Label fx:id="avgL" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                                 <Label fx:id="discontL" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                                <Label fx:id="nrL" text="Label" GridPane.columnIndex="1" />
+                                <Label fx:id="nrL" text="" GridPane.columnIndex="1" />
                                 <JFXCheckBox fx:id="expressCB" text=" " GridPane.columnIndex="1" GridPane.rowIndex="2" />
                         <Label fx:id="quantityL" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                             </children>

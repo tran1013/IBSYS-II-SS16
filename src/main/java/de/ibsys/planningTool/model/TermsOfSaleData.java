@@ -11,15 +11,17 @@ public class TermsOfSaleData {
     private double variance;
     private int orderingCosts;
     private int discountQuantity;
+    private double partValue;
 
     public TermsOfSaleData() {}
 
-    public TermsOfSaleData(String itemConfigId, double deliveryTime, double variance, int orderingCosts, int discountQuantity) {
+    public TermsOfSaleData(String itemConfigId, double deliveryTime, double variance, int orderingCosts, int discountQuantity, double partValue) {
         this.itemConfigId = itemConfigId;
         this.deliveryTime = deliveryTime;
         this.variance = variance;
         this.orderingCosts = orderingCosts;
         this.discountQuantity = discountQuantity;
+        this.partValue = partValue;
     }
 
     public String getItemConfigId() {
@@ -62,6 +64,14 @@ public class TermsOfSaleData {
         this.discountQuantity = discountQuantity;
     }
 
+    public double getPartValue() {
+        return partValue;
+    }
+
+    public void setPartValue(double partValue) {
+        this.partValue = partValue;
+    }
+
 
     @Override
     public boolean equals(Object obj) {
@@ -88,7 +98,8 @@ public class TermsOfSaleData {
                 + ", deliveryTime=" + deliveryTime
                 + ", variance" + variance
                 + ", orderingCosts" + orderingCosts
-                + ", discountQuantity" + discountQuantity +
+                + ", discountQuantity" + discountQuantity
+                + ", partValue" + partValue +
                 '}';
     }
 

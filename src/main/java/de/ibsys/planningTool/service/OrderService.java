@@ -230,10 +230,7 @@ public class OrderService {
 
     }
 
-
-    //maybe i will add ordercosts
-    //then i have to add in DB partValue, change model, db class
-    private double calculateOrderCosts(OrderResult orderResult) {
+    public double calculateOrderCosts(OrderResult orderResult) {
         double orderCosts = 0.0;
         try {
             List<TermsOfSaleData> terms = orderDB.findAll();
@@ -266,7 +263,14 @@ public class OrderService {
         catch (SQLException e) {
             e.printStackTrace();
         }
-        return orderCosts;
+        return runden(orderCosts, 2);
+
+    }
+
+    public static double runden(double wert, int stellen)
+    {
+        double gerundet = Math.round(wert * Math.pow(10d, stellen));
+        return gerundet / Math.pow(10d, stellen);
     }
 
     public double getFutureInComingOrderAmount(String itemConfigId) {
@@ -430,6 +434,4 @@ public class OrderService {
         }
         return kUsageList;
     }
-
-
 }

@@ -14,11 +14,18 @@ import de.ibsys.planningTool.model.xmlInputModel.WaitingListMissingParts;
 import de.ibsys.planningTool.service.OrderService;
 import de.ibsys.planningTool.util.Dialogs.DialogMessages;
 import de.ibsys.planningTool.util.I18N;
+import javafx.application.Platform;
+import javafx.beans.binding.Binding;
+import javafx.beans.binding.Bindings;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.*;
+import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.Stage;
@@ -27,8 +34,13 @@ import com.jfoenix.controls.JFXCheckBox;
 import javafx.fxml.FXML;
 import javafx.util.Callback;
 import javafx.util.converter.IntegerStringConverter;
+import jdk.nashorn.internal.codegen.CompilerConstants;
+
+import java.awt.*;
 import java.sql.SQLException;
 import java.util.*;
+import java.util.List;
+import java.util.regex.Pattern;
 
 
 import static de.ibsys.planningTool.model.Constants.FAST_DELIVERY;
@@ -100,7 +112,6 @@ public class OrderController extends BaseTabController{
 
     OrderService orderService = new OrderService();
     OrderDB orderDB = new OrderDB();
-    NewOrderController newOrderController = new NewOrderController();
     MockProductionResult mockProductionResult = new MockProductionResult();
 
     private List<OrderResult> orderResults = new ArrayList<>();
@@ -120,8 +131,9 @@ public class OrderController extends BaseTabController{
         mockProductionResult.setProductionResultList();
 
         orderTableView.setEditable(true);
+        //TODO I1N8
 
-    /*
+        /*
         Callback<TableColumn<OrderResult, String>,
                 TableCell<OrderResult, String>> cellFactory
                 = (TableColumn<OrderResult, String> cell) -> new EditingCell();
@@ -137,12 +149,13 @@ public class OrderController extends BaseTabController{
                     }
                 }
         );
-
+        */
         Callback<TableColumn<OrderResult, Integer>,
                 TableCell<OrderResult, Integer>> cellIntFactory
                 = (TableColumn<OrderResult, Integer> cell) -> new IntegerEditingCell();
-        */
-        quantityColumn.setCellFactory(TextFieldTableCell.<OrderResult, Integer>forTableColumn(new IntegerStringConverter()));
+
+        quantityColumn.setCellFactory(cellIntFactory);
+        //quantityColumn.setCellFactory(TextFieldTableCell.<OrderResult, Integer>forTableColumn(new IntegerStringConverter()));
         quantityColumn.setOnEditCommit(
                 new EventHandler<TableColumn.CellEditEvent<OrderResult, Integer>>() {
                     @Override
@@ -154,8 +167,12 @@ public class OrderController extends BaseTabController{
                     }
                 }
         );
+        Callback<TableColumn<OrderResult, Integer>,
+                TableCell<OrderResult, Integer>> cellIntNrFactory
+                = (TableColumn<OrderResult, Integer> cell) -> new IntegerNrEditinCell();
 
         optionColumn.setCellFactory(TextFieldTableCell.<OrderResult, Integer>forTableColumn(new IntegerStringConverter()));
+        //optionColumn.setCellFactory(cellIntNrFactory);
         optionColumn.setOnEditCommit(
                 new EventHandler<TableColumn.CellEditEvent<OrderResult, Integer>>() {
                     @Override
@@ -166,8 +183,6 @@ public class OrderController extends BaseTabController{
                     }
                 }
         );
-
-
     }
 
     /*
@@ -208,7 +223,6 @@ public class OrderController extends BaseTabController{
         }
         return results;
     }
-
     /**
      * fill data in tableView
      */
@@ -222,9 +236,69 @@ public class OrderController extends BaseTabController{
         orderTableView.setItems(results);
         showOrderDetails(null);
 
+        Platform.runLater(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                orderTableView.requestFocus();
+                orderTableView.getSelectionModel().select(0);
+                orderTableView.getFocusModel().focus(0);
+            }
+        });
+
         orderTableView.getSelectionModel().selectedItemProperty().addListener(
                 (observable, oldvalue, newValue) -> showOrderDetails(newValue));
 
+        orderTableView.setRowFactory(new Callback<TableView<OrderResult>, TableRow<OrderResult>>() {
+            @Override
+            public TableRow<OrderResult> call(TableView<OrderResult> param) {
+                final  TableRow<OrderResult> row = new TableRow<OrderResult>();
+                final ContextMenu menu = new ContextMenu();
+                final MenuItem removeItem = new MenuItem(main.getTranslation().getString(I18N.DELETEBTN));
+                final MenuItem addItem = new MenuItem(main.getTranslation().getString(I18N.NEWBTN));
+                removeItem.setOnAction(new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent event) {
+                        orderTableView.getItems().remove(row.getItem());
+                        String itemConfigId = row.getItem().getItemConfigId();
+
+                        for(OrderResult order : orderResults) {
+                            if(order.getItemConfigId().equals(itemConfigId)) {
+                                order.setQuantity(0);
+                                order.setOrderingMode(0);
+                            }
+                        }
+                        for(OrderResult or : results) {
+
+                            System.out.println("Nach Löschen RESULT "+or.getItemConfigId() + " " + or.getQuantity());
+                        }
+                        for(OrderResult order : orderResults) {
+
+                            System.out.println("Nach LÖSCHEN ORDERRESULT "+order.getItemConfigId() + " " + order.getQuantity() );
+                        }
+                    }
+                });
+
+                addItem.setOnAction(new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent event) {
+                        handleNewOrder();
+                    }
+                });
+
+                menu.getItems().add(removeItem);
+                menu.getItems().add(addItem);
+
+                row.contextMenuProperty().bind(
+                        Bindings.when(row.emptyProperty())
+                        .then((ContextMenu)null)
+                        .otherwise(menu)
+                );
+
+                return row;
+            }
+        });
     }
 
     @FXML
@@ -307,7 +381,6 @@ public class OrderController extends BaseTabController{
     }
     */
 
-
     @FXML
     public void handleNewOrder() {
 
@@ -341,7 +414,8 @@ public class OrderController extends BaseTabController{
         }
         //refresh results
         orderTableView.setItems(results);
-    }
+
+        }
 
         protected List<String> setCombobox() {
         List<String> choices = new ArrayList<>();
@@ -354,18 +428,19 @@ public class OrderController extends BaseTabController{
         return choices;
     }
 
-
     private void showOrderDetails(OrderResult orderResult) {
         if(orderResult != null) {
             nrL.setText(orderResult.getItemConfigId());
             quantityL.setText(String.valueOf(orderResult.getQuantity()));
             stockL.setText(getStockAmount(orderResult.getItemConfigId()));
             discontL.setText(String.valueOf(orderResult.getDiscountQuantity()));
+            avgL.setText(String.valueOf(orderService.calculateOrderCosts(orderResult))+"€");
             if(orderResult.getOrderingMode()==FAST_DELIVERY) {
                 expressCB.setSelected(true);
             }
             else expressCB.setSelected(false);
-        }
+            }
+
         else {
             nrL.setText("");
             quantityL.setText("");
@@ -470,4 +545,90 @@ public class OrderController extends BaseTabController{
         return orderResults;
     }
 
+
+    public class IntegerEditingCell extends TableCell<OrderResult, Integer> {
+
+        private final TextField textField = new TextField();
+        private final Pattern intPattern = Pattern.compile("-?\\d+");
+
+        public IntegerEditingCell() {
+            textField.focusedProperty().addListener((obs, wasFocused, isNowFocused) -> {
+                if (! isNowFocused) {
+                    processEdit();
+                }
+            });
+            textField.setOnAction(event -> processEdit());
+        }
+
+        private void processEdit() {
+            String text = textField.getText();
+            if (intPattern.matcher(text).matches()) {
+                commitEdit(Integer.parseInt(text));
+            } else {
+                cancelEdit();
+            }
+        }
+
+        @Override
+        public void updateItem(Integer value, boolean empty) {
+            super.updateItem(value, empty);
+            if (empty) {
+                setText(null);
+                setGraphic(null);
+            } else if (isEditing()) {
+                setText(null);
+                textField.setText(value.toString());
+                setGraphic(textField);
+            } else {
+                setText(value.toString());
+                setGraphic(null);
+            }
+        }
+
+        @Override
+        public void startEdit() {
+            super.startEdit();
+            Integer value = getItem();
+            if (value != null) {
+                    textField.setText(value.toString());
+                    setGraphic(textField);
+                    setText(null);}
+        }
+
+        @Override
+        public void cancelEdit() {
+            super.cancelEdit();
+            setText(getItem().toString());
+            setGraphic(null);
+        }
+
+        // This seems necessary to persist the edit on loss of focus; not sure why:
+        @Override
+        public void commitEdit(Integer value) {
+            if(value >= 0) {
+                super.commitEdit(value);
+                ((OrderResult) this.getTableRow().getItem()).setQuantity(value.intValue());
+            }
+            else {
+                textField.setStyle("-fx-border-color: red;");
+                DialogMessages.ErrorDialog("Die Bestellmenge muss größer 0 sein!");
+            }
+        }
+    }
+
+    public class IntegerNrEditinCell extends IntegerEditingCell {
+
+
+        @Override
+        public void commitEdit(Integer value) {
+            if(value == 0 || value == 4 || value == 5) {
+                super.commitEdit(value);
+                ((OrderResult) this.getTableRow().getItem()).setOrderingMode(value.intValue());
+            }
+            else {
+                DialogMessages.ErrorDialog("G");
+            }
+
+        }
+    }
 }
