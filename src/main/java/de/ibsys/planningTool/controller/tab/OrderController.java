@@ -149,12 +149,13 @@ public class OrderController extends BaseTabController{
                     }
                 }
         );
-        */
+  */
         Callback<TableColumn<OrderResult, Integer>,
                 TableCell<OrderResult, Integer>> cellIntFactory
                 = (TableColumn<OrderResult, Integer> cell) -> new IntegerEditingCell();
 
         quantityColumn.setCellFactory(cellIntFactory);
+
         //quantityColumn.setCellFactory(TextFieldTableCell.<OrderResult, Integer>forTableColumn(new IntegerStringConverter()));
         quantityColumn.setOnEditCommit(
                 new EventHandler<TableColumn.CellEditEvent<OrderResult, Integer>>() {
@@ -167,10 +168,11 @@ public class OrderController extends BaseTabController{
                     }
                 }
         );
+        /*
         Callback<TableColumn<OrderResult, Integer>,
                 TableCell<OrderResult, Integer>> cellIntNrFactory
                 = (TableColumn<OrderResult, Integer> cell) -> new IntegerNrEditinCell();
-
+        */
         optionColumn.setCellFactory(TextFieldTableCell.<OrderResult, Integer>forTableColumn(new IntegerStringConverter()));
         //optionColumn.setCellFactory(cellIntNrFactory);
         optionColumn.setOnEditCommit(
@@ -191,14 +193,18 @@ public class OrderController extends BaseTabController{
     @FXML
     public List<OrderResult> getOrderResults() {
         //List<OrderResult> orderResults = new ArrayList<>();
-        Map<String, Item> forecastProductionList = main.getForecastProductionList();
+        try {
+            Map<String, Item> forecastProductionList = main.getForecastProductionList();
 
-        //TODO change mockdata with real data from production
+            //TODO change mockdata with real data from production
 
-        List<ProductionResult> productionResults = mockProductionResult.getProductionResultList();
+            List<ProductionResult> productionResults = mockProductionResult.getProductionResultList();
 
-        orderResults = calculateOrders(productionResults, forecastProductionList);
-
+            orderResults = calculateOrders(productionResults, forecastProductionList);
+            }
+        catch(Exception e) {
+            e.printStackTrace();
+        }
         return orderResults;
     }
     /*
@@ -269,6 +275,8 @@ public class OrderController extends BaseTabController{
                                 order.setOrderingMode(0);
                             }
                         }
+                        storeData();
+                        /*
                         for(OrderResult or : results) {
 
                             System.out.println("Nach Löschen RESULT "+or.getItemConfigId() + " " + or.getQuantity());
@@ -277,6 +285,7 @@ public class OrderController extends BaseTabController{
 
                             System.out.println("Nach LÖSCHEN ORDERRESULT "+order.getItemConfigId() + " " + order.getQuantity() );
                         }
+                        */
                     }
                 });
 
@@ -286,6 +295,7 @@ public class OrderController extends BaseTabController{
                         handleNewOrder();
                     }
                 });
+
 
                 menu.getItems().add(removeItem);
                 menu.getItems().add(addItem);
@@ -299,16 +309,19 @@ public class OrderController extends BaseTabController{
                 return row;
             }
         });
+        storeData();
     }
 
     @FXML
     void handleDeleteOrder(ActionEvent event) {
+        /*
         for(OrderResult or : results) {
             System.out.println("VOR LÖSCHEN RESULT "+or.getItemConfigId() + " " + or.getQuantity() );
         }
         for(OrderResult order : orderResults) {
             System.out.println("VOR LÖSCHEN ORDERRESULT "+order.getItemConfigId() + " " + order.getQuantity() );
         }
+        */
         // Get selected row and delete
         int ix = orderTableView.getSelectionModel().getSelectedIndex();
         OrderResult oneOrder = (OrderResult) orderTableView.getSelectionModel().getSelectedItem();
@@ -328,7 +341,7 @@ public class OrderController extends BaseTabController{
         }
 
         //System.out.println(orderResults.get(ix).getItemConfigId() + " " + orderResults.get(ix).getQuantity());
-
+        /*
         for(OrderResult or : results) {
 
             System.out.println("Nach Löschen RESULT "+or.getItemConfigId() + " " + or.getQuantity());
@@ -337,6 +350,7 @@ public class OrderController extends BaseTabController{
 
             System.out.println("Nach LÖSCHEN ORDERRESULT "+order.getItemConfigId() + " " + order.getQuantity() );
         }
+        */
 
         if (orderTableView.getItems().size() == 0) {
 
@@ -460,9 +474,12 @@ public class OrderController extends BaseTabController{
     private void storeData() {
         //List<OrderResult> orderResults;
         List<Order> orderList = new ArrayList<>();
+        String itemConfigId = "";
 
         for(OrderResult orderResult : results) {
-            orderList.add(new Order(orderResult.getItemConfigId(), orderResult.getQuantity(), orderResult.getOrderingMode()));
+            itemConfigId = orderResult.getItemConfigId().substring(1);
+
+            orderList.add(new Order(itemConfigId, orderResult.getQuantity(), orderResult.getOrderingMode()));
         }
         main.setOrderList(orderList);
     }
@@ -608,6 +625,7 @@ public class OrderController extends BaseTabController{
             if(value >= 0) {
                 super.commitEdit(value);
                 ((OrderResult) this.getTableRow().getItem()).setQuantity(value.intValue());
+                storeData();
             }
             else {
                 textField.setStyle("-fx-border-color: red;");
@@ -615,9 +633,8 @@ public class OrderController extends BaseTabController{
             }
         }
     }
-
+    /*
     public class IntegerNrEditinCell extends IntegerEditingCell {
-
 
         @Override
         public void commitEdit(Integer value) {
@@ -628,7 +645,7 @@ public class OrderController extends BaseTabController{
             else {
                 DialogMessages.ErrorDialog("G");
             }
-
         }
     }
+    */
 }

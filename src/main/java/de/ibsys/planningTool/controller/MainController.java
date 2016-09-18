@@ -241,7 +241,8 @@ public class MainController extends BaseTabController {
         if (file != null) {
             new XmlExport().exportXmlInputData(sellWish
                     , directSellList
-                    , new MockObject().orderListMockData()
+                    //, new MockObject().orderListMockData()
+					, orderList
                     , productionList
                     , workTimeList
                     , file.getPath());
