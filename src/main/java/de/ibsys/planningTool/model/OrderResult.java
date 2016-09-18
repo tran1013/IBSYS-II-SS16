@@ -5,13 +5,10 @@ package de.ibsys.planningTool.model;
  */
 public class OrderResult {
 
-
-
     private String itemConfigId;
     private int quantity;
     private int orderingMode;
     private int deliveryCosts;
-    private double price;
     private int discountQuantity;
     private double deliveryTime;
     private double variance;
@@ -19,13 +16,12 @@ public class OrderResult {
     public OrderResult() {}
 
     public OrderResult(String itemConfigId, int quantity, int orderingMode, int deliveryCosts,
-                       double price, int discountQuantity, double deliveryTime, double variance) {
+                       int discountQuantity, double deliveryTime, double variance) {
 
         this.itemConfigId = itemConfigId;
         this.quantity = quantity;
         this.orderingMode = orderingMode;
         this.deliveryCosts = deliveryCosts;
-        this.price = price;
         this.discountQuantity = discountQuantity;
         this.deliveryTime = deliveryTime;
         this.variance = variance;
@@ -63,14 +59,6 @@ public class OrderResult {
         this.deliveryCosts = deliveryCosts;
     }
 
-    public double getPrice() {
-        return price;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
-    }
-
     public int getDiscountQuantity() {
         return discountQuantity;
     }
@@ -91,6 +79,7 @@ public class OrderResult {
         return variance;
     }
 
+
     public void setVariance(double variance) {
         this.variance = variance;
     }
@@ -101,7 +90,6 @@ public class OrderResult {
                 ", quantity=" + quantity +
                 ", orderingMode=" + orderingMode +
                 ", deliveryCosts=" + deliveryCosts +
-                ", price" + price +
                 ", discountQuantity=" + discountQuantity +
                 ", deliveryTime=" + deliveryTime +
                 ", variance=" + variance +

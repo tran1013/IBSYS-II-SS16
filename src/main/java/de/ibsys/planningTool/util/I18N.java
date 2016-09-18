@@ -46,6 +46,22 @@ public class I18N {
 	public static final String OK = "OK";
 	public static final String CANCEL = "CANCEL";
 	public static final String DIGIT_SMALLER_ZERO = "DIGIT_SMALLER_ZERO";
+	public static final String ORDER = "ORDER";
+	public static final String AVGLABEL = "AVGLABEL";
+	public static final String STOCKLABEL = "STOCKLABEL";
+	public static final String OPTIONLABEL = "OPTIONLABEL";
+	public static final String DISCONTLABEL = "DISCONTLABEL";
+	public static final String QUANTITYLABEL = "QUANTITYLABEL";
+	public static final String NRCOLUMN = "NRCOLUMN";
+	public static final String NEWBTN = "NEWBTN";
+	public static final String CHANGEBTN = "CHANGEBTN";
+	public static final String DELETEBTN = "DELETEBTN";
+	public static final String QUANTITYL = "QUANTITYL";
+	public static final String STOCKL = "STOCKL";
+	public static final String AVGL = "AVGL";
+	public static final String ALERT_TITLE_ERROR_NOT_SELECTED = "ALERT_TITLE_ERROR_NOT_SELECTED";
+	public static final String ALERT_HEAD_NO_ORDER_SELECTED = "ALERT_HEAD_NO_ORDER_SELECTED";
+	public static final String ALERT_TEXT_NO_ORDER_SELECTED = "ALERT_TEXT_NO_ORDER_SELECTED";
 
 	public static ResourceBundle translation(String language, String country) {
 		Locale currentLocale;

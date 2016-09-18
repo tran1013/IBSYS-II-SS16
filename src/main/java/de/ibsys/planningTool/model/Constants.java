@@ -30,6 +30,9 @@ public class Constants {
     public static final int FAST_DELIVERY = 5;
     public static final int NORMAL_DELIVERY = 4;
 
+    //ORDER
+    public  static final double REPLACEMENT_TIME = 1.0;
+
     //XML EXPORT ELEMENT VAR
     public static final String SELLWISH = "sellwish";
     public static final String SELLDIRECT = "selldirect";

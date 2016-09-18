@@ -67,6 +67,9 @@ public class MainController extends BaseTabController {
 	public Tab cappla;
 
 	@FXML
+	public Tab orderTab;
+
+	@FXML
 	public JFXToggleButton langBtn;
 
 	private XmlInputData xmlInputData;
@@ -91,6 +94,9 @@ public class MainController extends BaseTabController {
 	private ForeCastController foreCastController;
 
 	@FXML
+	private  OrderController orderController;
+
+	@FXML
 	private SettingsController settingsController;
 
     @FXML
@@ -104,6 +110,7 @@ public class MainController extends BaseTabController {
 		settingsController.init(this);
 		capPlaController.init(this);
         productionPriorityController.init(this);
+		orderController.init(this);
 
 		xmlInputData = null;
 		sellWish = new ArrayList<>();
@@ -211,12 +218,14 @@ public class MainController extends BaseTabController {
 		disposition.setText(translation.getString(DISPOSITION));
 		settingsTab.setText(translation.getString(Export_TAB));
 		cappla.setText(translation.getString(CAPPLA));
+		orderTab.setText(translation.getString(ORDER));
         productionpriorityTab.setText(translation.getString(I18N.PRIORITY));
 		langBtn.setText(translation.getString(I18N.LANGUAGE));
 
 		foreCastController.initUIComponents();
 		settingsController.initUIComponents();
 		capPlaController.initUIComponents();
+		orderController.initUIComponents();
 	}
 
 	@FXML
@@ -232,7 +241,8 @@ public class MainController extends BaseTabController {
         if (file != null) {
             new XmlExport().exportXmlInputData(sellWish
                     , directSellList
-                    , new MockObject().orderListMockData()
+                    //, new MockObject().orderListMockData()
+					, orderList
                     , productionList
                     , workTimeList
                     , file.getPath());

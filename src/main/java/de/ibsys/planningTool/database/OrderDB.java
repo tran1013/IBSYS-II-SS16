@@ -29,7 +29,9 @@ public class OrderDB {
                         rs.getDouble("deliveryTime"),
                         rs.getDouble("variance"),
                         rs.getInt("orderingCosts"),
-                        rs.getInt("discountQuantity")));
+                        rs.getInt("discountQuantity"),
+                        rs.getDouble("part_value")
+                ));
             }
         }
 
