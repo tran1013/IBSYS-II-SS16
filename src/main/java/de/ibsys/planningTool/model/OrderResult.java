@@ -1,5 +1,7 @@
 package de.ibsys.planningTool.model;
 
+import javafx.beans.property.SimpleBooleanProperty;
+
 /**
  * Created by Che on 16.08.2016.
  */
@@ -7,24 +9,29 @@ public class OrderResult {
 
     private String itemConfigId;
     private int quantity;
-    private int orderingMode;
+    //private int orderingMode;
     private int deliveryCosts;
     private int discountQuantity;
     private double deliveryTime;
     private double variance;
+    private SimpleBooleanProperty deliveryMode;
+    //private boolean deliveryMode;
 
     public OrderResult() {}
+    //public OrderResult(String itemConfigId, int quantity, int orderingMode, int deliveryCosts, int discountQuantity, double deliveryTime, double variance, boolean deliveryMode)
 
-    public OrderResult(String itemConfigId, int quantity, int orderingMode, int deliveryCosts,
-                       int discountQuantity, double deliveryTime, double variance) {
+    public OrderResult(String itemConfigId, int quantity, int deliveryCosts,
+                       int discountQuantity, double deliveryTime, double variance, boolean deliveryMode) {
 
         this.itemConfigId = itemConfigId;
         this.quantity = quantity;
-        this.orderingMode = orderingMode;
+        //this.orderingMode = orderingMode;
         this.deliveryCosts = deliveryCosts;
         this.discountQuantity = discountQuantity;
         this.deliveryTime = deliveryTime;
         this.variance = variance;
+        this.deliveryMode = new SimpleBooleanProperty(deliveryMode);
+        //this.deliveryMode = deliveryMode;
     }
 
     public String getItemConfigId() {
@@ -42,7 +49,7 @@ public class OrderResult {
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
-
+    /*
     public int getOrderingMode() {
         return orderingMode;
     }
@@ -50,7 +57,7 @@ public class OrderResult {
     public void setOrderingMode(int orderingMode) {
         this.orderingMode = orderingMode;
     }
-
+    */
     public int getDeliveryCosts() {
         return deliveryCosts;
     }
@@ -79,20 +86,28 @@ public class OrderResult {
         return variance;
     }
 
+    public void setVariance(double variance) {this.variance = variance;}
 
-    public void setVariance(double variance) {
-        this.variance = variance;
-    }
+    //public boolean isDeliveryMode() {return deliveryMode;}
+
+    //public void setDeliveryMode(boolean deliveryMode) {this.deliveryMode = deliveryMode;}
+
+    public boolean isDeliveryMode() {return deliveryMode.get();}
+
+    public SimpleBooleanProperty deliveryModeProperty() {return deliveryMode;}
+
+    public void setDeliveryMode(boolean deliveryMode) {this.deliveryMode.set(deliveryMode);}
+
     @Override
     public String toString() {
         return "OrderResult{" +
                 "itemConfigId=" + itemConfigId +
                 ", quantity=" + quantity +
-                ", orderingMode=" + orderingMode +
                 ", deliveryCosts=" + deliveryCosts +
                 ", discountQuantity=" + discountQuantity +
                 ", deliveryTime=" + deliveryTime +
                 ", variance=" + variance +
+                ", deliveryMode=" + deliveryMode +
                 '}';
     }
 

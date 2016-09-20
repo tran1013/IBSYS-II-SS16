@@ -9,17 +9,14 @@ import de.ibsys.planningTool.model.*;
 import de.ibsys.planningTool.model.xmlExportModel.Item;
 import de.ibsys.planningTool.model.xmlInputModel.Article;
 import de.ibsys.planningTool.model.xmlInputModel.FutureInComingOrder;
-import de.ibsys.planningTool.model.xmlInputModel.WaitingList;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static de.ibsys.planningTool.model.Constants.FAST_DELIVERY;
-import static de.ibsys.planningTool.model.Constants.NORMAL_DELIVERY;
-import static de.ibsys.planningTool.model.Constants.REPLACEMENT_TIME;
 
 /**
  * Created by Che on 20.08.2016.
@@ -106,13 +103,24 @@ public class OrderService {
     */
 
     public double calculateAverage(List<Map<String, Integer>> kUsageList, String itemConfigId) {
-
         double avg = 0.0;
-        for(Map<String, Integer> entry : kUsageList) {
-            avg += entry.get(itemConfigId);
+        try {
+            if(!kUsageList.isEmpty()) {
+
+            for(Map<String, Integer> entry : kUsageList) {
+                avg += entry.get(itemConfigId);
+            }
+            //System.out.println("AVG " + Math.round(avg/4.0));
+                return Math.round(avg/4.0);
+            }
+                else return avg;
         }
-        //System.out.println("AVG " + Math.round(avg/4.0));
-        return Math.round(avg/4.0);
+
+        catch (NullPointerException e) {
+            e.printStackTrace();
+            return avg;
+        }
+
     }
 
     public int getStockAmount(String itemConfigId) {
@@ -160,15 +168,22 @@ public class OrderService {
 
     public double calculateMaxUsage(List<Map<String, Integer>> kUsageList, String itemConfigId) {
         double maxUsage = 0.0;
-        for (Map<String, Integer> item : kUsageList) {
+        try {
+            for (Map<String, Integer> item : kUsageList) {
             Integer req = item.get(itemConfigId);
             if (maxUsage < req) {
                 maxUsage = req;
             }
         }
+            return Math.round(maxUsage * 100.0) / 100.0;
+        }
+
+        catch (NullPointerException e) {
+            e.printStackTrace();
+        }
         //System.out.println(Math.round(maxUsage * 100.0) / 100.0);
         return Math.round(maxUsage * 100.0) / 100.0;
-
+        //return maxUsage;
     }
 
     public double calculateMaxDeliveryTime(String itemConfigId) {
@@ -242,7 +257,7 @@ public class OrderService {
                     double partValue = 0.1;
                     //term.getPartyValue();
 
-                    if(orderResult.getOrderingMode()==FAST_DELIVERY){
+                    if(orderResult.isDeliveryMode()==true){
                         orderCosts = orderFixCost*10;
                         if(orderResult.getQuantity() >= orderResult.getDiscountQuantity()) {
                             orderCosts += (partValue*orderResult.getQuantity())*0.9;
