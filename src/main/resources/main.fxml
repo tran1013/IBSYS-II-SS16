@@ -8,7 +8,9 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.76-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.ibsys.planningTool.controller.MainController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
+            prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.76-ea" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="de.ibsys.planningTool.controller.MainController">
     <children>
         <BorderPane minHeight="650.0" minWidth="1100.0">
             <center>
@@ -17,34 +19,34 @@
                         <Tab fx:id="forecast" text="Forecast">
                             <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                    <fx:include fx:id="foreCast" source="tab/forecast.fxml" />
+                                    <fx:include fx:id="foreCast" source="tab/forecast.fxml"/>
                                 </AnchorPane>
                             </content>
                         </Tab>
-                        <Tab fx:id="disposition" text="Fertigungsaufträge">
+                        <Tab fx:id="productionTab" text="Fertigungsaufträge">
                             <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                    <fx:include source="tab/productionOrder.fxml" fx:id="productionOrder" />
+                                    <fx:include fx:id="production" source="tab/production.fxml"/>
                                 </AnchorPane>
                             </content>
                         </Tab>
                         <Tab fx:id="cappla" text="Kapazitätsplan">
                             <content>
-                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                                <fx:include fx:id="capPla" source="tab/cappla.fxml" />
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0"/>
+                                <fx:include fx:id="capPla" source="tab/cappla.fxml"/>
                             </content>
                         </Tab>
                         <Tab fx:id="orderTab" text="Bestellverwaltung">
                             <content>
-                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                                <fx:include fx:id="order" source="tab/order.fxml" />
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0"/>
+                                <fx:include fx:id="order" source="tab/order.fxml"/>
                             </content>
                         </Tab>
                         <Tab fx:id="productionpriorityTab" text="Priorisierung">
                             <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                     <children>
-                                        <fx:include fx:id="productionPriority" source="tab/productionpriority.fxml" />
+                                        <fx:include fx:id="productionPriority" source="tab/productionpriority.fxml"/>
                                     </children>
                                 </AnchorPane>
                             </content>
@@ -53,7 +55,7 @@
                             <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                     <children>
-                                        <fx:include fx:id="settings" source="tab/settings.fxml" />
+                                        <fx:include fx:id="settings" source="tab/settings.fxml"/>
                                     </children>
                                 </AnchorPane>
                             </content>
@@ -62,13 +64,17 @@
                 </JFXTabPane>
             </center>
             <bottom>
-                <JFXButton fx:id="exportButton" buttonType="RAISED" onAction="#exportButtonTapped" text="Export" BorderPane.alignment="CENTER" />
+                <JFXButton fx:id="exportButton" buttonType="RAISED" onAction="#exportButtonTapped" text="Export"
+                           BorderPane.alignment="CENTER"/>
             </bottom>
         </BorderPane>
-      <JFXToggleButton fx:id="langBtn" layoutX="912.0" layoutY="-14.0" mnemonicParsing="false" onAction="#changeLanguageButtonTapped" prefHeight="58.0" prefWidth="188.0" text="Sprache ändern" textFill="WHITE" toggleColor="WHITE" toggleLineColor="WHITE" unToggleLineColor="WHITE">
-         <font>
-            <Font name="System Bold" size="13.0" />
-         </font>
-      </JFXToggleButton>
+        <JFXToggleButton fx:id="langBtn" layoutX="912.0" layoutY="-14.0" mnemonicParsing="false"
+                         onAction="#changeLanguageButtonTapped" prefHeight="58.0" prefWidth="188.0"
+                         text="Sprache ändern" textFill="WHITE" toggleColor="WHITE" toggleLineColor="WHITE"
+                         unToggleLineColor="WHITE">
+            <font>
+                <Font name="System Bold" size="13.0"/>
+            </font>
+        </JFXToggleButton>
     </children>
 </AnchorPane>
