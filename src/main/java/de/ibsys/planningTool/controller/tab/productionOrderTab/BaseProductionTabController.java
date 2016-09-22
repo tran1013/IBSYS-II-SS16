@@ -17,4 +17,7 @@ public abstract class BaseProductionTabController extends Application {
         this.productionOrderController = productionOrderController;
     }
 
+    public String getI18NText(String i18n) {
+        return productionOrderController.getTranslation().getString(i18n);
+    }
 }

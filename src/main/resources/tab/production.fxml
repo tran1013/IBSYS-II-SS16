@@ -14,7 +14,7 @@
         <Tab text="Child Bike">
             <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0"/>
-                <fx:include source="tab/childbike.fxml"/>
+                <fx:include fx:id="childBike" source="tab/childBike.fxml"/>
             </content>
         </Tab>
         <Tab text="Woman Bike">
