@@ -15,25 +15,25 @@ public class MenBikeController extends BaseProductionTabController {
     Label orders, safetystock, stock, queue, process, productionorder;
 
     @FXML
-    JFXTextField orderP1, orderE26, orderE7, orderE51, orderE16, orderE17, orderE50, orderE4, orderE10, orderE49, orderE13, orderE18;
+    JFXTextField orderP3, orderE26, orderE9, orderE31, orderE16, orderE17, orderE30, orderE6, orderE12, orderE29, orderE15, orderE20;
 
     @FXML
-    JFXTextField helpE26, helpE51, helpE16, helpE7, helpE17, helpE50, helpE4, helpE10, helpE49, helpE13, helpE18;
+    JFXTextField helpE26, helpE31, helpE16, helpE9, helpE17, helpE30, helpE6, helpE12, helpE29, helpE15, helpE20;
 
     @FXML
-    JFXTextField safetyP1, safetyE26, safetyE51, safetyE7, safetyE16, safetyE17, safetyE50, safetyE4, safetyE10, safetyE49, safetyE13, safetyE18;
+    JFXTextField safetyP3, safetyE26, safetyE31, safetyE9, safetyE16, safetyE17, safetyE30, safetyE6, safetyE12, safetyE29, safetyE15, safetyE20;
 
     @FXML
-    JFXTextField stockP1, stockE7, stockE26, stockE51, stockE16, stockE17, stockE50, stockE4, stockE10, stockE49, stockE13, stockE18;
+    JFXTextField stockP3, stockE9, stockE26, stockE31, stockE16, stockE17, stockE30, stockE6, stockE12, stockE29, stockE15, stockE20;
 
     @FXML
-    JFXTextField queueP1, queueE26, queueE7, queueE51, queueE16, queueE17, queueE50, queueE4, queueE10, queueE49, queueE13, queueE18;
+    JFXTextField queueP3, queueE26, queueE9, queueE31, queueE16, queueE17, queueE30, queueE6, queueE12, queueE29, queueE15, queueE20;
 
     @FXML
-    JFXTextField processP1, processE26, processE51, processE7, processE16, processE17, processE50, processE4, processE10, processE49, processE13, processE18;
+    JFXTextField processP3, processE26, processE31, processE9, processE16, processE17, processE30, processE6, processE12, processE29, processE15, processE20;
 
     @FXML
-    JFXTextField productionP1, productionE26, productionE51, productionE7, productionE16, productionE17, productionE50, productionE4, productionE10, productionE49, productionE13, productionE18;
+    JFXTextField productionP3, productionE26, productionE31, productionE9, productionE16, productionE17, productionE30, productionE6, productionE12, productionE29, productionE15, productionE20;
 
 
     @Override
@@ -44,76 +44,83 @@ public class MenBikeController extends BaseProductionTabController {
     @Override
     public void init(ProductionController productionOrderController) {
         super.init(productionOrderController);
+        initUIThingsRandom();
     }
 
     public void initUIThingsRandom() {
         try {
-            orderP1.setText(getForeCastInformationProductLine("p1n"));
-            stockP1.setText(String.valueOf(getStockValue("1")));
-            safetyP1.setText(String.valueOf(getXmlInputData().getWareHouseArticles().get("1").getReserve()));
-            queueP1.setText(String.valueOf(getQueueValue("1")));
-            processP1.setText(String.valueOf(getProcessValue("1")));
+            orderP3.setText(getForeCastInformationProductLine("p3n"));
+            stockP3.setText(String.valueOf(getStockValue("3")));
+            safetyP3.setText(String.valueOf(getXmlInputData().getWareHouseArticles().get("3").getReserve()));
+            queueP3.setText(String.valueOf(getQueueValue("3")));
+            processP3.setText(String.valueOf(getProcessValue("3")));
 
 
-            orderE26.setText(getForeCastInformationProductLine("p1n"));
+            orderE26.setText(getForeCastInformationProductLine("p3n"));
             stockE26.setText(String.valueOf(getStockValue("26")));
             safetyE26.setText(String.valueOf(getXmlInputData().getWareHouseArticles().get("26").getReserve()));
             queueE26.setText(String.valueOf(getQueueValue("26")));
             processE26.setText(String.valueOf(getProcessValue("26")));
 
-            orderE51.setText(getForeCastInformationProductLine("p1n"));
-            stockE51.setText(String.valueOf(getStockValue("51")));
-            safetyE51.setText(String.valueOf(getXmlInputData().getWareHouseArticles().get("51").getReserve()));
-            queueE51.setText(String.valueOf(getQueueValue("51")));
-            processE51.setText(String.valueOf(getProcessValue("51")));
+            orderE31.setText(getForeCastInformationProductLine("p3n"));
+            stockE31.setText(String.valueOf(getStockValue("31")));
+            safetyE31.setText(String.valueOf(getXmlInputData().getWareHouseArticles().get("31").getReserve()));
+            queueE31.setText(String.valueOf(getQueueValue("31")));
+            processE31.setText(String.valueOf(getProcessValue("31")));
 
-            orderE16.setText(getForeCastInformationProductLine("p1n"));
+            orderE16.setText(getForeCastInformationProductLine("p3n"));
             stockE16.setText(String.valueOf(getStockValue("16")));
             safetyE16.setText(String.valueOf(getXmlInputData().getWareHouseArticles().get("16").getReserve()));
             queueE16.setText(String.valueOf(getQueueValue("16")));
             processE16.setText(String.valueOf(getProcessValue("16")));
 
-            orderE17.setText(getForeCastInformationProductLine("p1n"));
+            orderE17.setText(getForeCastInformationProductLine("p3n"));
             stockE17.setText(String.valueOf(getStockValue("17")));
             safetyE17.setText(String.valueOf(getXmlInputData().getWareHouseArticles().get("17").getReserve()));
             queueE17.setText(String.valueOf(getQueueValue("17")));
             processE17.setText(String.valueOf(getProcessValue("17")));
 
-            orderE4.setText(getForeCastInformationProductLine("p1n"));
-            stockE4.setText(String.valueOf(getStockValue("4")));
-            safetyE4.setText(String.valueOf(getXmlInputData().getWareHouseArticles().get("4").getReserve()));
-            queueE4.setText(String.valueOf(getQueueValue("4")));
-            processE4.setText(String.valueOf(getProcessValue("4")));
+            orderE30.setText(getForeCastInformationProductLine("p3n"));
+            stockE30.setText(String.valueOf(getStockValue("30")));
+            safetyE30.setText(String.valueOf(getXmlInputData().getWareHouseArticles().get("30").getReserve()));
+            queueE30.setText(String.valueOf(getQueueValue("30")));
+            processE30.setText(String.valueOf(getProcessValue("30")));
 
-            orderE10.setText(getForeCastInformationProductLine("p1n"));
-            stockE10.setText(String.valueOf(getStockValue("10")));
-            safetyE10.setText(String.valueOf(getXmlInputData().getWareHouseArticles().get("10").getReserve()));
-            queueE10.setText(String.valueOf(getQueueValue("10")));
-            processE10.setText(String.valueOf(getProcessValue("10")));
+            orderE6.setText(getForeCastInformationProductLine("p3n"));
+            stockE6.setText(String.valueOf(getStockValue("6")));
+            safetyE6.setText(String.valueOf(getXmlInputData().getWareHouseArticles().get("6").getReserve()));
+            queueE6.setText(String.valueOf(getQueueValue("6")));
+            processE6.setText(String.valueOf(getProcessValue("6")));
 
-            orderE49.setText(getForeCastInformationProductLine("p1n"));
-            stockE49.setText(String.valueOf(getStockValue("49")));
-            safetyE49.setText(String.valueOf(getXmlInputData().getWareHouseArticles().get("49").getReserve()));
-            queueE49.setText(String.valueOf(getQueueValue("49")));
-            processE49.setText(String.valueOf(getProcessValue("94")));
+            orderE12.setText(getForeCastInformationProductLine("p3n"));
+            stockE12.setText(String.valueOf(getStockValue("12")));
+            safetyE12.setText(String.valueOf(getXmlInputData().getWareHouseArticles().get("12").getReserve()));
+            queueE12.setText(String.valueOf(getQueueValue("12")));
+            processE12.setText(String.valueOf(getProcessValue("12")));
 
-            orderE7.setText(getForeCastInformationProductLine("p1n"));
-            stockE7.setText(String.valueOf(getStockValue("7")));
-            safetyE7.setText(String.valueOf(getXmlInputData().getWareHouseArticles().get("7").getReserve()));
-            queueE7.setText(String.valueOf(getQueueValue("7")));
-            processE7.setText(String.valueOf(getProcessValue("7")));
+            orderE29.setText(getForeCastInformationProductLine("p3n"));
+            stockE29.setText(String.valueOf(getStockValue("29")));
+            safetyE29.setText(String.valueOf(getXmlInputData().getWareHouseArticles().get("29").getReserve()));
+            queueE29.setText(String.valueOf(getQueueValue("29")));
+            processE29.setText(String.valueOf(getProcessValue("29")));
 
-            orderE13.setText(getForeCastInformationProductLine("p1n"));
-            stockE13.setText(String.valueOf(getStockValue("13")));
-            safetyE13.setText(String.valueOf(getXmlInputData().getWareHouseArticles().get("13").getReserve()));
-            queueE13.setText(String.valueOf(getQueueValue("13")));
-            processE13.setText(String.valueOf(getProcessValue("13")));
+            orderE9.setText(getForeCastInformationProductLine("p3n"));
+            stockE9.setText(String.valueOf(getStockValue("9")));
+            safetyE9.setText(String.valueOf(getXmlInputData().getWareHouseArticles().get("9").getReserve()));
+            queueE9.setText(String.valueOf(getQueueValue("9")));
+            processE9.setText(String.valueOf(getProcessValue("9")));
 
-            orderE18.setText(getForeCastInformationProductLine("p1n"));
-            stockE18.setText(String.valueOf(getStockValue("18")));
-            safetyE18.setText(String.valueOf(getXmlInputData().getWareHouseArticles().get("18").getReserve()));
-            queueE18.setText(String.valueOf(getQueueValue("18")));
-            processE18.setText(String.valueOf(getProcessValue("18")));
+            orderE15.setText(getForeCastInformationProductLine("p3n"));
+            stockE15.setText(String.valueOf(getStockValue("15")));
+            safetyE15.setText(String.valueOf(getXmlInputData().getWareHouseArticles().get("15").getReserve()));
+            queueE15.setText(String.valueOf(getQueueValue("15")));
+            processE15.setText(String.valueOf(getProcessValue("15")));
+
+            orderE20.setText(getForeCastInformationProductLine("p3n"));
+            stockE20.setText(String.valueOf(getStockValue("20")));
+            safetyE20.setText(String.valueOf(getXmlInputData().getWareHouseArticles().get("20").getReserve()));
+            queueE20.setText(String.valueOf(getQueueValue("20")));
+            processE20.setText(String.valueOf(getProcessValue("20")));
 
         } catch (Exception e) {
             logger.error(e);

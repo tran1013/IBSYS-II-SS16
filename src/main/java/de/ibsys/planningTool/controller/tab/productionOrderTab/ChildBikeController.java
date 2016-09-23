@@ -1,12 +1,11 @@
 package de.ibsys.planningTool.controller.tab.productionOrderTab;
 
 import com.jfoenix.controls.JFXTextField;
+
 import de.ibsys.planningTool.controller.tab.ProductionController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
-
-import java.util.Random;
 
 /**
  * Child View
@@ -80,6 +79,12 @@ public class ChildBikeController extends BaseProductionTabController {
             safetyE17.setText(String.valueOf(getXmlInputData().getWareHouseArticles().get("17").getReserve()));
             queueE17.setText(String.valueOf(getQueueValue("17")));
             processE17.setText(String.valueOf(getProcessValue("17")));
+
+            orderE50.setText(getForeCastInformationProductLine("p1n"));
+            stockE50.setText(String.valueOf(getStockValue("50")));
+            safetyE50.setText(String.valueOf(getXmlInputData().getWareHouseArticles().get("50").getReserve()));
+            queueE50.setText(String.valueOf(getQueueValue("50")));
+            processE50.setText(String.valueOf(getProcessValue("50")));
 
             orderE4.setText(getForeCastInformationProductLine("p1n"));
             stockE4.setText(String.valueOf(getStockValue("4")));

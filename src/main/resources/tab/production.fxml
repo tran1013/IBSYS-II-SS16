@@ -23,7 +23,7 @@
                 <fx:include fx:id="womenBike" source="tab/womenBike.fxml"/>
             </content>
         </Tab>
-        <Tab text="ChildBike">
+        <Tab text="Men Bike">
             <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0"/>
                 <fx:include fx:id="menBike" source="tab/menBike.fxml"/>
