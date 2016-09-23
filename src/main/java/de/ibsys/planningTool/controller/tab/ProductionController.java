@@ -2,6 +2,8 @@ package de.ibsys.planningTool.controller.tab;
 
 import de.ibsys.planningTool.controller.MainController;
 import de.ibsys.planningTool.controller.tab.productionOrderTab.ChildBikeController;
+import de.ibsys.planningTool.controller.tab.productionOrderTab.MenBikeController;
+import de.ibsys.planningTool.controller.tab.productionOrderTab.WomenBikeController;
 import javafx.fxml.FXML;
 import javafx.stage.Stage;
 
@@ -17,6 +19,12 @@ public class ProductionController extends BaseTabController {
     @FXML
     ChildBikeController childBikeController;
 
+    @FXML
+    MenBikeController menBikeController;
+
+    @FXML
+    WomenBikeController womenBikeController;
+
     @Override
     public void start(Stage primaryStage) throws Exception {
 
@@ -27,6 +35,8 @@ public class ProductionController extends BaseTabController {
         super.init(main);
         mainController = main;
         childBikeController.init(this);
+        menBikeController.init(this);
+        womenBikeController.init(this);
     }
 
     public MainController getMainController() {

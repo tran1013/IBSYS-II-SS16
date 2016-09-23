@@ -70,6 +70,7 @@ public class ForeCastController extends BaseTabController {
                         storeData();
                     }
                     main.exportButton.setVisible(true);
+                    main.initWorkThings();
                 } else {
                     DialogMessages.ErrorDialog(getI18NText(I18N.FORECAST_INPUT_ERROR));
                 }

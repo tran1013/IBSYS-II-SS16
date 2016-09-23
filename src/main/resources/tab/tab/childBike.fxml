@@ -42,6 +42,23 @@
                 <JFXTextField fx:id="queueE51" disable="true" editable="false" focusTraversable="false" layoutX="539.0" layoutY="59.0" maxWidth="75.0" minWidth="75.0" prefHeight="33.0" prefWidth="75.0" />
                 <JFXTextField fx:id="processE51" disable="true" editable="false" focusTraversable="false" layoutX="710.0" layoutY="59.0" maxWidth="75.0" minWidth="75.0" prefHeight="33.0" prefWidth="75.0" />
                 <JFXTextField fx:id="productionE51" disable="true" editable="false" focusTraversable="false" layoutX="887.0" layoutY="59.0" maxWidth="75.0" minWidth="75.0" prefHeight="33.0" prefWidth="75.0" />
+                <Label layoutX="189.0" layoutY="17.0" text="+" />
+                <Label layoutX="365.0" layoutY="17.0" text="-" />
+                <Label layoutX="145.0" layoutY="43.0" text="+" />
+                <Label layoutX="245.0" layoutY="43.0" text="+" />
+                <Label layoutX="145.0" layoutY="67.0" text="+" />
+                <Label layoutX="245.0" layoutY="67.0" text="+" />
+                <Label layoutX="365.0" layoutY="43.0" text="-" />
+                <Label layoutX="365.0" layoutY="70.0" text="-" />
+                <Label layoutX="500.0" layoutY="70.0" text="-" />
+                <Label layoutX="500.0" layoutY="43.0" text="-" />
+                <Label layoutX="500.0" layoutY="17.0" text="-" />
+                <Label layoutX="656.0" layoutY="15.0" text="-" />
+                <Label layoutX="656.0" layoutY="41.0" text="-" />
+                <Label layoutX="656.0" layoutY="68.0" text="-" />
+                <Label layoutX="837.0" layoutY="70.0" text="=" />
+                <Label layoutX="837.0" layoutY="43.0" text="=" />
+                <Label layoutX="837.0" layoutY="17.0" text="=" />
             </children>
         </Pane>
         <Pane layoutX="10.0" layoutY="150.0" prefHeight="103.0" prefWidth="1078.0">
@@ -70,6 +87,24 @@
                 <JFXTextField fx:id="queueE50" disable="true" editable="false" focusTraversable="false" layoutX="539.0" layoutY="59.0" maxWidth="75.0" minWidth="75.0" prefHeight="33.0" prefWidth="75.0" />
                 <JFXTextField fx:id="processE50" disable="true" editable="false" focusTraversable="false" layoutX="710.0" layoutY="59.0" maxWidth="75.0" minWidth="75.0" prefHeight="33.0" prefWidth="75.0" />
                 <JFXTextField fx:id="productionE50" disable="true" editable="false" focusTraversable="false" layoutX="887.0" layoutY="59.0" maxWidth="75.0" minWidth="75.0" prefHeight="33.0" prefWidth="75.0" />
+            <Label layoutX="835.0" layoutY="18.0" text="=" />
+            <Label layoutX="835.0" layoutY="44.0" text="=" />
+            <Label layoutX="835.0" layoutY="71.0" text="=" />
+            <Label layoutX="654.0" layoutY="69.0" text="-" />
+            <Label layoutX="654.0" layoutY="42.0" text="-" />
+            <Label layoutX="654.0" layoutY="16.0" text="-" />
+            <Label layoutX="498.0" layoutY="18.0" text="-" />
+            <Label layoutX="498.0" layoutY="44.0" text="-" />
+            <Label layoutX="498.0" layoutY="71.0" text="-" />
+            <Label layoutX="363.0" layoutY="71.0" text="-" />
+            <Label layoutX="363.0" layoutY="44.0" text="-" />
+            <Label layoutX="243.0" layoutY="68.0" text="+" />
+            <Label layoutX="143.0" layoutY="68.0" text="+" />
+            <Label layoutX="243.0" layoutY="44.0" text="+" />
+            <Label layoutX="143.0" layoutY="44.0" text="+" />
+            <Label layoutX="363.0" layoutY="18.0" text="-" />
+            <Label layoutX="143.0" layoutY="18.0" text="+" />
+            <Label layoutX="243.0" layoutY="18.0" text="+" />
             </children>
         </Pane>
         <Pane layoutX="10.0" layoutY="253.0" prefHeight="103.0" prefWidth="1078.0">
@@ -98,6 +133,24 @@
                 <JFXTextField fx:id="queueE49" disable="true" editable="false" focusTraversable="false" layoutX="539.0" layoutY="59.0" maxWidth="75.0" minWidth="75.0" prefHeight="33.0" prefWidth="75.0" />
                 <JFXTextField fx:id="processE49" disable="true" editable="false" focusTraversable="false" layoutX="710.0" layoutY="59.0" maxWidth="75.0" minWidth="75.0" prefHeight="33.0" prefWidth="75.0" />
                 <JFXTextField fx:id="productionE49" disable="true" editable="false" focusTraversable="false" layoutX="887.0" layoutY="59.0" maxWidth="75.0" minWidth="75.0" prefHeight="33.0" prefWidth="75.0" />
+            <Label layoutX="243.0" layoutY="16.0" text="+" />
+            <Label layoutX="143.0" layoutY="16.0" text="+" />
+            <Label layoutX="363.0" layoutY="16.0" text="-" />
+            <Label layoutX="143.0" layoutY="42.0" text="+" />
+            <Label layoutX="243.0" layoutY="42.0" text="+" />
+            <Label layoutX="143.0" layoutY="66.0" text="+" />
+            <Label layoutX="243.0" layoutY="66.0" text="+" />
+            <Label layoutX="363.0" layoutY="42.0" text="-" />
+            <Label layoutX="363.0" layoutY="69.0" text="-" />
+            <Label layoutX="498.0" layoutY="69.0" text="-" />
+            <Label layoutX="498.0" layoutY="42.0" text="-" />
+            <Label layoutX="498.0" layoutY="16.0" text="-" />
+            <Label layoutX="654.0" layoutY="14.0" text="-" />
+            <Label layoutX="654.0" layoutY="40.0" text="-" />
+            <Label layoutX="654.0" layoutY="67.0" text="-" />
+            <Label layoutX="835.0" layoutY="69.0" text="=" />
+            <Label layoutX="835.0" layoutY="42.0" text="=" />
+            <Label layoutX="835.0" layoutY="16.0" text="=" />
             </children>
         </Pane>
         <Pane layoutX="13.0" layoutY="350.0" prefHeight="103.0" prefWidth="1078.0">
@@ -126,8 +179,25 @@
                 <JFXTextField fx:id="queueE18" disable="true" editable="false" focusTraversable="false" layoutX="539.0" layoutY="59.0" maxWidth="75.0" minWidth="75.0" prefHeight="33.0" prefWidth="75.0" />
                 <JFXTextField fx:id="processE18" disable="true" editable="false" focusTraversable="false" layoutX="710.0" layoutY="59.0" maxWidth="75.0" minWidth="75.0" prefHeight="33.0" prefWidth="75.0" />
                 <JFXTextField fx:id="productionE18" disable="true" editable="false" focusTraversable="false" layoutX="887.0" layoutY="59.0" maxWidth="75.0" minWidth="75.0" prefHeight="33.0" prefWidth="75.0" />
+            <Label layoutX="836.0" layoutY="19.0" text="=" />
+            <Label layoutX="836.0" layoutY="45.0" text="=" />
+            <Label layoutX="836.0" layoutY="72.0" text="=" />
+            <Label layoutX="655.0" layoutY="70.0" text="-" />
+            <Label layoutX="655.0" layoutY="43.0" text="-" />
+            <Label layoutX="655.0" layoutY="17.0" text="-" />
+            <Label layoutX="499.0" layoutY="19.0" text="-" />
+            <Label layoutX="499.0" layoutY="45.0" text="-" />
+            <Label layoutX="499.0" layoutY="72.0" text="-" />
+            <Label layoutX="364.0" layoutY="72.0" text="-" />
+            <Label layoutX="364.0" layoutY="45.0" text="-" />
+            <Label layoutX="244.0" layoutY="69.0" text="+" />
+            <Label layoutX="144.0" layoutY="69.0" text="+" />
+            <Label layoutX="244.0" layoutY="45.0" text="+" />
+            <Label layoutX="144.0" layoutY="45.0" text="+" />
+            <Label layoutX="364.0" layoutY="19.0" text="-" />
+            <Label layoutX="144.0" layoutY="19.0" text="+" />
+            <Label layoutX="244.0" layoutY="19.0" text="+" />
             </children>
         </Pane>
-      <JFXButton layoutX="386.0" layoutY="453.0" onAction="#doShit" text="DO SHIT" />
     </children>
 </AnchorPane>

@@ -112,7 +112,6 @@ public class MainController extends BaseTabController {
 		capPlaController.init(this);
         productionPriorityController.init(this);
 		orderController.init(this);
-		productionController.init(this);
 
 		xmlInputData = null;
 		sellWish = new ArrayList<>();
@@ -129,6 +128,10 @@ public class MainController extends BaseTabController {
 
         mainTabPane.getStyleClass().add("jfx-tab-pane");
         new DialogMessages().setMainController(this);
+	}
+
+	public void initWorkThings() {
+		productionController.init(this);
 	}
 
 	public XmlInputData getXmlInputData() {
