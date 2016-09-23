@@ -2,7 +2,6 @@ package de.ibsys.planningTool.controller.tab.productionOrderTab;
 
 import com.jfoenix.controls.JFXTextField;
 import de.ibsys.planningTool.controller.tab.ProductionController;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
@@ -10,6 +9,7 @@ import javafx.stage.Stage;
 import java.util.Random;
 
 /**
+ * Child View
  * Created by minhnguyen on 22.09.16.
  */
 public class ChildBikeController extends BaseProductionTabController {
@@ -49,20 +49,46 @@ public class ChildBikeController extends BaseProductionTabController {
     }
 
     public void initUIThingsRandom() {
-        orderP1.setText(String.valueOf(new Random().nextInt(500)));
-        safetyP1.setText(String.valueOf(new Random().nextInt(500)));
-        stockP1.setText(String.valueOf(new Random().nextInt(500)));
-        queueP1.setText(String.valueOf(new Random().nextInt(500)));
-        processP1.setText(String.valueOf(new Random().nextInt(500)));
-        productionP1.setText(String.valueOf(new Random().nextInt(500)));
+        try {
+            orderP1.setText(getForeCastInformationProductLine("p1n"));
+            stockP1.setText(String.valueOf(getStockValue("1")));
+            safetyP1.setText(String.valueOf(getXmlInputData().getWareHouseArticles().get("1").getReserve()));
+            queueP1.setText(String.valueOf(getQueueValue("1")));
+            processP1.setText(String.valueOf(getProcessValue("1")));
+
+
+            orderE26.setText(getForeCastInformationProductLine("p1n"));
+            stockE26.setText(String.valueOf(getStockValue("26")));
+            safetyE26.setText(String.valueOf(getXmlInputData().getWareHouseArticles().get("26").getReserve()));
+            queueE26.setText(String.valueOf(getQueueValue("26")));
+            processE26.setText(String.valueOf(getProcessValue("26")));
+
+            productionP1.setText("Generated value");
+        } catch (Exception e) {
+            logger.error(e);
+            e.printStackTrace();
+        }
     }
 
     public void doShit() {
         try {
             orderP1.setText(getForeCastInformationProductLine("p1n"));
-            stockE18.setText(String.valueOf(productionOrderController.getMainController().getXmlInputData().getWareHouseArticles().get("18").getAmount()));
+            stockP1.setText(String.valueOf(getStockValue("1")));
+            safetyP1.setText(String.valueOf(getXmlInputData().getWareHouseArticles().get("1").getReserve()));
+            queueP1.setText(String.valueOf(getQueueValue("1")));
+            processP1.setText(String.valueOf(getProcessValue("1")));
+
+
+            orderE26.setText(getForeCastInformationProductLine("p1n"));
+            stockE26.setText(String.valueOf(getStockValue("26")));
+            safetyE26.setText(String.valueOf(getXmlInputData().getWareHouseArticles().get("26").getReserve()));
+            queueE26.setText(String.valueOf(getQueueValue("26")));
+            processE26.setText(String.valueOf(getProcessValue("26")));
+
+            productionP1.setText("Generated value");
         } catch (Exception e) {
             logger.error(e);
+            e.printStackTrace();
         }
     }
 }
