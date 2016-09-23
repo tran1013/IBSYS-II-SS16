@@ -59,9 +59,10 @@ public class I18N {
 	public static final String QUANTITYL = "QUANTITYL";
 	public static final String STOCKL = "STOCKL";
 	public static final String AVGL = "AVGL";
-	public static final String ALERT_TITLE_ERROR_NOT_SELECTED = "ALERT_TITLE_ERROR_NOT_SELECTED";
-	public static final String ALERT_HEAD_NO_ORDER_SELECTED = "ALERT_HEAD_NO_ORDER_SELECTED";
-	public static final String ALERT_TEXT_NO_ORDER_SELECTED = "ALERT_TEXT_NO_ORDER_SELECTED";
+	public static final String ALERT_TITLE_ERROR_NEW_ORDER = "ALERT_TITLE_ERROR_NEW_ORDER";
+	public static final String ALERT_HEAD_NEW_ORDER = "ALERT_HEAD_NEW_ORDER";
+	public static final String ALERT_TEXT_NEW_ORDER = "ALERT_TEXT_NEW_ORDER";
+	public static final String DIALOG_ERROR_MINUS_INTEGER = "DIALOG_ERROR_MINUS_INTEGER";
 
 	public static ResourceBundle translation(String language, String country) {
 		Locale currentLocale;

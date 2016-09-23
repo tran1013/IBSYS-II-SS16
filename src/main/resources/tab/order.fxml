@@ -13,6 +13,7 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="570.0" prefWidth="1079.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.ibsys.planningTool.controller.tab.OrderController">
     <children>
@@ -20,11 +21,12 @@
             <items>
                 <AnchorPane prefHeight="600.0" prefWidth="500.0">
                     <children>
-                        <TableView fx:id="orderTableView" prefHeight="537.0" prefWidth="483.0" AnchorPane.bottomAnchor="-2.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <TableView fx:id="orderTableView" editable="true" prefHeight="537.0" prefWidth="483.0" AnchorPane.bottomAnchor="-2.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <columns>
                                 <TableColumn fx:id="nrColumn" prefWidth="119.0" text="Nr." />
                                 <TableColumn fx:id="quantityColumn" prefWidth="128.0" text="Bestellmenge" />
-                                <TableColumn fx:id="optionColumn" minWidth="0.0" prefWidth="141.0" text="Lieferoption" />
+                        <TableColumn fx:id="checkBoxOptionColumn" prefWidth="75.0" text="Expresslieferung" >
+                                </TableColumn>
                             </columns>
                             <columnResizePolicy>
                                 <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -52,7 +54,7 @@
                                 <Label fx:id="quantityLabel" text="Bestellmenge" GridPane.rowIndex="1" />
                                 <Label fx:id="optionLabel" text="Lieferoption" GridPane.rowIndex="2" />
                                 <Label fx:id="stockLabel" text="Lagerbestand" GridPane.rowIndex="3" />
-                                <Label fx:id="avgLabel" text="durchschnittlicher Verbrauch" GridPane.rowIndex="4" />
+                                <Label fx:id="avgLabel" text="Bestellkosten" GridPane.rowIndex="4" />
                                 <Label fx:id="discontLabel" text="Diskontmenge" GridPane.rowIndex="5" />
                                 <Label fx:id="stockL" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                                 <Label fx:id="avgL" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="4" />
