@@ -27,8 +27,8 @@ public class Constants {
     //WAITINGLIST
 
     //DELIVER OPTION
-    public static final int FAST_DELIVERY = 5;
-    public static final int NORMAL_DELIVERY = 4;
+    public static final int FAST_DELIVERY = 4;
+    public static final int NORMAL_DELIVERY = 5;
 
     //ORDER
     public  static final double REPLACEMENT_TIME = 1.0;

@@ -31,7 +31,6 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
 import javafx.fxml.FXML;
 import javafx.util.Callback;
-import javafx.util.converter.IntegerStringConverter;
 
 import java.sql.SQLException;
 import java.util.*;
@@ -42,7 +41,6 @@ import java.util.regex.Pattern;
 import static de.ibsys.planningTool.model.Constants.FAST_DELIVERY;
 import static de.ibsys.planningTool.model.Constants.NORMAL_DELIVERY;
 import static de.ibsys.planningTool.model.Constants.REPLACEMENT_TIME;
-import static javafx.scene.control.cell.TextFieldTableCell.forTableColumn;
 
 /**
  * Created by Che on 18.08.2016.
@@ -110,8 +108,9 @@ public class OrderController extends BaseTabController{
     OrderDB orderDB = new OrderDB();
     MockProductionResult mockProductionResult = new MockProductionResult();
 
+
     private List<OrderResult> orderResults = new ArrayList<>();
-    private ObservableList<OrderResult> results = FXCollections.observableArrayList();
+    public ObservableList<OrderResult> results = FXCollections.observableArrayList();
     /*
         public class CheckBoxCellFactory implements Callback {
             @Override
@@ -292,14 +291,8 @@ public class OrderController extends BaseTabController{
 
         nrColumn.setCellValueFactory(new PropertyValueFactory<>("itemConfigId"));
         quantityColumn.setCellValueFactory(new PropertyValueFactory<>("quantity"));
-        //optionColumn.setCellValueFactory(new PropertyValueFactory<>("orderingMode"));
-        //checkBoxOptionColumn.setCellFactory(new CheckBoxTableCell<OrderResult, Boolean>.forTableColumn(checkBoxOptionColumn));
-
         checkBoxOptionColumn.setCellValueFactory(new PropertyValueFactory<OrderResult, Boolean>("deliveryMode"));
 
-        //checkBoxOptionColumn.setCellFactory(param -> new CheckBoxTableCell<OrderResult, Boolean>());
-        //checkBoxOptionColumn.setCellValueFactory(new PropertyValueFactory<OrderResult, Boolean>("deliveryMode"));
-        //checkBoxOptionColumn.setCellFactory(new CheckBoxTableCell<OrderResult, Boolean>.forTableColumn(checkBoxOptionColumn));
         /*
         checkBoxOptionColumn.setCellValueFactory(
                 new Callback<TableColumn.CellDataFeatures<OrderResult, Boolean>, ObservableValue<Boolean>>() {
@@ -341,6 +334,8 @@ public class OrderController extends BaseTabController{
             }
         });
 
+        getFutureInComingOrderAmount("K21");
+        getFutureInComingOrderAmount("K25");
 
         orderTableView.setRowFactory(new Callback<TableView<OrderResult>, TableRow<OrderResult>>() {
             @Override
@@ -399,18 +394,16 @@ public class OrderController extends BaseTabController{
     }
 
 
-
-
     @FXML
     void handleDeleteOrder(ActionEvent event) {
-
+        /*
         for(OrderResult or : results) {
             System.out.println("VOR LÖSCHEN RESULT "+or.getItemConfigId() + " " + or.getQuantity() + " " + or.isDeliveryMode());
         }
         for(OrderResult order : orderResults) {
             System.out.println("VOR LÖSCHEN ORDERRESULT "+order.getItemConfigId() + " " + order.getQuantity() + " " + order.isDeliveryMode() );
         }
-
+        */
         // Get selected row and delete
         int ix = orderTableView.getSelectionModel().getSelectedIndex();
         OrderResult oneOrder = (OrderResult) orderTableView.getSelectionModel().getSelectedItem();
@@ -421,7 +414,7 @@ public class OrderController extends BaseTabController{
         //oneOrder.setOrderingMode(0);
         oneOrder.setDeliveryMode(false);
 
-        System.out.println("ID "+itemConfigId);
+        //System.out.println("ID "+itemConfigId);
 
         for(OrderResult order : orderResults) {
             if(order.getItemConfigId().equals(itemConfigId)) {
@@ -434,7 +427,7 @@ public class OrderController extends BaseTabController{
         storeData();
 
         //System.out.println(orderResults.get(ix).getItemConfigId() + " " + orderResults.get(ix).getQuantity());
-
+        /*
         for(OrderResult or : results) {
 
             System.out.println("Nach Löschen RESULT "+or.getItemConfigId() + " " + or.getQuantity() + " " + or.isDeliveryMode() );
@@ -450,51 +443,24 @@ public class OrderController extends BaseTabController{
             System.out.println("No data in table !");
             return;
         }
+        */
         if (ix != 0) {
 
             ix = ix -1;
         }
+
         orderTableView.requestFocus();
         orderTableView.getSelectionModel().select(ix);
         orderTableView.getFocusModel().focus(ix);
     }
-    /*
-    //maybe updateData for xml input ??
-    @FXML
-    public void handleDeleteOrder() {
-        int selectedIndex = orderTableView.getSelectionModel().getSelectedIndex();
-        if (selectedIndex >= 0) {
-            orderTableView.getItems().remove(selectedIndex);
-            System.out.println("INDEX "+selectedIndex);
-            //Delete selected Item from orderResults
-            //OrderResult order = (OrderResult) orderTableView.getSelectionModel().getSelectedItem();
-            orderResults.remove(selectedIndex);
-            //results.remove(selectedIndex);
-            orderTableView.setItems(results);
-
-            for(OrderResult orderResult : orderResults) {
-                System.out.println(orderResult.getItemConfigId() +  " " + orderResult.getQuantity());
-            }
-
-        } else {
-
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle(getI18NText(I18N.ALERT_TITLE_ERROR_NOT_SELECTED));
-            alert.setHeaderText(getI18NText(I18N.ALERT_HEAD_NO_ORDER_SELECTED));
-            alert.setContentText(getI18NText(I18N.ALERT_TEXT_NO_ORDER_SELECTED));
-
-            alert.showAndWait();
-        }
-    }
-    */
 
     @FXML
     public void handleNewOrder() {
 
         ChoiceDialog<String> dialog = new ChoiceDialog<>("-", setCombobox());
-        dialog.setTitle("New Order");
-        dialog.setHeaderText("New Order");
-        dialog.setContentText("Choose your item:");
+        dialog.setTitle(main.getTranslation().getString(I18N.ALERT_TITLE_ERROR_NEW_ORDER));
+        dialog.setHeaderText(main.getTranslation().getString(I18N.ALERT_HEAD_NEW_ORDER));
+        dialog.setContentText(main.getTranslation().getString(I18N.ALERT_TEXT_NEW_ORDER));
 
         Optional<String> result = dialog.showAndWait();
 
@@ -502,7 +468,7 @@ public class OrderController extends BaseTabController{
         String itemConfigId = "";
 
         if (result.isPresent()){
-            System.out.println("Your choice: " + result.get());
+            //System.out.println("Your choice: " + result.get());
             itemConfigId = result.get();
 
             for(OrderResult order : orderResults) {
@@ -515,10 +481,10 @@ public class OrderController extends BaseTabController{
         }
         else {
             //   DialogMessages.ErrorDialog("Keine Auswahl!");
-        }
+        } /*
         for(OrderResult orderResult : orderResults) {
             System.out.println(orderResult.getItemConfigId() + " " + orderResult.getQuantity() +  " " + orderResult.isDeliveryMode());
-        }
+        } */
         //refresh results
         orderTableView.setItems(results);
         storeData();
@@ -566,8 +532,62 @@ public class OrderController extends BaseTabController{
         return stock;
     }
 
+    public double calculateStockRange(List<Map<String, Integer>> kUsageList, TermsOfSaleData terms) {
+        double stockRange = 0.0;
+        String itemConfigId = terms.getItemConfigId();
+
+        double avg = orderService.calculateAverage(kUsageList, terms.getItemConfigId());
+        double stock = main.getXmlInputData().getWareHouseArticles().get(itemConfigId).getAmount() + getFutureInComingOrderAmount(itemConfigId);
+
+        stockRange = Math.round(stock/avg);
+        //System.out.println("STOCKRANGE" + stockRange);
+
+        return stockRange;
+
+    }
+
+    public int getFutureInComingOrderAmount(String itemConfigId) {
+        int incomingAmount = 0;
+        Map<String, FutureInComingOrder> futureInComingOrderMap = main.getXmlInputData().getFutureInComingOrderMap();
+        if(futureInComingOrderMap == null ||futureInComingOrderMap.isEmpty()) {
+            return 0;
+        }
+        else {
+            for(Map.Entry<String, FutureInComingOrder> entry : futureInComingOrderMap.entrySet()) {
+                if(entry.getKey().equals(itemConfigId.substring(1))) {
+                    int period = main.getXmlInputData().getPeriod();
+                    int orderPeriod = entry.getValue().getOrderPeriode();
+                    incomingAmount += entry.getValue().getAmount();
+                    double variance = 0.0;
+                    double time = 0.0;
+                    for(OrderResult order : results) {
+                        if(order.getItemConfigId().equals(itemConfigId.substring(1))) {
+                            variance = order.getVariance();
+                            time = order.getDeliveryTime();
+                        }
+                    }
+                    if(entry.getValue().getOrderPeriode() == 5) {
+                        if(period >= orderPeriod+time) {
+                            incomingAmount += entry.getValue().getAmount();
+                        }
+                    }
+                    else {
+                        if(period >= orderPeriod+(time/2)) {
+                            incomingAmount += entry.getValue().getAmount();
+                        }
+                    }
+                    /*
+                    System.out.println(incomingAmount + " " + entry.getValue().getArticleId() + " " + entry.getValue().getOrderPeriode()
+                            + " " + entry.getValue().getMode() );
+                    */
+                }
+            }
+            return incomingAmount;
+        }
+    }
+
     //TODO Store Data for xml export
-    private void storeData() {
+    public void storeData() {
         //List<OrderResult> orderResults;
         List<Order> orderList = new ArrayList<>();
         String itemConfigId = "";
@@ -586,7 +606,7 @@ public class OrderController extends BaseTabController{
         main.setOrderList(orderList);
     }
 
-    private void synchroResults() {
+    public void synchroResults() {
         for(OrderResult result : results) {
             for(OrderResult order : orderResults) {
                 if(result.getItemConfigId().equals(order.getItemConfigId())) {
@@ -606,7 +626,6 @@ public class OrderController extends BaseTabController{
         discontLabel.setText(main.getTranslation().getString(I18N.DISCONTLABEL));
         nrColumn.setText(main.getTranslation().getString(I18N.NRCOLUMN));
         quantityColumn.setText(main.getTranslation().getString(I18N.QUANTITYLABEL));
-        //optionColumn.setText(main.getTranslation().getString(I18N.OPTIONLABEL));
         newBtn.setText(main.getTranslation().getString(I18N.NEWBTN));
         changeBtn.setText(main.getTranslation().getString(I18N.CHANGEBTN));
         deleteBtn.setText(main.getTranslation().getString(I18N.DELETEBTN));
@@ -637,7 +656,7 @@ public class OrderController extends BaseTabController{
                 double orderpoint = avg * (term.getDeliveryTime() + term.getVariance() + REPLACEMENT_TIME);
 
                 String itemConfigSub = itemConfigId.substring(1);
-                double stock = main.getXmlInputData().getWareHouseArticles().get(itemConfigSub).getAmount();
+                double stock = main.getXmlInputData().getWareHouseArticles().get(itemConfigSub).getAmount() + getFutureInComingOrderAmount(itemConfigId);
 
                 double stockRange = Math.round(stock/avg);
                 if(stock <= orderpoint) {
@@ -678,11 +697,11 @@ public class OrderController extends BaseTabController{
             System.out.println("Q "+res.getQuantity());
             System.out.println("MODE "+res.getOrderingMode());
         }
-        */
+
         for(OrderResult order : orderResults) {
             System.out.println(order.getItemConfigId()+" "  + order.isDeliveryMode() + "" );
         }
-
+    */
         return orderResults;
     }
 
@@ -762,7 +781,6 @@ public class OrderController extends BaseTabController{
         private final CheckBox checkbox = new CheckBox();
 
         private  BooleanCheckBoxCell() {
-            checkBoxOptionColumn.setCellValueFactory(new PropertyValueFactory<OrderResult, Boolean>("deliveryMode"));
         }
 
         @Override
@@ -805,5 +823,4 @@ public class OrderController extends BaseTabController{
         }
 
     }
-
 }

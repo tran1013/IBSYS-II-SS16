@@ -9,7 +9,7 @@ import de.ibsys.planningTool.model.*;
 import de.ibsys.planningTool.model.xmlExportModel.Item;
 import de.ibsys.planningTool.model.xmlInputModel.Article;
 import de.ibsys.planningTool.model.xmlInputModel.FutureInComingOrder;
-
+import de.ibsys.planningTool.model.XmlInputData;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -118,9 +118,9 @@ public class OrderService {
 
         catch (NullPointerException e) {
             e.printStackTrace();
-            return avg;
-        }
 
+        }
+        return avg;
     }
 
     public int getStockAmount(String itemConfigId) {
@@ -226,25 +226,6 @@ public class OrderService {
         return discont;
     }
 
-    // TODO Check access to XmlInputData
-    public double calculateStockRange(List<Map<String, Integer>> kUsageList, TermsOfSaleData terms) {
-        double stockRange = 0.0;
-        String itemConfigId = terms.getItemConfigId();
-
-        double avg = calculateAverage(kUsageList, terms.getItemConfigId());
-        //double stock = inputData.getWareHouseArticles().get(itemConfigId).getAmount();
-        double stock = main.getXmlInputData().getWareHouseArticles().get(itemConfigId).getAmount();
-        //TODO Test if it works
-        double futureIncomingAmount = getFutureInComingOrderAmount(itemConfigId);
-
-
-        stockRange = Math.round(stock/avg);
-        System.out.println("STOCKRANGE" + stockRange);
-
-        return stockRange;
-
-    }
-
     public double calculateOrderCosts(OrderResult orderResult) {
         double orderCosts = 0.0;
         try {
@@ -288,19 +269,6 @@ public class OrderService {
         return gerundet / Math.pow(10d, stellen);
     }
 
-    public double getFutureInComingOrderAmount(String itemConfigId) {
-        double incomingAmount = 0.0;
-        Map<String, FutureInComingOrder> futureInComingOrderMap = main.getXmlInputData().getFutureInComingOrderMap();
-
-        for(Map.Entry<String, FutureInComingOrder> entry : futureInComingOrderMap.entrySet()) {
-            if(entry.getKey().equals(itemConfigId)) {
-                incomingAmount += entry.getValue().getAmount();
-            }
-        }
-        return incomingAmount;
-    }
-
-
     public List<Map<String, Integer>> calculateProgramm(List<ProductionResult> productionResults, Map<String, Item> forecastProductionList) {
 
         List<Map<String, Integer>> productionProgram = new ArrayList<>();
@@ -317,7 +285,7 @@ public class OrderService {
 
                 try {
                     itemComponent = itemDB.findById(itemConfigId);
-                    System.out.println(itemComponent);
+                    //System.out.println(itemComponent);
                     /*
                    List<WaitingList> waitingLists = main.getXmlInputData().getStringWaitingListMissingPartsMap().get(itemConfigId).getWaitingLists();
 
@@ -382,7 +350,7 @@ public class OrderService {
         productionProgram.add(forecastMap3);
 
         for(Map<String, Integer> entry : productionProgram) {
-            System.out.println("Einträge in productionProgram "+entry);
+            //System.out.println("Einträge in productionProgram "+entry);
         }
 
         return productionProgram;
@@ -444,9 +412,11 @@ public class OrderService {
         kUsageList.add(map_n2);
         kUsageList.add(map_n3);
         // to test output of the list
+        /*
         for(Map<String, Integer> entry : kUsageList) {
             System.out.println("ENTRIES in der kUsageList" + entry);
         }
+        */
         return kUsageList;
     }
 }
