@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<JFXTabPane BorderPane.alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+            minWidth="-Infinity" prefHeight="650.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/8"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.ibsys.planningTool.controller.tab.ProductionController">
+    <tabs>
+        <Tab text="Child Bike">
+            <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0"/>
+                <fx:include fx:id="childBike" source="tab/childBike.fxml"/>
+            </content>
+        </Tab>
+        <Tab text="Woman Bike">
+            <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0"/>
+                <fx:include fx:id="womenBike" source="tab/womenBike.fxml"/>
+            </content>
+        </Tab>
+        <Tab text="Men Bike">
+            <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0"/>
+                <fx:include fx:id="menBike" source="tab/menBike.fxml"/>
+            </content>
+        </Tab>
+    </tabs>
+</JFXTabPane>

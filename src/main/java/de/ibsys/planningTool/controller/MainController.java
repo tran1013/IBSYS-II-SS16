@@ -12,12 +12,10 @@ import de.ibsys.planningTool.model.xmlExportModel.Order;
 import de.ibsys.planningTool.model.xmlExportModel.WorkTime;
 import de.ibsys.planningTool.util.Dialogs.DialogMessages;
 import de.ibsys.planningTool.util.I18N;
-import de.ibsys.planningTool.util.MockObject;
 import javafx.fxml.FXML;
 import javafx.scene.control.Tab;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import org.apache.log4j.Logger;
 
 import java.io.File;
 import java.util.*;
@@ -55,7 +53,7 @@ public class MainController extends BaseTabController {
 	public Tab forecast;
 
 	@FXML
-	public Tab disposition;
+	public Tab productionTab;
 
 	@FXML
 	public Tab settingsTab;
@@ -103,6 +101,9 @@ public class MainController extends BaseTabController {
     private ProductionPriorityController productionPriorityController;
 
 	@FXML
+	private ProductionController productionController;
+
+	@FXML
 	public void initialize() {
 	    logger.info("Start Application");
 
@@ -127,6 +128,10 @@ public class MainController extends BaseTabController {
 
         mainTabPane.getStyleClass().add("jfx-tab-pane");
         new DialogMessages().setMainController(this);
+	}
+
+	public void initWorkThings() {
+		productionController.init(this);
 	}
 
 	public XmlInputData getXmlInputData() {
@@ -215,7 +220,7 @@ public class MainController extends BaseTabController {
 		translation = I18N.translation(language, country);
 
 		forecast.setText(translation.getString(FORECAST));
-		disposition.setText(translation.getString(DISPOSITION));
+		productionTab.setText(translation.getString(DISPOSITION));
 		settingsTab.setText(translation.getString(Export_TAB));
 		cappla.setText(translation.getString(CAPPLA));
 		orderTab.setText(translation.getString(ORDER));

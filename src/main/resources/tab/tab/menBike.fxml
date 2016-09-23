@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.*?>
+<?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.ibsys.planningTool.controller.tab.productionOrderTab.MenBikeController">
+    <children>
+        <Label fx:id="orders" layoutX="90.0" layoutY="30.0" text="Aufträge" />
+        <Label fx:id="safetystock" layoutX="261.0" layoutY="30.0" text="Sicherheitsbestand" />
+        <Label fx:id="stock" layoutX="415.0" layoutY="30.0" text="Lagerbestand" />
+        <Label fx:id="queue" layoutX="538.0" layoutY="30.0" text="Aufträge in Warte" />
+        <Label fx:id="process" layoutX="682.0" layoutY="30.0" text="Aufträge in Bearbeitung" />
+        <Label fx:id="productionorder" layoutX="875.0" layoutY="30.0" text="Produktionsaufträge" />
+        <JFXButton layoutX="487.0" layoutY="453.0" text="Save Settings" />
+        <Pane layoutX="10.0" layoutY="47.0" prefHeight="103.0" prefWidth="1078.0">
+            <children>
+                <Label layoutX="14.0" layoutY="14.0" text="P3" />
+                <Label layoutX="14.0" layoutY="41.0" text="E 26" />
+                <Label layoutX="14.0" layoutY="67.0" text="E 31" />
+                <JFXTextField fx:id="orderP3" disable="true" editable="false" focusTraversable="false" layoutX="67.0" layoutY="6.0" maxWidth="75.0" minWidth="75.0" prefHeight="33.0" prefWidth="75.0" />
+                <JFXTextField fx:id="safetyP3" layoutX="267.0" layoutY="6.0" maxWidth="75.0" minWidth="75.0" prefHeight="33.0" prefWidth="75.0" />
+                <JFXTextField fx:id="stockP3" disable="true" editable="false" focusTraversable="false" layoutX="406.0" layoutY="6.0" maxWidth="75.0" minWidth="75.0" prefHeight="33.0" prefWidth="75.0" />
+                <JFXTextField fx:id="queueP3" disable="true" editable="false" focusTraversable="false" layoutX="539.0" layoutY="6.0" maxWidth="75.0" minWidth="75.0" prefHeight="33.0" prefWidth="75.0" />
+                <JFXTextField fx:id="processP3" disable="true" editable="false" focusTraversable="false" layoutX="710.0" layoutY="6.0" maxWidth="75.0" minWidth="75.0" prefHeight="33.0" prefWidth="75.0" />
+                <JFXTextField fx:id="productionP3" disable="true" editable="false" focusTraversable="false" layoutX="887.0" layoutY="6.0" maxWidth="75.0" minWidth="75.0" prefHeight="33.0" prefWidth="75.0" />
+                <JFXTextField fx:id="productionE26" disable="true" editable="false" focusTraversable="false" layoutX="887.0" layoutY="33.0" maxWidth="75.0" minWidth="75.0" prefHeight="33.0" prefWidth="75.0" />
+                <JFXTextField fx:id="processE26" disable="true" editable="false" focusTraversable="false" layoutX="710.0" layoutY="33.0" maxWidth="75.0" minWidth="75.0" prefHeight="33.0" prefWidth="75.0" />
+                <JFXTextField fx:id="queueE26" disable="true" editable="false" focusTraversable="false" layoutX="539.0" layoutY="33.0" maxWidth="75.0" minWidth="75.0" prefHeight="33.0" prefWidth="75.0" />
+                <JFXTextField fx:id="stockE26" disable="true" editable="false" focusTraversable="false" layoutX="406.0" layoutY="33.0" maxWidth="75.0" minWidth="75.0" prefHeight="33.0" prefWidth="75.0" />
+                <JFXTextField fx:id="safetyE26" layoutX="267.0" layoutY="33.0" maxWidth="75.0" minWidth="75.0" prefHeight="33.0" prefWidth="75.0" />
+                <JFXTextField fx:id="helpE26" disable="true" editable="false" focusTraversable="false" layoutX="156.0" layoutY="33.0" maxWidth="75.0" minWidth="75.0" prefHeight="33.0" prefWidth="75.0" />
+                <JFXTextField fx:id="orderE26" disable="true" editable="false" focusTraversable="false" layoutX="67.0" layoutY="33.0" maxWidth="75.0" minWidth="75.0" prefHeight="33.0" prefWidth="75.0" />
+                <JFXTextField fx:id="orderE31" disable="true" editable="false" focusTraversable="false" layoutX="67.0" layoutY="59.0" maxWidth="75.0" minWidth="75.0" prefHeight="33.0" prefWidth="75.0" />
+                <JFXTextField fx:id="helpE31" disable="true" editable="false" focusTraversable="false" layoutX="156.0" layoutY="59.0" maxWidth="75.0" minWidth="75.0" prefHeight="33.0" prefWidth="75.0" />
+                <JFXTextField fx:id="safetyE31" layoutX="267.0" layoutY="59.0" maxWidth="75.0" minWidth="75.0" prefHeight="33.0" prefWidth="75.0" />
+                <JFXTextField fx:id="stockE31" disable="true" editable="false" focusTraversable="false" layoutX="406.0" layoutY="59.0" maxWidth="75.0" minWidth="75.0" prefHeight="33.0" prefWidth="75.0" />
+                <JFXTextField fx:id="queueE31" disable="true" editable="false" focusTraversable="false" layoutX="539.0" layoutY="59.0" maxWidth="75.0" minWidth="75.0" prefHeight="33.0" prefWidth="75.0" />
+                <JFXTextField fx:id="processE31" disable="true" editable="false" focusTraversable="false" layoutX="710.0" layoutY="59.0" maxWidth="75.0" minWidth="75.0" prefHeight="33.0" prefWidth="75.0" />
+                <JFXTextField fx:id="productionE31" disable="true" editable="false" focusTraversable="false" layoutX="887.0" layoutY="59.0" maxWidth="75.0" minWidth="75.0" prefHeight="33.0" prefWidth="75.0" />
+                <Label layoutX="189.0" layoutY="17.0" text="+" />
+                <Label layoutX="365.0" layoutY="17.0" text="-" />
+                <Label layoutX="145.0" layoutY="43.0" text="+" />
+                <Label layoutX="245.0" layoutY="43.0" text="+" />
+                <Label layoutX="145.0" layoutY="67.0" text="+" />
+                <Label layoutX="245.0" layoutY="67.0" text="+" />
+                <Label layoutX="365.0" layoutY="43.0" text="-" />
+                <Label layoutX="365.0" layoutY="70.0" text="-" />
+                <Label layoutX="500.0" layoutY="70.0" text="-" />
+                <Label layoutX="500.0" layoutY="43.0" text="-" />
+                <Label layoutX="500.0" layoutY="17.0" text="-" />
+                <Label layoutX="656.0" layoutY="15.0" text="-" />
+                <Label layoutX="656.0" layoutY="41.0" text="-" />
+                <Label layoutX="656.0" layoutY="68.0" text="-" />
+                <Label layoutX="837.0" layoutY="70.0" text="=" />
+                <Label layoutX="837.0" layoutY="43.0" text="=" />
+                <Label layoutX="837.0" layoutY="17.0" text="=" />
+            </children>
+        </Pane>
+        <Pane layoutX="10.0" layoutY="150.0" prefHeight="103.0" prefWidth="1078.0">
+            <children>
+                <Label layoutX="14.0" layoutY="14.0" text="E 16" />
+                <Label layoutX="14.0" layoutY="41.0" text="E 17" />
+                <Label layoutX="14.0" layoutY="67.0" text="E 30" />
+                <JFXTextField fx:id="orderE16" disable="true" editable="false" focusTraversable="false" layoutX="67.0" layoutY="6.0" maxWidth="75.0" minWidth="75.0" prefHeight="33.0" prefWidth="75.0" />
+                <JFXTextField fx:id="helpE16" disable="true" editable="false" focusTraversable="false" layoutX="156.0" layoutY="6.0" maxWidth="75.0" minWidth="75.0" prefHeight="33.0" prefWidth="75.0" />
+                <JFXTextField fx:id="safetyE16" layoutX="267.0" layoutY="6.0" maxWidth="75.0" minWidth="75.0" prefHeight="33.0" prefWidth="75.0" />
+                <JFXTextField fx:id="stockE16" disable="true" editable="false" focusTraversable="false" layoutX="406.0" layoutY="6.0" maxWidth="75.0" minWidth="75.0" prefHeight="33.0" prefWidth="75.0" />
+                <JFXTextField fx:id="queueE16" disable="true" editable="false" focusTraversable="false" layoutX="539.0" layoutY="6.0" maxWidth="75.0" minWidth="75.0" prefHeight="33.0" prefWidth="75.0" />
+                <JFXTextField fx:id="processE16" disable="true" editable="false" focusTraversable="false" layoutX="710.0" layoutY="6.0" maxWidth="75.0" minWidth="75.0" prefHeight="33.0" prefWidth="75.0" />
+                <JFXTextField fx:id="productionE16" disable="true" editable="false" focusTraversable="false" layoutX="887.0" layoutY="6.0" maxWidth="75.0" minWidth="75.0" prefHeight="33.0" prefWidth="75.0" />
+                <JFXTextField fx:id="productionE17" disable="true" editable="false" focusTraversable="false" layoutX="887.0" layoutY="33.0" maxWidth="75.0" minWidth="75.0" prefHeight="33.0" prefWidth="75.0" />
+                <JFXTextField fx:id="processE17" disable="true" editable="false" focusTraversable="false" layoutX="710.0" layoutY="33.0" maxWidth="75.0" minWidth="75.0" prefHeight="33.0" prefWidth="75.0" />
+                <JFXTextField fx:id="queueE17" disable="true" editable="false" focusTraversable="false" layoutX="539.0" layoutY="33.0" maxWidth="75.0" minWidth="75.0" prefHeight="33.0" prefWidth="75.0" />
+                <JFXTextField fx:id="stockE17" disable="true" editable="false" focusTraversable="false" layoutX="406.0" layoutY="33.0" maxWidth="75.0" minWidth="75.0" prefHeight="33.0" prefWidth="75.0" />
+                <JFXTextField fx:id="safetyE17" layoutX="267.0" layoutY="33.0" maxWidth="75.0" minWidth="75.0" prefHeight="33.0" prefWidth="75.0" />
+                <JFXTextField fx:id="helpE17" disable="true" editable="false" focusTraversable="false" layoutX="156.0" layoutY="33.0" maxWidth="75.0" minWidth="75.0" prefHeight="33.0" prefWidth="75.0" />
+                <JFXTextField fx:id="orderE17" disable="true" editable="false" focusTraversable="false" layoutX="67.0" layoutY="33.0" maxWidth="75.0" minWidth="75.0" prefHeight="33.0" prefWidth="75.0" />
+                <JFXTextField fx:id="orderE30" disable="true" editable="false" focusTraversable="false" layoutX="67.0" layoutY="59.0" maxWidth="75.0" minWidth="75.0" prefHeight="33.0" prefWidth="75.0" />
+                <JFXTextField fx:id="helpE30" disable="true" editable="false" focusTraversable="false" layoutX="156.0" layoutY="59.0" maxWidth="75.0" minWidth="75.0" prefHeight="33.0" prefWidth="75.0" />
+                <JFXTextField fx:id="safetyE30" layoutX="267.0" layoutY="59.0" maxWidth="75.0" minWidth="75.0" prefHeight="33.0" prefWidth="75.0" />
+                <JFXTextField fx:id="stockE30" disable="true" editable="false" focusTraversable="false" layoutX="406.0" layoutY="59.0" maxWidth="75.0" minWidth="75.0" prefHeight="33.0" prefWidth="75.0" />
+                <JFXTextField fx:id="queueE30" disable="true" editable="false" focusTraversable="false" layoutX="539.0" layoutY="59.0" maxWidth="75.0" minWidth="75.0" prefHeight="33.0" prefWidth="75.0" />
+                <JFXTextField fx:id="processE30" disable="true" editable="false" focusTraversable="false" layoutX="710.0" layoutY="59.0" maxWidth="75.0" minWidth="75.0" prefHeight="33.0" prefWidth="75.0" />
+                <JFXTextField fx:id="productionE30" disable="true" editable="false" focusTraversable="false" layoutX="887.0" layoutY="59.0" maxWidth="75.0" minWidth="75.0" prefHeight="33.0" prefWidth="75.0" />
+            <Label layoutX="835.0" layoutY="18.0" text="=" />
+            <Label layoutX="835.0" layoutY="44.0" text="=" />
+            <Label layoutX="835.0" layoutY="71.0" text="=" />
+            <Label layoutX="654.0" layoutY="69.0" text="-" />
+            <Label layoutX="654.0" layoutY="42.0" text="-" />
+            <Label layoutX="654.0" layoutY="16.0" text="-" />
+            <Label layoutX="498.0" layoutY="18.0" text="-" />
+            <Label layoutX="498.0" layoutY="44.0" text="-" />
+            <Label layoutX="498.0" layoutY="71.0" text="-" />
+            <Label layoutX="363.0" layoutY="71.0" text="-" />
+            <Label layoutX="363.0" layoutY="44.0" text="-" />
+            <Label layoutX="243.0" layoutY="68.0" text="+" />
+            <Label layoutX="143.0" layoutY="68.0" text="+" />
+            <Label layoutX="243.0" layoutY="44.0" text="+" />
+            <Label layoutX="143.0" layoutY="44.0" text="+" />
+            <Label layoutX="363.0" layoutY="18.0" text="-" />
+            <Label layoutX="143.0" layoutY="18.0" text="+" />
+            <Label layoutX="243.0" layoutY="18.0" text="+" />
+            </children>
+        </Pane>
+        <Pane layoutX="10.0" layoutY="253.0" prefHeight="103.0" prefWidth="1078.0">
+            <children>
+                <Label layoutX="14.0" layoutY="14.0" text="E 6" />
+                <Label layoutX="14.0" layoutY="41.0" text="E 12" />
+                <Label layoutX="14.0" layoutY="67.0" text="E 29" />
+                <JFXTextField fx:id="orderE6" disable="true" editable="false" focusTraversable="false" layoutX="67.0" layoutY="6.0" maxWidth="75.0" minWidth="75.0" prefHeight="33.0" prefWidth="75.0" />
+                <JFXTextField fx:id="helpE6" disable="true" editable="false" focusTraversable="false" layoutX="156.0" layoutY="6.0" maxWidth="75.0" minWidth="75.0" prefHeight="33.0" prefWidth="75.0" />
+                <JFXTextField fx:id="safetyE6" layoutX="267.0" layoutY="6.0" maxWidth="75.0" minWidth="75.0" prefHeight="33.0" prefWidth="75.0" />
+                <JFXTextField fx:id="stockE6" disable="true" editable="false" focusTraversable="false" layoutX="406.0" layoutY="6.0" maxWidth="75.0" minWidth="75.0" prefHeight="33.0" prefWidth="75.0" />
+                <JFXTextField fx:id="queueE6" disable="true" editable="false" focusTraversable="false" layoutX="539.0" layoutY="6.0" maxWidth="75.0" minWidth="75.0" prefHeight="33.0" prefWidth="75.0" />
+                <JFXTextField fx:id="processE6" disable="true" editable="false" focusTraversable="false" layoutX="710.0" layoutY="6.0" maxWidth="75.0" minWidth="75.0" prefHeight="33.0" prefWidth="75.0" />
+                <JFXTextField fx:id="productionE6" disable="true" editable="false" focusTraversable="false" layoutX="887.0" layoutY="6.0" maxWidth="75.0" minWidth="75.0" prefHeight="33.0" prefWidth="75.0" />
+                <JFXTextField fx:id="productionE12" disable="true" editable="false" focusTraversable="false" layoutX="887.0" layoutY="33.0" maxWidth="75.0" minWidth="75.0" prefHeight="33.0" prefWidth="75.0" />
+                <JFXTextField fx:id="processE12" disable="true" editable="false" focusTraversable="false" layoutX="710.0" layoutY="33.0" maxWidth="75.0" minWidth="75.0" prefHeight="33.0" prefWidth="75.0" />
+                <JFXTextField fx:id="queueE12" disable="true" editable="false" focusTraversable="false" layoutX="539.0" layoutY="33.0" maxWidth="75.0" minWidth="75.0" prefHeight="33.0" prefWidth="75.0" />
+                <JFXTextField fx:id="stockE12" disable="true" editable="false" focusTraversable="false" layoutX="406.0" layoutY="33.0" maxWidth="75.0" minWidth="75.0" prefHeight="33.0" prefWidth="75.0" />
+                <JFXTextField fx:id="safetyE12" layoutX="267.0" layoutY="33.0" maxWidth="75.0" minWidth="75.0" prefHeight="33.0" prefWidth="75.0" />
+                <JFXTextField fx:id="helpE12" disable="true" editable="false" focusTraversable="false" layoutX="156.0" layoutY="33.0" maxWidth="75.0" minWidth="75.0" prefHeight="33.0" prefWidth="75.0" />
+                <JFXTextField fx:id="orderE12" disable="true" editable="false" focusTraversable="false" layoutX="67.0" layoutY="33.0" maxWidth="75.0" minWidth="75.0" prefHeight="33.0" prefWidth="75.0" />
+                <JFXTextField fx:id="orderE29" disable="true" editable="false" focusTraversable="false" layoutX="67.0" layoutY="59.0" maxWidth="75.0" minWidth="75.0" prefHeight="33.0" prefWidth="75.0" />
+                <JFXTextField fx:id="helpE29" disable="true" editable="false" focusTraversable="false" layoutX="156.0" layoutY="59.0" maxWidth="75.0" minWidth="75.0" prefHeight="33.0" prefWidth="75.0" />
+                <JFXTextField fx:id="safetyE29" layoutX="267.0" layoutY="59.0" maxWidth="75.0" minWidth="75.0" prefHeight="33.0" prefWidth="75.0" />
+                <JFXTextField fx:id="stockE29" disable="true" editable="false" focusTraversable="false" layoutX="406.0" layoutY="59.0" maxWidth="75.0" minWidth="75.0" prefHeight="33.0" prefWidth="75.0" />
+                <JFXTextField fx:id="queueE29" disable="true" editable="false" focusTraversable="false" layoutX="539.0" layoutY="59.0" maxWidth="75.0" minWidth="75.0" prefHeight="33.0" prefWidth="75.0" />
+                <JFXTextField fx:id="processE29" disable="true" editable="false" focusTraversable="false" layoutX="710.0" layoutY="59.0" maxWidth="75.0" minWidth="75.0" prefHeight="33.0" prefWidth="75.0" />
+                <JFXTextField fx:id="productionE29" disable="true" editable="false" focusTraversable="false" layoutX="887.0" layoutY="59.0" maxWidth="75.0" minWidth="75.0" prefHeight="33.0" prefWidth="75.0" />
+            <Label layoutX="243.0" layoutY="16.0" text="+" />
+            <Label layoutX="143.0" layoutY="16.0" text="+" />
+            <Label layoutX="363.0" layoutY="16.0" text="-" />
+            <Label layoutX="143.0" layoutY="42.0" text="+" />
+            <Label layoutX="243.0" layoutY="42.0" text="+" />
+            <Label layoutX="143.0" layoutY="66.0" text="+" />
+            <Label layoutX="243.0" layoutY="66.0" text="+" />
+            <Label layoutX="363.0" layoutY="42.0" text="-" />
+            <Label layoutX="363.0" layoutY="69.0" text="-" />
+            <Label layoutX="498.0" layoutY="69.0" text="-" />
+            <Label layoutX="498.0" layoutY="42.0" text="-" />
+            <Label layoutX="498.0" layoutY="16.0" text="-" />
+            <Label layoutX="654.0" layoutY="14.0" text="-" />
+            <Label layoutX="654.0" layoutY="40.0" text="-" />
+            <Label layoutX="654.0" layoutY="67.0" text="-" />
+            <Label layoutX="835.0" layoutY="69.0" text="=" />
+            <Label layoutX="835.0" layoutY="42.0" text="=" />
+            <Label layoutX="835.0" layoutY="16.0" text="=" />
+            </children>
+        </Pane>
+        <Pane layoutX="13.0" layoutY="350.0" prefHeight="103.0" prefWidth="1078.0">
+            <children>
+                <Label layoutX="14.0" layoutY="14.0" text="E 9" />
+                <Label layoutX="14.0" layoutY="41.0" text="E 15" />
+                <Label layoutX="14.0" layoutY="67.0" text="E 20" />
+                <JFXTextField fx:id="orderE9" disable="true" editable="false" focusTraversable="false" layoutX="67.0" layoutY="6.0" maxWidth="75.0" minWidth="75.0" prefHeight="33.0" prefWidth="75.0" />
+                <JFXTextField fx:id="helpE9" disable="true" editable="false" focusTraversable="false" layoutX="156.0" layoutY="6.0" maxWidth="75.0" minWidth="75.0" prefHeight="33.0" prefWidth="75.0" />
+                <JFXTextField fx:id="safetyE9" layoutX="267.0" layoutY="6.0" maxWidth="75.0" minWidth="75.0" prefHeight="33.0" prefWidth="75.0" />
+                <JFXTextField fx:id="stockE9" disable="true" editable="false" focusTraversable="false" layoutX="406.0" layoutY="6.0" maxWidth="75.0" minWidth="75.0" prefHeight="33.0" prefWidth="75.0" />
+                <JFXTextField fx:id="queueE9" disable="true" editable="false" focusTraversable="false" layoutX="539.0" layoutY="6.0" maxWidth="75.0" minWidth="75.0" prefHeight="33.0" prefWidth="75.0" />
+                <JFXTextField fx:id="processE9" disable="true" editable="false" focusTraversable="false" layoutX="710.0" layoutY="6.0" maxWidth="75.0" minWidth="75.0" prefHeight="33.0" prefWidth="75.0" />
+                <JFXTextField fx:id="productionE9" disable="true" editable="false" focusTraversable="false" layoutX="887.0" layoutY="6.0" maxWidth="75.0" minWidth="75.0" prefHeight="33.0" prefWidth="75.0" />
+                <JFXTextField fx:id="productionE15" disable="true" editable="false" focusTraversable="false" layoutX="887.0" layoutY="33.0" maxWidth="75.0" minWidth="75.0" prefHeight="33.0" prefWidth="75.0" />
+                <JFXTextField fx:id="processE15" disable="true" editable="false" focusTraversable="false" layoutX="710.0" layoutY="33.0" maxWidth="75.0" minWidth="75.0" prefHeight="33.0" prefWidth="75.0" />
+                <JFXTextField fx:id="queueE15" disable="true" editable="false" focusTraversable="false" layoutX="539.0" layoutY="33.0" maxWidth="75.0" minWidth="75.0" prefHeight="33.0" prefWidth="75.0" />
+                <JFXTextField fx:id="stockE15" disable="true" editable="false" focusTraversable="false" layoutX="406.0" layoutY="33.0" maxWidth="75.0" minWidth="75.0" prefHeight="33.0" prefWidth="75.0" />
+                <JFXTextField fx:id="safetyE15" layoutX="267.0" layoutY="33.0" maxWidth="75.0" minWidth="75.0" prefHeight="33.0" prefWidth="75.0" />
+                <JFXTextField fx:id="helpE15" disable="true" editable="false" focusTraversable="false" layoutX="156.0" layoutY="33.0" maxWidth="75.0" minWidth="75.0" prefHeight="33.0" prefWidth="75.0" />
+                <JFXTextField fx:id="orderE15" disable="true" editable="false" focusTraversable="false" layoutX="67.0" layoutY="33.0" maxWidth="75.0" minWidth="75.0" prefHeight="33.0" prefWidth="75.0" />
+                <JFXTextField fx:id="orderE20" disable="true" editable="false" focusTraversable="false" layoutX="67.0" layoutY="59.0" maxWidth="75.0" minWidth="75.0" prefHeight="33.0" prefWidth="75.0" />
+                <JFXTextField fx:id="helpE20" disable="true" editable="false" focusTraversable="false" layoutX="156.0" layoutY="59.0" maxWidth="75.0" minWidth="75.0" prefHeight="33.0" prefWidth="75.0" />
+                <JFXTextField fx:id="safetyE20" layoutX="267.0" layoutY="59.0" maxWidth="75.0" minWidth="75.0" prefHeight="33.0" prefWidth="75.0" />
+                <JFXTextField fx:id="stockE20" disable="true" editable="false" focusTraversable="false" layoutX="406.0" layoutY="59.0" maxWidth="75.0" minWidth="75.0" prefHeight="33.0" prefWidth="75.0" />
+                <JFXTextField fx:id="queueE20" disable="true" editable="false" focusTraversable="false" layoutX="539.0" layoutY="59.0" maxWidth="75.0" minWidth="75.0" prefHeight="33.0" prefWidth="75.0" />
+                <JFXTextField fx:id="processE20" disable="true" editable="false" focusTraversable="false" layoutX="710.0" layoutY="59.0" maxWidth="75.0" minWidth="75.0" prefHeight="33.0" prefWidth="75.0" />
+                <JFXTextField fx:id="productionE20" disable="true" editable="false" focusTraversable="false" layoutX="887.0" layoutY="59.0" maxWidth="75.0" minWidth="75.0" prefHeight="33.0" prefWidth="75.0" />
+            <Label layoutX="836.0" layoutY="19.0" text="=" />
+            <Label layoutX="836.0" layoutY="45.0" text="=" />
+            <Label layoutX="836.0" layoutY="72.0" text="=" />
+            <Label layoutX="655.0" layoutY="70.0" text="-" />
+            <Label layoutX="655.0" layoutY="43.0" text="-" />
+            <Label layoutX="655.0" layoutY="17.0" text="-" />
+            <Label layoutX="499.0" layoutY="19.0" text="-" />
+            <Label layoutX="499.0" layoutY="45.0" text="-" />
+            <Label layoutX="499.0" layoutY="72.0" text="-" />
+            <Label layoutX="364.0" layoutY="72.0" text="-" />
+            <Label layoutX="364.0" layoutY="45.0" text="-" />
+            <Label layoutX="244.0" layoutY="69.0" text="+" />
+            <Label layoutX="144.0" layoutY="69.0" text="+" />
+            <Label layoutX="244.0" layoutY="45.0" text="+" />
+            <Label layoutX="144.0" layoutY="45.0" text="+" />
+            <Label layoutX="364.0" layoutY="19.0" text="-" />
+            <Label layoutX="144.0" layoutY="19.0" text="+" />
+            <Label layoutX="244.0" layoutY="19.0" text="+" />
+            </children>
+        </Pane>
+    </children>
+</AnchorPane>

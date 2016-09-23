@@ -3,6 +3,7 @@ package de.ibsys.planningTool.controller.tab;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import de.ibsys.planningTool.controller.MainController;
+import de.ibsys.planningTool.controller.tab.productionOrderTab.ChildBikeController;
 import de.ibsys.planningTool.model.XmlInputData;
 import de.ibsys.planningTool.model.xmlExportModel.DirectSell;
 import de.ibsys.planningTool.model.xmlExportModel.Item;
@@ -69,6 +70,7 @@ public class ForeCastController extends BaseTabController {
                         storeData();
                     }
                     main.exportButton.setVisible(true);
+                    main.initWorkThings();
                 } else {
                     DialogMessages.ErrorDialog(getI18NText(I18N.FORECAST_INPUT_ERROR));
                 }

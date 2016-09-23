@@ -12,10 +12,11 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="Maven: jfoenix:jfoenix:1.0" level="project" />
     <orderEntry type="module-library">
-      <library name="Maven: jfoenix:jfoenix:1.0">
+      <library name="Maven: javafx:jfxrt:1.8.0_112-release">
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/jfoenix.jar!/" />
+          <root url="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_92.jdk/Contents/Home/jre/lib/ext/jfxrt.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
