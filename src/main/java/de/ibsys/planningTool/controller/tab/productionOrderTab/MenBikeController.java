@@ -57,6 +57,8 @@ public class MenBikeController extends BaseProductionTabController {
             productionP3.setText(String.valueOf(getProductionValuePParts("3")));
 
 
+            // TODO push all the data to a list to work with them somewhere over the rainbow
+
             orderE26.setText(productionP3.getText());
             stockE26.setText(String.valueOf(getStockValue("26")));
             safetyE26.setText(String.valueOf(getXmlInputData().getWareHouseArticles().get("26").getReserve()));
