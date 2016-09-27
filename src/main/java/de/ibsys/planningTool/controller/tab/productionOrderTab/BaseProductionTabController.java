@@ -24,16 +24,16 @@ public abstract class BaseProductionTabController extends Application {
         return productionOrderController.getTranslation().getString(i18n);
     }
 
-    protected String getForeCastInformationProductLine(String code) {
-        return String.valueOf(productionOrderController.getMainController().getForecastProductionList().get(code).getQuantity());
+    protected int getForeCastInformationProductLine(String code) {
+        return productionOrderController.getMainController().getForecastProductionList().get(code).getQuantity();
     }
 
     protected XmlInputData getXmlInputData() {
         return productionOrderController.getMainController().getXmlInputData();
     }
 
-    protected String getStockValue(String code) {
-        return String.valueOf(getXmlInputData().getWareHouseArticles().get(code).getAmount());
+    protected int getStockValue(String code) {
+        return getXmlInputData().getWareHouseArticles().get(code).getAmount();
     }
 
     protected int getQueueValue(String code) {
@@ -58,5 +58,26 @@ public abstract class BaseProductionTabController extends Application {
                 .mapToInt(value ->
                         value.getValue().getAmount()
                 ).sum();
+    }
+
+    protected int getProductionValuePParts(String code) {
+        int vertriebwunsch =  productionOrderController.getMainController().getForecastProductionList().get("p" + code + "n").getQuantity();
+        int sicherheitsbestand = getXmlInputData().getWareHouseArticles().get(code).getReserve();
+        int lagerBestand = getStockValue(code);
+        int warteschlange = getQueueValue(code);
+        int bearbeitung = getProcessValue(code);
+        int ergebnis = vertriebwunsch + sicherheitsbestand - lagerBestand - warteschlange - bearbeitung;
+
+        return ergebnis;
+    }
+
+    protected int getProductionValueEParts(String code, int vertriebwunsch, int hilfszahl) {
+        int sicherheitsbestand = getXmlInputData().getWareHouseArticles().get(code).getReserve();
+        int lagerBestand = getStockValue(code);
+        int warteschlange = getQueueValue(code);
+        int bearbeitung = getProcessValue(code);
+        int ergebnis = vertriebwunsch + hilfszahl + sicherheitsbestand - lagerBestand - warteschlange - bearbeitung;
+
+        return ergebnis;
     }
 }
