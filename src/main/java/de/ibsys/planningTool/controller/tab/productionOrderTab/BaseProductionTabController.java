@@ -52,21 +52,14 @@ public abstract class BaseProductionTabController extends Application {
 				.mapToInt(value -> value.getValue().getAmount()).sum();
 	}
 
-	
-	// get Production list which are on the machines 
+	// get Production list which are on the machines
 	protected int getWaitingListPartsAmount(String code) {
-    	return getXmlInputData()
-    	.getStringWaitingListMissingPartsMap()
-    	.entrySet()
-    	.parallelStream()
-    	.mapToInt(
-    			waitingList -> waitingList.getValue()
-    			.getWaitingLists()
-    			.parallelStream()
-    			.filter(value -> value.getArticleId().equals(code))
-    			.mapToInt(WaitingList::getAmount).sum())
-    	.sum();
-    }
+		return getXmlInputData().getStringWaitingListMissingPartsMap().entrySet().parallelStream()
+				.filter(predicate -> predicate.getValue().getMissingPartsId().equals(code))
+				.mapToInt(waitingList -> waitingList.getValue().getWaitingLists().parallelStream()
+						.mapToInt(WaitingList::getAmount).sum())
+				.sum();
+	}
 
 	protected int getProductionValuePParts(String code) {
 		int vertriebwunsch = productionOrderController.getMainController().getForecastProductionList()
@@ -75,9 +68,10 @@ public abstract class BaseProductionTabController extends Application {
 		int lagerBestand = getStockValue(code);
 		int warteschlange = getQueueValue(code);
 		int bearbeitung = getProcessValue(code);
-		// TODO maybe ?? need feedback with get WaitingLIstPartsAmount on Machines ?
-		// how to handle it 
-		int ergebnis = vertriebwunsch + sicherheitsbestand - lagerBestand - warteschlange - bearbeitung - getWaitingListPartsAmount(code);
+		// TODO maybe ?? need feedback with get WaitingLIstPartsAmount on
+		// Machines ?
+		// how to handle it
+		int ergebnis = vertriebwunsch + sicherheitsbestand - lagerBestand - warteschlange - bearbeitung;
 
 		return ergebnis;
 	}
@@ -87,9 +81,12 @@ public abstract class BaseProductionTabController extends Application {
 		int lagerBestand = getStockValue(code);
 		int warteschlange = getQueueValue(code);
 		int bearbeitung = getProcessValue(code);
-		// TODO maybe ?? need feedback with get WaitingLIstPartsAmount on Machines ?
-		// how to handle it 
-		int ergebnis = vertriebwunsch + hilfszahl + sicherheitsbestand - lagerBestand - warteschlange - bearbeitung - getWaitingListPartsAmount(code);
+		// TODO maybe ?? need feedback with get WaitingLIstPartsAmount on
+		// Machines ?
+		// how to handle it
+		int ergebnis = vertriebwunsch + hilfszahl + sicherheitsbestand - lagerBestand - warteschlange - bearbeitung
+				- getWaitingListPartsAmount(code);
+		logger.info(getWaitingListPartsAmount(code));
 
 		return ergebnis;
 	}

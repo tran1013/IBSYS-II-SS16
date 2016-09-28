@@ -143,5 +143,7 @@ public class MenBikeController extends BaseProductionTabController {
     
     @FXML
     public void saveNewReserve() {
+    	logger.info(getWaitingListPartsAmount("3"));
+    	getXmlInputData().getStringWaitingListMissingPartsMap().entrySet().parallelStream().forEach(System.out::println);
     }
 }
