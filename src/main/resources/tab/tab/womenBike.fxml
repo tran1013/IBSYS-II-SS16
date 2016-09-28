@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.*?>
-<?import com.jfoenix.controls.*?>
-<?import java.lang.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.ibsys.planningTool.controller.tab.productionOrderTab.WomenBikeController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/8.0.76-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.ibsys.planningTool.controller.tab.productionOrderTab.WomenBikeController">
     <children>
         <Label fx:id="orders" layoutX="90.0" layoutY="30.0" text="Aufträge" />
         <Label fx:id="safetystock" layoutX="261.0" layoutY="30.0" text="Sicherheitsbestand" />
@@ -16,7 +14,7 @@
         <Label fx:id="queue" layoutX="538.0" layoutY="30.0" text="Aufträge in Warte" />
         <Label fx:id="process" layoutX="682.0" layoutY="30.0" text="Aufträge in Bearbeitung" />
         <Label fx:id="productionorder" layoutX="875.0" layoutY="30.0" text="Produktionsaufträge" />
-        <JFXButton layoutX="487.0" layoutY="453.0" text="Save Settings" />
+        <JFXButton layoutX="487.0" layoutY="453.0" onAction="#saveNewReserve" text="Save Settings" />
         <Pane layoutX="10.0" layoutY="47.0" prefHeight="103.0" prefWidth="1078.0">
             <children>
                 <Label layoutX="14.0" layoutY="14.0" text="P1" />
