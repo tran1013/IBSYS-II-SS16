@@ -26,19 +26,18 @@ import java.util.stream.Collectors;
 import static de.ibsys.planningTool.util.I18N.*;
 
 /**
- * God Class !!
- * Created by minhnguyen on 17.07.16.
+ * God Class !! Created by minhnguyen on 17.07.16.
  */
 public class MainController extends BaseTabController {
 
-    private Stage savedStage;
+	private Stage savedStage;
 
-    @Override
-    public void start(Stage primaryStage) throws Exception {
-        this.savedStage = primaryStage;
-    }
+	@Override
+	public void start(Stage primaryStage) throws Exception {
+		this.savedStage = primaryStage;
+	}
 
-    private String language = "de";
+	private String language = "de";
 	private String country = "DE";
 
 	private ResourceBundle translation;
@@ -49,8 +48,8 @@ public class MainController extends BaseTabController {
 
 	// Init Tabs
 
-    @FXML
-    public JFXTabPane mainTabPane;
+	@FXML
+	public JFXTabPane mainTabPane;
 
 	@FXML
 	public Tab forecast;
@@ -61,8 +60,8 @@ public class MainController extends BaseTabController {
 	@FXML
 	public Tab settingsTab;
 
-    @FXML
-    public Tab productionpriorityTab;
+	@FXML
+	public Tab productionpriorityTab;
 
 	@FXML
 	public Tab cappla;
@@ -97,20 +96,20 @@ public class MainController extends BaseTabController {
 	private ForeCastController foreCastController;
 
 	@FXML
-	private  OrderController orderController;
+	private OrderController orderController;
 
 	@FXML
 	private SettingsController settingsController;
 
-    @FXML
-    private ProductionPriorityController productionPriorityController;
+	@FXML
+	private ProductionPriorityController productionPriorityController;
 
 	@FXML
 	private ProductionController productionController;
 
 	@FXML
 	public void initialize() {
-	    logger.info("Start Application");
+		logger.info("Start Application");
 
 		foreCastController.init(this);
 		settingsController.init(this);
@@ -126,21 +125,21 @@ public class MainController extends BaseTabController {
 		workTimeList = new ArrayList<>();
 		forecastProductionList = new HashMap<>();
 
-        exportButton.setVisible(false);
+		exportButton.setVisible(false);
 
 		changeUILanguage();
 
-        mainTabPane.getStyleClass().add("jfx-tab-pane");
-        new DialogMessages().setMainController(this);
+		mainTabPane.getStyleClass().add("jfx-tab-pane");
+		new DialogMessages().setMainController(this);
 	}
 
 	public void initWorkThings() {
 		productionController.init(this);
-		productionList = productionList
-		.stream()
-		.sorted((item1, item2) -> Integer.valueOf(item1.getArticleId()).compareTo(Integer.valueOf(item2.getArticleId())))
-		.collect(Collectors.toList());
-        productionPriorityController.init(this);
+
+		productionList = new Dispo().calculate(productionList);
+		productionList = productionList.stream().sorted((item1, item2) -> Integer.valueOf(item1.getArticleId())
+				.compareTo(Integer.valueOf(item2.getArticleId()))).collect(Collectors.toList());
+		productionPriorityController.init(this);
 	}
 
 	public XmlInputData getXmlInputData() {
@@ -241,7 +240,7 @@ public class MainController extends BaseTabController {
 		settingsTab.setText(translation.getString(Export_TAB));
 		cappla.setText(translation.getString(CAPPLA));
 		orderTab.setText(translation.getString(ORDER));
-        productionpriorityTab.setText(translation.getString(I18N.PRIORITY));
+		productionpriorityTab.setText(translation.getString(I18N.PRIORITY));
 		langBtn.setText(translation.getString(I18N.LANGUAGE));
 
 		foreCastController.initUIComponents();
@@ -251,25 +250,21 @@ public class MainController extends BaseTabController {
 	}
 
 	@FXML
-    public void exportButtonTapped() {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle(translation.getString(I18N.XML_EXPORT_SAVED_TITLE));
-        FileChooser.ExtensionFilter filter = new FileChooser.ExtensionFilter("XML Files", "*.xml");
-        fileChooser.getExtensionFilters().add(filter);
+	public void exportButtonTapped() {
+		FileChooser fileChooser = new FileChooser();
+		fileChooser.setTitle(translation.getString(I18N.XML_EXPORT_SAVED_TITLE));
+		FileChooser.ExtensionFilter filter = new FileChooser.ExtensionFilter("XML Files", "*.xml");
+		fileChooser.getExtensionFilters().add(filter);
 
-        File file = fileChooser.showSaveDialog(savedStage);
+		File file = fileChooser.showSaveDialog(savedStage);
 
-        //TODO Adding the other list in here
-        if (file != null) {
-            new XmlExport().exportXmlInputData(sellWish
-                    , directSellList
-                    //, new MockObject().orderListMockData()
-					, orderList
-                    , productionList
-                    , workTimeList
-                    , file.getPath());
-        }
-    }
+		// TODO Adding the other list in here
+		if (file != null) {
+			new XmlExport().exportXmlInputData(sellWish, directSellList
+			// , new MockObject().orderListMockData()
+					, orderList, productionList, workTimeList, file.getPath());
+		}
+	}
 
 	@FXML
 	public void changeLanguageButtonTapped() {
