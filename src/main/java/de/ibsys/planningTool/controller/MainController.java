@@ -4,12 +4,14 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTabPane;
 import com.jfoenix.controls.JFXToggleButton;
 import de.ibsys.planningTool.controller.tab.*;
+import de.ibsys.planningTool.model.ProductionResult;
 import de.ibsys.planningTool.model.XmlExport;
 import de.ibsys.planningTool.model.XmlInputData;
 import de.ibsys.planningTool.model.xmlExportModel.DirectSell;
 import de.ibsys.planningTool.model.xmlExportModel.Item;
 import de.ibsys.planningTool.model.xmlExportModel.Order;
 import de.ibsys.planningTool.model.xmlExportModel.WorkTime;
+import de.ibsys.planningTool.service.Dispo;
 import de.ibsys.planningTool.util.Dialogs.DialogMessages;
 import de.ibsys.planningTool.util.I18N;
 import javafx.fxml.FXML;
@@ -81,6 +83,15 @@ public class MainController extends BaseTabController {
 	private List<Item> productionList;
 
 	private List<WorkTime> workTimeList;
+
+	private List<ProductionResult> productionResultList;
+
+	private List<ProductionResult> childList;
+
+	private List<ProductionResult> menList;
+
+	private List<ProductionResult> womenList;
+
 
 	// Program Production plan
 	private Map<String, Item> forecastProductionList;
@@ -189,7 +200,39 @@ public class MainController extends BaseTabController {
 	public void setForecastProductionList(Map<String, Item> forecastProductionList) {
 		this.forecastProductionList = forecastProductionList;
 	}
-	
+
+	public List<ProductionResult> getProductionResultList() {
+		return productionResultList;
+	}
+
+	public void setProductionResultList(List<ProductionResult> productionResultList) {
+		this.productionResultList = productionResultList;
+	}
+
+	public List<ProductionResult> getChildList() {
+		return childList;
+	}
+
+	public void setChildList(List<ProductionResult> childList) {
+		this.childList = childList;
+	}
+
+	public List<ProductionResult> getMenList() {
+		return menList;
+	}
+
+	public void setMenList(List<ProductionResult> menList) {
+		this.menList = menList;
+	}
+
+	public List<ProductionResult> getWomenList() {
+		return womenList;
+	}
+
+	public void setWomenList(List<ProductionResult> womenList) {
+		this.womenList = womenList;
+	}
+
 	public String getLanguage() {
 		return language;
 	}

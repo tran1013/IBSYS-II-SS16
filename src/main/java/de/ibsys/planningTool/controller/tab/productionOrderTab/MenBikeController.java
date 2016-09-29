@@ -158,7 +158,7 @@ public class MenBikeController extends BaseProductionTabController {
         }
     }
 
-    public List<ProductionResult> getProductionResultForMen() {
+    public void setProductionResultForMen() {
         List<ProductionResult> productionResultList = new ArrayList<>();
         List<String> parts = Arrays.asList("P3", "E26", "E31", "E16", "E17", "E30", "E6", "E12", "E29", "E9", "E15", "E20");
         List<JFXTextField> textFields = Arrays.asList(productionP3, productionE26, productionE31, productionE16, productionE17, productionE30, productionE6, productionE12, productionE29, productionE9, productionE15, productionE20);
@@ -167,14 +167,14 @@ public class MenBikeController extends BaseProductionTabController {
             productionResultList.add(new ProductionResult(parts.get(i), Integer.parseInt(textFields.get(i).getText())));
         }
 
-        System.out.println(productionResultList);
-        return productionResultList;
+        //System.out.println(productionResultList);
+        productionOrderController.getMainController().setMenList(productionResultList);
     }
 
     @FXML
     public void saveNewReserve() {
         logger.info(getWaitingListPartsAmount("3"));
         getXmlInputData().getStringWaitingListMissingPartsMap().entrySet().parallelStream().forEach(System.out::println);
-        List<ProductionResult> productionResultList = getProductionResultForMen();
+        setProductionResultForMen();
     }
 }
