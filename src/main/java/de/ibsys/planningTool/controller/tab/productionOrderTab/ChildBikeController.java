@@ -4,6 +4,7 @@ import com.jfoenix.controls.JFXTextField;
 
 import de.ibsys.planningTool.controller.tab.ProductionController;
 import de.ibsys.planningTool.model.ProductionResult;
+import de.ibsys.planningTool.model.xmlExportModel.Item;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
@@ -163,29 +164,16 @@ public class ChildBikeController extends BaseProductionTabController {
 
 
             //productionP1.setText(String.valueOf(getProductionValuePParts("1")));
+            setMainProductionList("1", Arrays.asList(productionP1, productionE26, productionE51, productionE16,
+    				productionE17, productionE50, productionE4, productionE10, productionE49, productionE7, productionE13,
+    				productionE18));
         } catch (Exception e) {
             logger.error(e);
             e.printStackTrace();
         }
     }
 
-    public void setProductionResultForChild() {
-        List<ProductionResult> productionResultList = new ArrayList<>();
-        List<String> parts = Arrays.asList("P1", "E26", "E51", "E16", "E17", "E50", "E4", "E10", "E49", "E7", "E13", "E18");
-        List<JFXTextField> textFields = Arrays.asList(productionP1, productionE26, productionE51, productionE16, productionE17, productionE50, productionE4, productionE10, productionE49, productionE7, productionE13, productionE18);
-
-        for (Integer i = 0; i < parts.size(); i++) {
-            productionResultList.add(new ProductionResult(parts.get(i), Integer.parseInt(textFields.get(i).getText())));
-        }
-
-        //System.out.println(productionResultList);
-        productionOrderController.getMainController().setChildList(productionResultList);
-    }
-
     @FXML
     public void saveNewReserve() {
-        //logger.info(getWaitingListPartsAmount("3"));
-        //getXmlInputData().getStringWaitingListMissingPartsMap().entrySet().parallelStream().forEach(System.out::println);
-        setProductionResultForChild();
     }
 }

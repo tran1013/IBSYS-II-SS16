@@ -21,6 +21,7 @@ import javafx.stage.Stage;
 
 import java.io.File;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static de.ibsys.planningTool.util.I18N.*;
 
@@ -86,13 +87,6 @@ public class MainController extends BaseTabController {
 
 	private List<ProductionResult> productionResultList;
 
-	private List<ProductionResult> childList;
-
-	private List<ProductionResult> menList;
-
-	private List<ProductionResult> womenList;
-
-
 	// Program Production plan
 	private Map<String, Item> forecastProductionList;
 
@@ -121,7 +115,6 @@ public class MainController extends BaseTabController {
 		foreCastController.init(this);
 		settingsController.init(this);
 		capPlaController.init(this);
-        productionPriorityController.init(this);
 		orderController.init(this);
 
 		xmlInputData = null;
@@ -143,6 +136,11 @@ public class MainController extends BaseTabController {
 
 	public void initWorkThings() {
 		productionController.init(this);
+		productionList = productionList
+		.stream()
+		.sorted((item1, item2) -> Integer.valueOf(item1.getArticleId()).compareTo(Integer.valueOf(item2.getArticleId())))
+		.collect(Collectors.toList());
+        productionPriorityController.init(this);
 	}
 
 	public XmlInputData getXmlInputData() {
@@ -207,30 +205,6 @@ public class MainController extends BaseTabController {
 
 	public void setProductionResultList(List<ProductionResult> productionResultList) {
 		this.productionResultList = productionResultList;
-	}
-
-	public List<ProductionResult> getChildList() {
-		return childList;
-	}
-
-	public void setChildList(List<ProductionResult> childList) {
-		this.childList = childList;
-	}
-
-	public List<ProductionResult> getMenList() {
-		return menList;
-	}
-
-	public void setMenList(List<ProductionResult> menList) {
-		this.menList = menList;
-	}
-
-	public List<ProductionResult> getWomenList() {
-		return womenList;
-	}
-
-	public void setWomenList(List<ProductionResult> womenList) {
-		this.womenList = womenList;
 	}
 
 	public String getLanguage() {

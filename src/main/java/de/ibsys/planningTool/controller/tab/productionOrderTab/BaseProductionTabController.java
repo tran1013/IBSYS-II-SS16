@@ -4,12 +4,16 @@ import de.ibsys.planningTool.model.ProductionResult;
 import de.ibsys.planningTool.service.Dispo;
 import org.apache.log4j.Logger;
 
+import com.jfoenix.controls.JFXTextField;
+
 import de.ibsys.planningTool.controller.tab.ProductionController;
 import de.ibsys.planningTool.model.XmlInputData;
+import de.ibsys.planningTool.model.xmlExportModel.Item;
 import de.ibsys.planningTool.model.xmlInputModel.WaitingList;
 import javafx.application.Application;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -91,12 +95,30 @@ public abstract class BaseProductionTabController extends Application {
 		// how to handle it
 		int ergebnis = vertriebwunsch + hilfszahl + sicherheitsbestand - lagerBestand - warteschlange - bearbeitung
 				- getWaitingListPartsAmount(code);
-		logger.info(getWaitingListPartsAmount(code));
+		// logger.info(getWaitingListPartsAmount(code));
 
 		return ergebnis;
 	}
 
-
-
+	public void setMainProductionList(String product, List<JFXTextField> textfields) {
+		List<Item> productionResultList = productionOrderController.getMainController().getProductionList();
+		List<String> parts = new ArrayList<String>();
+		switch(product) {
+		case "1":
+			parts = Arrays.asList("1", "26", "51", "16", "17", "50", "4", "10", "49", "7", "13", "18");
+			break;
+		case "2":
+			parts = Arrays.asList("2", "26", "56", "16", "17", "55", "5", "11", "54", "8", "14", "19");
+			break;
+		case "3":
+			parts = Arrays.asList("3", "26", "31", "16", "17", "30", "6", "12", "29", "9", "15", "20");
+			break;
+		}
+		for (Integer i = 0; i < parts.size(); i++) {
+			productionResultList.add(new Item(parts.get(i), Integer.parseInt(textfields.get(i).getText())));
+		}
+		// System.out.println(productionResultList);
+		productionOrderController.getMainController().setProductionList(productionResultList);
+	}
 
 }

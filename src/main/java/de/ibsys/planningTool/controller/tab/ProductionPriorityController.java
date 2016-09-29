@@ -49,7 +49,7 @@ public class ProductionPriorityController extends BaseTabController {
     @Override
     public void init(MainController main) {
         super.init(main);
-        main.setProductionList(new MockObject().productionListMockData());
+//        main.setProductionList(new MockObject().productionListMockData());
         final IntegerProperty dragFromIndex = new SimpleIntegerProperty(-1);
         ObservableList<Item> productionList = FXCollections.observableArrayList(main.getProductionList());
         listView.setItems(productionList);
