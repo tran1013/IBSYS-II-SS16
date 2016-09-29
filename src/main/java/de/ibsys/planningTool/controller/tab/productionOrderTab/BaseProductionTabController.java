@@ -87,6 +87,13 @@ public abstract class BaseProductionTabController extends Application {
 
 	protected int getProductionValueEParts(String code, int vertriebwunsch, int hilfszahl) {
 		int sicherheitsbestand = getXmlInputData().getWareHouseArticles().get(code).getReserve();
+		switch(code) {
+		case "16":
+		case "17":
+		case "26":
+			sicherheitsbestand =  getXmlInputData().getWareHouseArticles().get(code).getReserve()/3;
+			break;
+		}
 		int lagerBestand = getStockValue(code);
 		int warteschlange = getQueueValue(code);
 		int bearbeitung = getProcessValue(code);
