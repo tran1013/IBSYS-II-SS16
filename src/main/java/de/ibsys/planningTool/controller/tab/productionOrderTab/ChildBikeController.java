@@ -60,16 +60,16 @@ public class ChildBikeController extends BaseProductionTabController {
             safetyP1.setText(String.valueOf(getXmlInputData().getWareHouseArticles().get("1").getReserve()));
             queueP1.setText(String.valueOf(getQueueValue("1")));
             processP1.setText(String.valueOf(getProcessValue("1")));
-            productionP1.setText(String.valueOf(getProductionValuePParts("1")));
+            productionP1.setText(String.valueOf(getProductionValuePParts("1", Integer.parseInt(safetyP1.getText()))));
 
 
             orderE26.setText(String.valueOf(getForeCastInformationProductLine("p1n")));
             stockE26.setText(String.valueOf(getStockValue("26")));
             helpE26.setText(String.valueOf(getQueueValue("1")));
-            safetyE26.setText(String.valueOf(getXmlInputData().getWareHouseArticles().get("26").getReserve()));
+            safetyE26.setText(String.valueOf(getXmlInputData().getWareHouseArticles().get("26").getReserve()/3));
             queueE26.setText(String.valueOf(getQueueValue("26")));
             processE26.setText(String.valueOf(getProcessValue("26")));
-            productionE26.setText(String.valueOf(getProductionValueEParts("26", getForeCastInformationProductLine("p1n"), getQueueValue("1"))));
+            productionE26.setText(String.valueOf(getProductionValueEParts("26", getForeCastInformationProductLine("p1n"), getQueueValue("1"), Integer.parseInt(safetyE26.getText()))));
 
 
 
@@ -79,25 +79,25 @@ public class ChildBikeController extends BaseProductionTabController {
             safetyE51.setText(String.valueOf(getXmlInputData().getWareHouseArticles().get("51").getReserve()));
             queueE51.setText(String.valueOf(getQueueValue("51")));
             processE51.setText(String.valueOf(getProcessValue("51")));
-            productionE51.setText(String.valueOf(getProductionValueEParts("51", getForeCastInformationProductLine("p1n"), getQueueValue("1"))));
+            productionE51.setText(String.valueOf(getProductionValueEParts("51", getForeCastInformationProductLine("p1n"), getQueueValue("1"), Integer.parseInt(safetyE51.getText()))));
 
 
             orderE16.setText(String.valueOf(getForeCastInformationProductLine("p1n")));
             stockE16.setText(String.valueOf(getStockValue("16")));
             helpE16.setText(String.valueOf(getQueueValue("51")));
-            safetyE16.setText(String.valueOf(getXmlInputData().getWareHouseArticles().get("16").getReserve()));
+            safetyE16.setText(String.valueOf(getXmlInputData().getWareHouseArticles().get("16").getReserve()/3));
             queueE16.setText(String.valueOf(getQueueValue("16")));
             processE16.setText(String.valueOf(getProcessValue("16")));
-            productionE16.setText(String.valueOf(getProductionValueEParts("16", Integer.valueOf(productionE51.getText()), getQueueValue("51"))));
+            productionE16.setText(String.valueOf(getProductionValueEParts("16", Integer.valueOf(productionE51.getText()), getQueueValue("51"), Integer.parseInt(safetyE16.getText()))));
 
 
             orderE17.setText(String.valueOf(getForeCastInformationProductLine("p1n")));
             stockE17.setText(String.valueOf(getStockValue("17")));
             helpE17.setText(String.valueOf(getQueueValue("51")));
-            safetyE17.setText(String.valueOf(getXmlInputData().getWareHouseArticles().get("17").getReserve()));
+            safetyE17.setText(String.valueOf(getXmlInputData().getWareHouseArticles().get("17").getReserve()/3));
             queueE17.setText(String.valueOf(getQueueValue("17")));
             processE17.setText(String.valueOf(getProcessValue("17")));
-            productionE17.setText(String.valueOf(getProductionValueEParts("17", Integer.valueOf(productionE51.getText()), getQueueValue("51"))));
+            productionE17.setText(String.valueOf(getProductionValueEParts("17", Integer.valueOf(productionE51.getText()), getQueueValue("51"), Integer.parseInt(safetyE17.getText()))));
 
 
             orderE50.setText(String.valueOf(getForeCastInformationProductLine("p1n")));
@@ -106,7 +106,7 @@ public class ChildBikeController extends BaseProductionTabController {
             safetyE50.setText(String.valueOf(getXmlInputData().getWareHouseArticles().get("50").getReserve()));
             queueE50.setText(String.valueOf(getQueueValue("50")));
             processE50.setText(String.valueOf(getProcessValue("50")));
-            productionE50.setText(String.valueOf(getProductionValueEParts("50", Integer.valueOf(productionE51.getText()), getQueueValue("51"))));
+            productionE50.setText(String.valueOf(getProductionValueEParts("50", Integer.valueOf(productionE51.getText()), getQueueValue("51"), Integer.parseInt(safetyE50.getText()))));
 
 
             orderE4.setText(String.valueOf(getForeCastInformationProductLine("p1n")));
@@ -115,7 +115,7 @@ public class ChildBikeController extends BaseProductionTabController {
             safetyE4.setText(String.valueOf(getXmlInputData().getWareHouseArticles().get("4").getReserve()));
             queueE4.setText(String.valueOf(getQueueValue("4")));
             processE4.setText(String.valueOf(getProcessValue("4")));
-            productionE4.setText(String.valueOf(getProductionValueEParts("4", Integer.valueOf(productionE50.getText()), getQueueValue("50"))));
+            productionE4.setText(String.valueOf(getProductionValueEParts("4", Integer.valueOf(productionE50.getText()), getQueueValue("50"), Integer.parseInt(safetyE4.getText()))));
 
 
             orderE10.setText(String.valueOf(getForeCastInformationProductLine("p1n")));
@@ -124,7 +124,7 @@ public class ChildBikeController extends BaseProductionTabController {
             safetyE10.setText(String.valueOf(getXmlInputData().getWareHouseArticles().get("10").getReserve()));
             queueE10.setText(String.valueOf(getQueueValue("10")));
             processE10.setText(String.valueOf(getProcessValue("10")));
-            productionE10.setText(String.valueOf(getProductionValueEParts("10", Integer.valueOf(productionE50.getText()), getQueueValue("50"))));
+            productionE10.setText(String.valueOf(getProductionValueEParts("10", Integer.valueOf(productionE50.getText()), getQueueValue("50"), Integer.parseInt(safetyE10.getText()))));
 
 
             orderE49.setText(String.valueOf(getForeCastInformationProductLine("p1n")));
@@ -133,7 +133,7 @@ public class ChildBikeController extends BaseProductionTabController {
             safetyE49.setText(String.valueOf(getXmlInputData().getWareHouseArticles().get("49").getReserve()));
             queueE49.setText(String.valueOf(getQueueValue("49")));
             processE49.setText(String.valueOf(getProcessValue("94")));
-            productionE49.setText(String.valueOf(getProductionValueEParts("49", Integer.valueOf(productionE50.getText()), getQueueValue("50"))));
+            productionE49.setText(String.valueOf(getProductionValueEParts("49", Integer.valueOf(productionE50.getText()), getQueueValue("50"), Integer.parseInt(safetyE49.getText()))));
 
 
             orderE7.setText(String.valueOf(getForeCastInformationProductLine("p1n")));
@@ -142,7 +142,7 @@ public class ChildBikeController extends BaseProductionTabController {
             safetyE7.setText(String.valueOf(getXmlInputData().getWareHouseArticles().get("7").getReserve()));
             queueE7.setText(String.valueOf(getQueueValue("7")));
             processE7.setText(String.valueOf(getProcessValue("7")));
-            productionE7.setText(String.valueOf(getProductionValueEParts("7", Integer.valueOf(productionE49.getText()), getQueueValue("49"))));
+            productionE7.setText(String.valueOf(getProductionValueEParts("7", Integer.valueOf(productionE49.getText()), getQueueValue("49"), Integer.parseInt(safetyE7.getText()))));
 
 
             orderE13.setText(String.valueOf(getForeCastInformationProductLine("p1n")));
@@ -151,7 +151,7 @@ public class ChildBikeController extends BaseProductionTabController {
             safetyE13.setText(String.valueOf(getXmlInputData().getWareHouseArticles().get("13").getReserve()));
             queueE13.setText(String.valueOf(getQueueValue("13")));
             processE13.setText(String.valueOf(getProcessValue("13")));
-            productionE13.setText(String.valueOf(getProductionValueEParts("13", Integer.valueOf(productionE49.getText()), getQueueValue("49"))));
+            productionE13.setText(String.valueOf(getProductionValueEParts("13", Integer.valueOf(productionE49.getText()), getQueueValue("49"), Integer.parseInt(safetyE13.getText()))));
 
 
             orderE18.setText(String.valueOf(getForeCastInformationProductLine("p1n")));
@@ -160,7 +160,7 @@ public class ChildBikeController extends BaseProductionTabController {
             safetyE18.setText(String.valueOf(getXmlInputData().getWareHouseArticles().get("18").getReserve()));
             queueE18.setText(String.valueOf(getQueueValue("18")));
             processE18.setText(String.valueOf(getProcessValue("18")));
-            productionE18.setText(String.valueOf(getProductionValueEParts("18", Integer.valueOf(productionE49.getText()), getQueueValue("49"))));
+            productionE18.setText(String.valueOf(getProductionValueEParts("18", Integer.valueOf(productionE49.getText()), getQueueValue("49"), Integer.parseInt(safetyE18.getText()))));
 
 
             //productionP1.setText(String.valueOf(getProductionValuePParts("1")));

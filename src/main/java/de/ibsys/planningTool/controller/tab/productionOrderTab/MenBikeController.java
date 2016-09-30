@@ -62,19 +62,19 @@ public class MenBikeController extends BaseProductionTabController {
 		try {
 			orderP3.setText(String.valueOf(getForeCastInformationProductLine("p3n")));
 			stockP3.setText(String.valueOf(getStockValue("3")));
-			safetyP3.setText(String.valueOf("50"));
+			safetyP3.setText(String.valueOf(getXmlInputData().getWareHouseArticles().get("3").getReserve()));
 			queueP3.setText(String.valueOf(getQueueValue("3")));
 			processP3.setText(String.valueOf(getProcessValue("3")));
-			productionP3.setText(String.valueOf(getProductionValuePParts("3")));
+			productionP3.setText(String.valueOf(getProductionValuePParts("3", Integer.parseInt(safetyP3.getText()))));
 
 			orderE26.setText(productionP3.getText());
 			stockE26.setText(String.valueOf(getStockValue("26")));
 			helpE26.setText(String.valueOf(getQueueValue("3")));
-			safetyE26.setText(String.valueOf(getXmlInputData().getWareHouseArticles().get("26").getReserve()));
+			safetyE26.setText(String.valueOf(getXmlInputData().getWareHouseArticles().get("26").getReserve()/3));
 			queueE26.setText(String.valueOf(getQueueValue("26")));
 			processE26.setText(String.valueOf(getProcessValue("26")));
 			productionE26.setText(String.valueOf(
-					getProductionValueEParts("26", getForeCastInformationProductLine("p3n"), getQueueValue("3"))));
+					getProductionValueEParts("26", getForeCastInformationProductLine("p3n"), getQueueValue("3"), Integer.parseInt(safetyE26.getText()))));
 
 			orderE31.setText(productionP3.getText());
 			stockE31.setText(String.valueOf(getStockValue("31")));
@@ -83,25 +83,25 @@ public class MenBikeController extends BaseProductionTabController {
 			queueE31.setText(String.valueOf(getQueueValue("31")));
 			processE31.setText(String.valueOf(getProcessValue("31")));
 			productionE31.setText(String.valueOf(
-					getProductionValueEParts("31", getForeCastInformationProductLine("p3n"), getQueueValue("3"))));
+					getProductionValueEParts("31", getForeCastInformationProductLine("p3n"), getQueueValue("3"), Integer.parseInt(safetyE26.getText()))));
 
 			orderE16.setText(productionE31.getText());
 			stockE16.setText(String.valueOf(getStockValue("16")));
 			helpE16.setText(String.valueOf(getQueueValue("31")));
-			safetyE16.setText(String.valueOf(getXmlInputData().getWareHouseArticles().get("16").getReserve()));
+			safetyE16.setText(String.valueOf(getXmlInputData().getWareHouseArticles().get("16").getReserve()/3));
 			queueE16.setText(String.valueOf(getQueueValue("16")));
 			processE16.setText(String.valueOf(getProcessValue("16")));
 			productionE16.setText(String.valueOf(
-					getProductionValueEParts("16", Integer.valueOf(productionE31.getText()), getQueueValue("31"))));
+					getProductionValueEParts("16", Integer.valueOf(productionE31.getText()), getQueueValue("31"), Integer.parseInt(safetyE16.getText()))));
 
 			orderE17.setText(productionE31.getText());
 			stockE17.setText(String.valueOf(getStockValue("17")));
 			helpE17.setText(String.valueOf(getQueueValue("31")));
-			safetyE17.setText(String.valueOf(getXmlInputData().getWareHouseArticles().get("17").getReserve()));
+			safetyE17.setText(String.valueOf(getXmlInputData().getWareHouseArticles().get("17").getReserve()/3));
 			queueE17.setText(String.valueOf(getQueueValue("17")));
 			processE17.setText(String.valueOf(getProcessValue("17")));
 			productionE17.setText(String.valueOf(
-					getProductionValueEParts("17", Integer.valueOf(productionE31.getText()), getQueueValue("31"))));
+					getProductionValueEParts("17", Integer.valueOf(productionE31.getText()), getQueueValue("31"), Integer.parseInt(safetyE17.getText()))));
 
 			orderE30.setText(productionE31.getText());
 			stockE30.setText(String.valueOf(getStockValue("30")));
@@ -110,7 +110,7 @@ public class MenBikeController extends BaseProductionTabController {
 			queueE30.setText(String.valueOf(getQueueValue("30")));
 			processE30.setText(String.valueOf(getProcessValue("30")));
 			productionE30.setText(String.valueOf(
-					getProductionValueEParts("30", Integer.valueOf(productionE31.getText()), getQueueValue("31"))));
+					getProductionValueEParts("30", Integer.valueOf(productionE31.getText()), getQueueValue("31"), Integer.parseInt(safetyE30.getText()))));
 
 			orderE6.setText(productionE30.getText());
 			stockE6.setText(String.valueOf(getStockValue("6")));
@@ -119,7 +119,7 @@ public class MenBikeController extends BaseProductionTabController {
 			queueE6.setText(String.valueOf(getQueueValue("6")));
 			processE6.setText(String.valueOf(getProcessValue("6")));
 			productionE6.setText(String.valueOf(
-					getProductionValueEParts("6", Integer.valueOf(productionE30.getText()), getQueueValue("30"))));
+					getProductionValueEParts("6", Integer.valueOf(productionE30.getText()), getQueueValue("30"), Integer.parseInt(safetyE6.getText()))));
 
 			orderE12.setText(productionE30.getText());
 			stockE12.setText(String.valueOf(getStockValue("12")));
@@ -128,7 +128,7 @@ public class MenBikeController extends BaseProductionTabController {
 			queueE12.setText(String.valueOf(getQueueValue("12")));
 			processE12.setText(String.valueOf(getProcessValue("12")));
 			productionE12.setText(String.valueOf(
-					getProductionValueEParts("12", Integer.valueOf(productionE30.getText()), getQueueValue("30"))));
+					getProductionValueEParts("12", Integer.valueOf(productionE30.getText()), getQueueValue("30"), Integer.parseInt(safetyE12.getText()))));
 
 			orderE29.setText(productionE30.getText());
 			stockE29.setText(String.valueOf(getStockValue("29")));
@@ -137,7 +137,7 @@ public class MenBikeController extends BaseProductionTabController {
 			queueE29.setText(String.valueOf(getQueueValue("29")));
 			processE29.setText(String.valueOf(getProcessValue("29")));
 			productionE29.setText(String.valueOf(
-					getProductionValueEParts("29", Integer.valueOf(productionE30.getText()), getQueueValue("30"))));
+					getProductionValueEParts("29", Integer.valueOf(productionE30.getText()), getQueueValue("30"), Integer.parseInt(safetyE29.getText()))));
 
 			orderE9.setText(productionE29.getText());
 			stockE9.setText(String.valueOf(getStockValue("9")));
@@ -146,7 +146,7 @@ public class MenBikeController extends BaseProductionTabController {
 			queueE9.setText(String.valueOf(getQueueValue("9")));
 			processE9.setText(String.valueOf(getProcessValue("9")));
 			productionE9.setText(String.valueOf(
-					getProductionValueEParts("9", Integer.valueOf(productionE29.getText()), getQueueValue("29"))));
+					getProductionValueEParts("9", Integer.valueOf(productionE29.getText()), getQueueValue("29"), Integer.parseInt(safetyE9.getText()))));
 
 			orderE15.setText(productionE29.getText());
 			stockE15.setText(String.valueOf(getStockValue("15")));
@@ -155,7 +155,7 @@ public class MenBikeController extends BaseProductionTabController {
 			queueE15.setText(String.valueOf(getQueueValue("15")));
 			processE15.setText(String.valueOf(getProcessValue("15")));
 			productionE15.setText(String.valueOf(
-					getProductionValueEParts("15", Integer.valueOf(productionE29.getText()), getQueueValue("29"))));
+					getProductionValueEParts("15", Integer.valueOf(productionE29.getText()), getQueueValue("29"), Integer.parseInt(safetyE15.getText()))));
 
 			orderE20.setText(productionE29.getText());
 			stockE20.setText(String.valueOf(getStockValue("20")));
@@ -164,7 +164,7 @@ public class MenBikeController extends BaseProductionTabController {
 			queueE20.setText(String.valueOf(getQueueValue("20")));
 			processE20.setText(String.valueOf(getProcessValue("20")));
 			productionE20.setText(String.valueOf(
-					getProductionValueEParts("20", Integer.valueOf(productionE29.getText()), getQueueValue("29"))));
+					getProductionValueEParts("20", Integer.valueOf(productionE29.getText()), getQueueValue("29"), Integer.parseInt(safetyE20.getText()))));
 
 			setMainProductionList("3",
 					Arrays.asList(productionP3, productionE26, productionE31, productionE16, productionE17,
