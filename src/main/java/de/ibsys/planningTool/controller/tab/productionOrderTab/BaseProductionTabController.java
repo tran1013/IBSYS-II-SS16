@@ -83,13 +83,12 @@ public abstract class BaseProductionTabController extends Application {
         return ergebnis;
     }
 
-    protected int getProductionValueEParts(String code, int vertriebwunsch, int hilfszahl, int sicherheitsbestand) {
-        switch (code) {
+    protected int getProductionValueEParts(String code, int vertriebwunsch, int hilfszahl, int sicherheitsbestand, int lagerBestand, int warteschlange, int bearbeitung) {
+        /*switch (code) {
             case "16":
             case "17":
             case "26":
-                sicherheitsbestand = sicherheitsbestand;
-                break;
+            break;
         }
         int lagerBestand = getStockValue(code);
         int warteschlange = getQueueValue(code);
@@ -101,7 +100,24 @@ public abstract class BaseProductionTabController extends Application {
                 - getWaitingListPartsAmount(code);
         // logger.info(getWaitingListPartsAmount(code));
 
-        return ergebnis;
+        return ergebnis;*/
+
+        if(code.equals("16") || code.equals("17") || code.equals("26")){
+            int ergebnis = vertriebwunsch + hilfszahl + sicherheitsbestand - lagerBestand - warteschlange - bearbeitung/*- getWaitingListPartsAmount(code)*/;
+            return ergebnis;
+        } else {
+            /*int lagerBestand = getStockValue(code);
+            int warteschlange = getQueueValue(code);
+            int bearbeitung = getProcessValue(code);*/
+            // TODO maybe ?? need feedback with get WaitingLIstPartsAmount on
+            // Machines ?
+            // how to handle it
+            int ergebnis = vertriebwunsch + hilfszahl + sicherheitsbestand - lagerBestand - warteschlange - bearbeitung
+                    - getWaitingListPartsAmount(code);
+            // logger.info(getWaitingListPartsAmount(code));
+
+            return ergebnis;
+        }
     }
 
     public void setMainProductionList(String product, List<JFXTextField> textfields) {
@@ -126,7 +142,6 @@ public abstract class BaseProductionTabController extends Application {
         System.out.println(productionResultList);
         System.out.println("Size: " + productionResultList.size());
         productionOrderController.getMainController().setProductionList(productionResultList);
-
     }
 
 }
