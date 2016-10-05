@@ -1,8 +1,13 @@
 package de.ibsys.planningTool.controller.tab;
 
 
+import de.ibsys.planningTool.controller.MainController;
+import de.ibsys.planningTool.mock.sellData;
 import de.ibsys.planningTool.model.CapPlaResult;
+import de.ibsys.planningTool.model.ProductionResult;
+import de.ibsys.planningTool.model.ProductionSteps;
 import de.ibsys.planningTool.model.XmlInputData;
+import de.ibsys.planningTool.model.xmlExportModel.Item;
 import de.ibsys.planningTool.model.xmlExportModel.WorkTime;
 import de.ibsys.planningTool.model.xmlInputModel.OrdersInWork;
 import de.ibsys.planningTool.model.xmlInputModel.WaitingListWorkPlace;
@@ -75,6 +80,11 @@ public class CapPlaController extends BaseTabController {
 
     }
 
+    @Override
+    public void init(MainController main) {
+        super.init(main);
+        this.getCapPlaUI();
+    }
 
     /**
      * Start get CapPla results from here
@@ -85,10 +95,11 @@ public class CapPlaController extends BaseTabController {
         List<CapPlaResult> result;
         Map<String, OrdersInWork> ordersInWorkMap;
         Map<String, WaitingListWorkPlace> waitingListWorkPlaceMap;
+        List<Item> productionResult = main.getProductionList();
 
         ordersInWorkMap = main.getXmlInputData().getOrdersInWorkMap();
         waitingListWorkPlaceMap = main.getXmlInputData().getWaitingListWorkPlaceMap();
-        result = cap.calculateCap(ordersInWorkMap, waitingListWorkPlaceMap);
+        result = cap.calculateCap(ordersInWorkMap, waitingListWorkPlaceMap, productionResult);
 
         return result;
     }

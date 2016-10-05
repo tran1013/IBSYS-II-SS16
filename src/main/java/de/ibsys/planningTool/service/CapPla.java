@@ -1,10 +1,13 @@
 package de.ibsys.planningTool.service;
 
+import de.ibsys.planningTool.controller.MainController;
 import de.ibsys.planningTool.database.capPlaDB;
 import de.ibsys.planningTool.mock.sellData;
 import de.ibsys.planningTool.model.CapPlaResult;
 import de.ibsys.planningTool.model.Constants;
+import de.ibsys.planningTool.model.ProductionResult;
 import de.ibsys.planningTool.model.ProductionSteps;
+import de.ibsys.planningTool.model.xmlExportModel.Item;
 import de.ibsys.planningTool.model.xmlInputModel.OrdersInWork;
 import de.ibsys.planningTool.model.xmlInputModel.WaitingList;
 import de.ibsys.planningTool.model.xmlInputModel.WaitingListWorkPlace;
@@ -21,13 +24,14 @@ import java.util.*;
 public class CapPla {
 
     capPlaDB prod = new capPlaDB();
+    MainController main = new MainController();
 
     /**
      * God Method to calculate CapPla shit
      * TODO: return Object from CapPlaResult
      */
     @FXML
-    public List<CapPlaResult> calculateCap(Map<String, OrdersInWork> ordersInWorkMap, Map<String, WaitingListWorkPlace> waitingListWorkPlaceMap) {
+    public List<CapPlaResult> calculateCap(Map<String, OrdersInWork> ordersInWorkMap, Map<String, WaitingListWorkPlace> waitingListWorkPlaceMap, List<Item> productionResult) {
 
         List<Integer> workplaceIDs;
         List<CapPlaResult> resultCapPla = new ArrayList<>();
@@ -36,15 +40,11 @@ public class CapPla {
         Map<String, Integer> ordersInWorkTime = new HashMap<>();
         Integer setupTimeLastPeriod = 0;
 
-        //TODO: Replace mock datas with real from dispo (1/2)
-        sellData mock = new sellData();
 
         try {
             workplaceIDs = prod.findWorkplaceID();
 
-            //TODO: Replace mock datas with real from dispo (2/3)
-            mock.setProdSteps();
-            List<ProductionSteps> prodSteps = mock.getProdSteps();
+            List<ProductionSteps> prodSteps = this.getMappedList(productionResult);
 
             for (Integer i : workplaceIDs) {
 
@@ -58,7 +58,7 @@ public class CapPla {
                     productionTime = ps.getProductionTime();
                     setup = ps.getSetupTime();
 
-                    //TODO: Replace mock datas with real from dispo (3/3)
+
                     for (ProductionSteps cap : prodSteps) {
 
                         String item = cap.getItemConfigID();
@@ -250,5 +250,23 @@ public class CapPla {
             return 0;
         }
         return overtime;
+    }
+
+    public List<ProductionSteps> getMappedList(List<Item> productionResult) {
+        List<ProductionSteps> psList = new ArrayList<>();
+
+        for (Integer i = 0; i < productionResult.size(); i++) {
+            if (productionResult.get(i).getArticleId().equals("1") || productionResult.get(i).getArticleId().equals("2") || productionResult.get(i).getArticleId().equals("3")) {
+                String itemID = "P" + productionResult.get(i).getArticleId();
+                psList.add(i, new ProductionSteps(i + 1, 0, itemID, productionResult.get(i).getQuantity(), 0));
+            } else {
+                String itemID = "E" + productionResult.get(i).getArticleId();
+                psList.add(i, new ProductionSteps(i + 1, 0, itemID, productionResult.get(i).getQuantity(), 0));
+            }
+
+        }
+
+        //System.out.println(psList);
+        return psList;
     }
 }

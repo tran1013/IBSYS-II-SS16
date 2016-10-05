@@ -135,6 +135,7 @@ public class MainController extends BaseTabController {
 
 	public void initWorkThings() {
 		productionController.init(this);
+		capPlaController.init(this);
 
 		productionList = new Dispo().calculate(productionList);
 		productionList = productionList.stream().sorted((item1, item2) -> Integer.valueOf(item1.getArticleId())
