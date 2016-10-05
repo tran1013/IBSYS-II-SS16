@@ -217,4 +217,14 @@ public class WomenBikeController extends BaseProductionTabController {
     public void saveNewReserve() {
         initUIThingsRandom();
     }
+
+    public List<Item> setList()
+    {
+        List<Item> productionResultChild =
+                setMainProductionList("2",
+                        Arrays.asList(productionP2, productionE26, productionE56, productionE16, productionE17,
+                                productionE55, productionE5, productionE11, productionE54, productionE8, productionE14,
+                                productionE19));
+        return productionResultChild;
+    }
 }

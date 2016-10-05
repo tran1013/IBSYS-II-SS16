@@ -228,4 +228,14 @@ public class MenBikeController extends BaseProductionTabController {
 	public void saveNewReserve() {
 		initUIThingsRandom();
 	}
+
+	public List<Item> setList()
+	{
+		List<Item> productionResultChild =
+				setMainProductionList("3",
+						Arrays.asList(productionP3, productionE26, productionE31, productionE16, productionE17,
+								productionE30, productionE6, productionE12, productionE29, productionE9, productionE15,
+								productionE20));
+		return productionResultChild;
+	}
 }

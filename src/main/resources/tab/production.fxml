@@ -32,6 +32,6 @@
         </JFXTabPane>
     </center>
     <bottom>
-        <JFXButton text="SAVE" BorderPane.alignment="CENTER" />
+        <JFXButton fx:id="saveBtn" onAction="#saveBtnPressed" text="Calculate &amp; Save" BorderPane.alignment="CENTER" />
     </bottom>
 </BorderPane>

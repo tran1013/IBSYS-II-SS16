@@ -120,9 +120,9 @@ public abstract class BaseProductionTabController extends Application {
         }
     }
 
-    public void setMainProductionList(String product, List<JFXTextField> textfields) {
-        List<Item> productionResultList = productionOrderController.getMainController().getProductionList();
-        productionResultList.clear();
+    public List<Item> setMainProductionList(String product, List<JFXTextField> textfields) {
+        //List<Item> productionResultList = productionOrderController.getMainController().getProductionList();
+        List<Item> productionResultList = new ArrayList<>();
         //TODO: Die Liste productionesultList muss im günstigsten Fall immer komplett neu erstellt werden. Wie umsetzen?
         List<String> parts = new ArrayList<String>();
         switch (product) {
@@ -139,9 +139,10 @@ public abstract class BaseProductionTabController extends Application {
         for (Integer i = 0; i < parts.size(); i++) {
             productionResultList.add(new Item(parts.get(i), Integer.parseInt(textfields.get(i).getText())));
         }
-        System.out.println(productionResultList);
-        System.out.println("Size: " + productionResultList.size());
-        productionOrderController.getMainController().setProductionList(productionResultList);
+        //System.out.println(productionResultList);
+        //System.out.println("Size: " + productionResultList.size());
+        //productionOrderController.getMainController().setProductionList(productionResultList);
+        return productionResultList;
     }
 
 }

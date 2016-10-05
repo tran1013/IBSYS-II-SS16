@@ -224,9 +224,9 @@ public class ChildBikeController extends BaseProductionTabController {
 
 
             //productionP1.setText(String.valueOf(getProductionValuePParts("1")));
-            setMainProductionList("1", Arrays.asList(productionP1, productionE26, productionE51, productionE16,
+           /* setMainProductionList("1", Arrays.asList(productionP1, productionE26, productionE51, productionE16,
     				productionE17, productionE50, productionE4, productionE10, productionE49, productionE7, productionE13,
-    				productionE18));
+    				productionE18));*/
         } catch (Exception e) {
             logger.error(e);
             e.printStackTrace();
@@ -236,5 +236,14 @@ public class ChildBikeController extends BaseProductionTabController {
     @FXML
     public void saveNewReserve() {
         initUIThingsRandom();
+    }
+
+    public List<Item> setList()
+    {
+        List<Item> productionResultChild =
+        setMainProductionList("1", Arrays.asList(productionP1, productionE26, productionE51, productionE16,
+                productionE17, productionE50, productionE4, productionE10, productionE49, productionE7, productionE13,
+                productionE18));
+        return productionResultChild;
     }
 }

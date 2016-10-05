@@ -14,7 +14,6 @@
         <Label fx:id="queue" layoutX="538.0" layoutY="30.0" text="Aufträge in Warte" />
         <Label fx:id="process" layoutX="682.0" layoutY="30.0" text="Aufträge in Bearbeitung" />
         <Label fx:id="productionorder" layoutX="875.0" layoutY="30.0" text="Produktionsaufträge" />
-        <JFXButton layoutX="487.0" layoutY="453.0" onAction="#saveNewReserve" text="Save Settings" />
         <Pane layoutX="10.0" layoutY="47.0" prefHeight="103.0" prefWidth="1078.0">
             <children>
                 <Label layoutX="14.0" layoutY="14.0" text="P1" />
