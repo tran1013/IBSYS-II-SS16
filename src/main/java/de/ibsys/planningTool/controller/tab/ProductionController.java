@@ -100,6 +100,7 @@ public class ProductionController extends BaseTabController {
 
 
         getMainController().setProductionList(result);
+        main.initWorkThings();
         System.out.println("Result:");
         System.out.println(result);
     }
