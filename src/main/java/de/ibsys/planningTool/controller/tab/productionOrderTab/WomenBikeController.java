@@ -203,10 +203,10 @@ public class WomenBikeController extends BaseProductionTabController {
                     getProductionValueEParts("19", Integer.valueOf(productionE54.getText()), getQueueValue("54"), Integer.parseInt(safetyE19.getText()), Integer.parseInt(stockE19.getText()), Integer.parseInt(queueE19.getText()), Integer.parseInt(processE19.getText()))));
 
 
-            setMainProductionList("2",
+            /*setMainProductionList("2",
                     Arrays.asList(productionP2, productionE26, productionE56, productionE16, productionE17,
                             productionE55, productionE5, productionE11, productionE54, productionE8, productionE14,
-                            productionE19));
+                            productionE19));*/
         } catch (Exception e) {
             logger.error(e);
             e.printStackTrace();

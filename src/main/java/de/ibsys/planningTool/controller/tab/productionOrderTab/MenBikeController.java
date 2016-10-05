@@ -214,10 +214,10 @@ public class MenBikeController extends BaseProductionTabController {
 			productionE20.setText(String.valueOf(
 					getProductionValueEParts("20", Integer.valueOf(productionE29.getText()), getQueueValue("29"), Integer.parseInt(safetyE20.getText()), Integer.parseInt(stockE20.getText()), Integer.parseInt(queueE20.getText()), Integer.parseInt(processE20.getText()))));
 
-			setMainProductionList("3",
+			/*setMainProductionList("3",
 					Arrays.asList(productionP3, productionE26, productionE31, productionE16, productionE17,
 							productionE30, productionE6, productionE12, productionE29, productionE9, productionE15,
-							productionE20));
+							productionE20));*/
 		} catch (Exception e) {
 			logger.error(e);
 			e.printStackTrace();
