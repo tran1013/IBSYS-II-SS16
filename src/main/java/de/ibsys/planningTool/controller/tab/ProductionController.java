@@ -68,52 +68,22 @@ public class ProductionController extends BaseTabController {
             childBikeController.initUIComponents();
             menBikeController.initUIComponents();
             womenBikeController.initUIComponents();
+            
             List<Item> child = childBikeController.setList();
             List<Item> men = menBikeController.setList();
             List<Item> women = womenBikeController.setList();
             List<Item> result = new ArrayList<>();
             result.clear();
-            result.addAll(child);
-
-            int quantity = 0;
-
-
-            for (int i = 0; i < men.size(); i++) {
-                if (!(men.get(i).getArticleId().equals("16") || men.get(i).getArticleId().equals("17")
-                        || men.get(i).getArticleId().equals("26")))
-                    result.add(men.get(i));
-            }
-
-            for (int i = 0; i < women.size(); i++) {
-                if (!(women.get(i).getArticleId().equals("16") || women.get(i).getArticleId().equals("17")
-                        || women.get(i).getArticleId().equals("26")))
-                    result.add(women.get(i));
-            }
             
-            // Logischer Fehler ? wenns ganz oben steht kommt an sich nicht genugend information rein 
-            for (int i = 0; i < result.size(); i++) {
-                if (result.get(i).getArticleId().equals("16") || result.get(i).getArticleId().equals("17")
-                        || result.get(i).getArticleId().equals("26")) {
-                    quantity = result.get(i).getQuantity();
-                    quantity += men.get(i).getQuantity() + women.get(i).getQuantity();
-                    result.set(i, new Item(result.get(i).getArticleId(), quantity));
-                }
-            }
-            logger.info(result);
-
-            Collections.sort(result, new Comparator<Item>() {
-                @Override
-                public int compare(Item o1, Item o2) {
-                    return Integer.parseInt(o1.getArticleId()) - Integer.parseInt(o2.getArticleId());
-                }
-            });
+            result.addAll(child);
+            result.addAll(women);
+            result.addAll(men);
 
             getMainController().setProductionList(result);
             main.initWorkThings();
             logger.info("save new stuff successfull");
-            /*
-             * System.out.println("Result:"); System.out.println(result);
-             */
+           
+            mainController.getProductionList().forEach(System.out::println);
         } catch (NullPointerException e) {
             logger.info(e);
         }

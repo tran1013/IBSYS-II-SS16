@@ -80,11 +80,7 @@ public class CapPlaController extends BaseTabController {
         super.init(main);
         this.getCapPlaUI();
     }
-
-    /**
-     * Start get CapPla results from here
-     */
-    @FXML
+    
     public List<CapPlaResult> getMasterResult() {
         CapPla cap = new CapPla();
         List<CapPlaResult> result;
@@ -162,7 +158,6 @@ public class CapPlaController extends BaseTabController {
             barChart.setLegendVisible(false);
         } catch (NullPointerException e) {
             logger.info(e);
-            e.printStackTrace();
         }
     }
 
