@@ -1,16 +1,21 @@
 package de.ibsys.planningTool.controller.tab;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ResourceBundle;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 import com.jfoenix.controls.JFXButton;
+
 import de.ibsys.planningTool.controller.MainController;
 import de.ibsys.planningTool.controller.tab.productionOrderTab.ChildBikeController;
 import de.ibsys.planningTool.controller.tab.productionOrderTab.MenBikeController;
 import de.ibsys.planningTool.controller.tab.productionOrderTab.WomenBikeController;
 import de.ibsys.planningTool.model.xmlExportModel.Item;
-import javafx.collections.transformation.SortedList;
+import de.ibsys.planningTool.service.Dispo;
 import javafx.fxml.FXML;
 import javafx.stage.Stage;
-
-import java.util.*;
 
 /**
  * Created by minhnguyen on 22.09.16.
@@ -59,53 +64,37 @@ public class ProductionController extends BaseTabController {
 
     @FXML
     public void saveBtnPressed() {
-
+        initProductionControllerCalculation();
+    }
+    
+    public void initProductionControllerCalculation () {
         try {
-            childBikeController.initUIThingsRandom();
-            menBikeController.initUIThingsRandom();
-            womenBikeController.initUIThingsRandom();
-            List<Item> child = childBikeController.setList();
-            List<Item> men = menBikeController.setList();
-            List<Item> women = womenBikeController.setList();
+            childBikeController.storeNewReserve();
+            menBikeController.storeNewReserve();
+            womenBikeController.storeNewReserve();
+            childBikeController.initUIComponents();
+            menBikeController.initUIComponents();
+            womenBikeController.initUIComponents();
+
             List<Item> result = new ArrayList<>();
+
             result.clear();
-            result.addAll(child);
 
-
-            int quantity = 0;
-
-            for (int i = 0; i < result.size(); i++) {
-                if (result.get(i).getArticleId().equals("16") || result.get(i).getArticleId().equals("17") || result.get(i).getArticleId().equals("26")) {
-                    quantity = result.get(i).getQuantity();
-                    quantity += men.get(i).getQuantity() + women.get(i).getQuantity();
-                    result.set(i, new Item(result.get(i).getArticleId(), quantity));
-                }
-            }
-
-            for (int i = 0; i < men.size(); i++) {
-                if (!(men.get(i).getArticleId().equals("16") || men.get(i).getArticleId().equals("17") || men.get(i).getArticleId().equals("26")))
-                    result.add(men.get(i));
-            }
-
-            for (int i = 0; i < women.size(); i++) {
-                if (!(women.get(i).getArticleId().equals("16") || women.get(i).getArticleId().equals("17") || women.get(i).getArticleId().equals("26")))
-                    result.add(women.get(i));
-            }
-
-            Collections.sort(result, new Comparator<Item>() {
-                @Override
-                public int compare(Item o1, Item o2) {
-                    return Integer.parseInt(o1.getArticleId()) - Integer.parseInt(o2.getArticleId());
-                }
-            });
-
+            result = new Dispo().calculate( // do calculation and reduce 
+                    Stream.concat(childBikeController.setList().parallelStream(), //
+                            Stream.concat(menBikeController.setList().parallelStream(), //
+                                    womenBikeController.setList().parallelStream() //
+                            ).collect(Collectors.toList()).parallelStream()) // get all list from men and women in one list
+                            .collect(Collectors.toList())) // get all list form views together
+                    .stream()
+                    .sorted((item1, item2) -> Integer.valueOf(item1.getArticleId()) // sorted things 
+                            .compareTo(Integer.valueOf(item2.getArticleId()))) //
+                    .collect(Collectors.toList()); // return a list
 
             getMainController().setProductionList(result);
             main.initWorkThings();
             logger.info("save new stuff successfull");
-            /*System.out.println("Result:");
-            System.out.println(result);*/
-        } catch(NullPointerException e){
+        } catch (NullPointerException e) {
             logger.info(e);
         }
     }

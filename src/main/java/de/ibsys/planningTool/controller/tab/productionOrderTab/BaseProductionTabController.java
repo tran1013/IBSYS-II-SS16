@@ -1,7 +1,9 @@
 package de.ibsys.planningTool.controller.tab.productionOrderTab;
 
-import de.ibsys.planningTool.model.ProductionResult;
-import de.ibsys.planningTool.service.Dispo;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import org.apache.log4j.Logger;
 
 import com.jfoenix.controls.JFXTextField;
@@ -11,10 +13,6 @@ import de.ibsys.planningTool.model.XmlInputData;
 import de.ibsys.planningTool.model.xmlExportModel.Item;
 import de.ibsys.planningTool.model.xmlInputModel.WaitingList;
 import javafx.application.Application;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * Created by minhnguyen on 22.09.16.
@@ -78,52 +76,28 @@ public abstract class BaseProductionTabController extends Application {
         // TODO maybe ?? need feedback with get WaitingLIstPartsAmount on
         // Machines ?
         // how to handle it
-        int ergebnis = vertriebwunsch + sicherheitsbestand - lagerBestand - warteschlange - bearbeitung;
 
-        return ergebnis;
+        return vertriebwunsch + sicherheitsbestand - lagerBestand - warteschlange - bearbeitung;
     }
 
-    protected int getProductionValueEParts(String code, int vertriebwunsch, int hilfszahl, int sicherheitsbestand, int lagerBestand, int warteschlange, int bearbeitung) {
-        /*switch (code) {
-            case "16":
-            case "17":
-            case "26":
-            break;
-        }
-        int lagerBestand = getStockValue(code);
-        int warteschlange = getQueueValue(code);
-        int bearbeitung = getProcessValue(code);
-        // TODO maybe ?? need feedback with get WaitingLIstPartsAmount on
-        // Machines ?
-        // how to handle it
-        int ergebnis = vertriebwunsch + hilfszahl + sicherheitsbestand - lagerBestand - warteschlange - bearbeitung
-                - getWaitingListPartsAmount(code);
-        // logger.info(getWaitingListPartsAmount(code));
+    protected int getProductionValueEParts(String code, int vertriebwunsch, int hilfszahl, int sicherheitsbestand,
+            int lagerBestand, int warteschlange, int bearbeitung) {
 
-        return ergebnis;*/
-
-        if(code.equals("16") || code.equals("17") || code.equals("26")){
-            int ergebnis = vertriebwunsch + hilfszahl + sicherheitsbestand - lagerBestand - warteschlange - bearbeitung/*- getWaitingListPartsAmount(code)*/;
-            return ergebnis;
+        if (code.equals("16") || code.equals("17") || code.equals("26")) {
+            return vertriebwunsch + hilfszahl + sicherheitsbestand - lagerBestand - warteschlange
+                    - bearbeitung/*- getWaitingListPartsAmount(code)*/;
+            // TODO WHY ?
         } else {
-            /*int lagerBestand = getStockValue(code);
-            int warteschlange = getQueueValue(code);
-            int bearbeitung = getProcessValue(code);*/
             // TODO maybe ?? need feedback with get WaitingLIstPartsAmount on
-            // Machines ?
-            // how to handle it
-            int ergebnis = vertriebwunsch + hilfszahl + sicherheitsbestand - lagerBestand - warteschlange - bearbeitung
+            return vertriebwunsch + hilfszahl + sicherheitsbestand - lagerBestand - warteschlange - bearbeitung
                     - getWaitingListPartsAmount(code);
-            // logger.info(getWaitingListPartsAmount(code));
-
-            return ergebnis;
         }
     }
 
     public List<Item> setMainProductionList(String product, List<JFXTextField> textfields) {
-        //List<Item> productionResultList = productionOrderController.getMainController().getProductionList();
         List<Item> productionResultList = new ArrayList<>();
-        //TODO: Die Liste productionesultList muss im günstigsten Fall immer komplett neu erstellt werden. Wie umsetzen?
+        // TODO: Die Liste productionesultList muss im günstigsten Fall immer
+        // komplett neu erstellt werden. Wie umsetzen?
         List<String> parts = new ArrayList<String>();
         switch (product) {
             case "1":
@@ -139,9 +113,6 @@ public abstract class BaseProductionTabController extends Application {
         for (Integer i = 0; i < parts.size(); i++) {
             productionResultList.add(new Item(parts.get(i), Integer.parseInt(textfields.get(i).getText())));
         }
-        //System.out.println(productionResultList);
-        //System.out.println("Size: " + productionResultList.size());
-        //productionOrderController.getMainController().setProductionList(productionResultList);
         return productionResultList;
     }
 

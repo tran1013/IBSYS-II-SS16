@@ -1,16 +1,15 @@
 package de.ibsys.planningTool.controller.tab.productionOrderTab;
 
+import java.util.Arrays;
+import java.util.List;
+
 import com.jfoenix.controls.JFXTextField;
+
 import de.ibsys.planningTool.controller.tab.ProductionController;
-import de.ibsys.planningTool.model.ProductionResult;
 import de.ibsys.planningTool.model.xmlExportModel.Item;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * Created by minhnguyen on 22.09.16.
@@ -55,10 +54,10 @@ public class WomenBikeController extends BaseProductionTabController {
     @Override
     public void init(ProductionController productionOrderController) {
         super.init(productionOrderController);
-        initUIThingsRandom();
+        initUIComponents();
     }
 
-    public void initUIThingsRandom() {
+    public void initUIComponents() {
         try {
             orderP2.setText(String.valueOf(getForeCastInformationProductLine("p2n")));
             stockP2.setText(String.valueOf(getStockValue("2")));
@@ -72,13 +71,19 @@ public class WomenBikeController extends BaseProductionTabController {
             productionP2.setText(String.valueOf(getProductionValuePParts("2", Integer.parseInt(safetyP2.getText()))));
 
             orderE26.setText(String.valueOf(productionP2.getText()));
-            stockE26.setText(/*String.valueOf(getStockValue("26"))*/String.valueOf(0));
-            helpE26.setText(String.valueOf(/*getQueueValue("2")*/0));
-            safetyE26.setText(String.valueOf(/*getXmlInputData().getWareHouseArticles().get("26").getReserve() / 3*/0));
-            queueE26.setText(String.valueOf(/*getQueueValue("26")*/0));
-            processE26.setText(String.valueOf(/*getProcessValue("26"))*/0));
-            productionE26.setText(String.valueOf(
-                    getProductionValueEParts("26", Integer.parseInt(productionP2.getText()), Integer.parseInt(queueE26.getText()), Integer.parseInt(safetyE26.getText()), Integer.parseInt(stockE26.getText()), Integer.parseInt(queueE26.getText()), Integer.parseInt(processE26.getText()))));
+            stockE26.setText(/* String.valueOf(getStockValue("26")) */String.valueOf(0));
+            helpE26.setText(String.valueOf(/* getQueueValue("2") */0));
+            safetyE26.setText(
+                    String.valueOf(/*
+                                    * getXmlInputData().getWareHouseArticles().
+                                    * get("26").getReserve() / 3
+                                    */0));
+            queueE26.setText(String.valueOf(/* getQueueValue("26") */0));
+            processE26.setText(String.valueOf(/* getProcessValue("26")) */0));
+            productionE26.setText(String.valueOf(getProductionValueEParts("26",
+                    Integer.parseInt(productionP2.getText()), Integer.parseInt(queueE26.getText()),
+                    Integer.parseInt(safetyE26.getText()), Integer.parseInt(stockE26.getText()),
+                    Integer.parseInt(queueE26.getText()), Integer.parseInt(processE26.getText()))));
 
             orderE56.setText(String.valueOf(productionP2.getText()));
             stockE56.setText(String.valueOf(getStockValue("56")));
@@ -91,25 +96,39 @@ public class WomenBikeController extends BaseProductionTabController {
             queueE56.setText(String.valueOf(getQueueValue("56")));
             processE56.setText(String.valueOf(getProcessValue("56")));
             productionE56.setText(String.valueOf(
-                    getProductionValueEParts("56", Integer.parseInt(productionP2.getText()), getQueueValue("2"), Integer.parseInt(safetyE56.getText()), Integer.parseInt(stockE56.getText()), Integer.parseInt(queueE56.getText()), Integer.parseInt(processE56.getText()))));
+                    getProductionValueEParts("56", Integer.parseInt(productionP2.getText()), getQueueValue("2"),
+                            Integer.parseInt(safetyE56.getText()), Integer.parseInt(stockE56.getText()),
+                            Integer.parseInt(queueE56.getText()), Integer.parseInt(processE56.getText()))));
 
             orderE16.setText(String.valueOf(productionE56.getText()));
-            stockE16.setText(String.valueOf(/*getStockValue("16")*/0));
+            stockE16.setText(String.valueOf(/* getStockValue("16") */0));
             helpE16.setText(String.valueOf(getQueueValue("56")));
-            safetyE16.setText(String.valueOf(/*getXmlInputData().getWareHouseArticles().get("16").getReserve() / 3*/0));
+            safetyE16.setText(
+                    String.valueOf(/*
+                                    * getXmlInputData().getWareHouseArticles().
+                                    * get("16").getReserve() / 3
+                                    */0));
             queueE16.setText(String.valueOf(0));
             processE16.setText(String.valueOf(0));
-            productionE16.setText(String.valueOf(
-                    getProductionValueEParts("16", Integer.valueOf(productionE56.getText()), Integer.parseInt(queueE16.getText()), Integer.parseInt(safetyE16.getText()), Integer.parseInt(stockE16.getText()), Integer.parseInt(queueE16.getText()), Integer.parseInt(processE16.getText()))));
+            productionE16.setText(String.valueOf(getProductionValueEParts("16",
+                    Integer.valueOf(productionE56.getText()), Integer.parseInt(queueE16.getText()),
+                    Integer.parseInt(safetyE16.getText()), Integer.parseInt(stockE16.getText()),
+                    Integer.parseInt(queueE16.getText()), Integer.parseInt(processE16.getText()))));
 
             orderE17.setText(String.valueOf(productionE56.getText()));
-            stockE17.setText(String.valueOf(/*getStockValue("17")*/0));
+            stockE17.setText(String.valueOf(/* getStockValue("17") */0));
             helpE17.setText(String.valueOf(getQueueValue("56")));
-            safetyE17.setText(String.valueOf(/*getXmlInputData().getWareHouseArticles().get("17").getReserve() / 3*/0));
+            safetyE17.setText(
+                    String.valueOf(/*
+                                    * getXmlInputData().getWareHouseArticles().
+                                    * get("17").getReserve() / 3
+                                    */0));
             queueE17.setText(String.valueOf(0));
             processE17.setText(String.valueOf(0));
-            productionE17.setText(String.valueOf(
-                    getProductionValueEParts("17", Integer.valueOf(productionE56.getText()), Integer.parseInt(queueE17.getText()), Integer.parseInt(safetyE17.getText()), Integer.parseInt(stockE17.getText()), Integer.parseInt(queueE17.getText()), Integer.parseInt(processE17.getText()))));
+            productionE17.setText(String.valueOf(getProductionValueEParts("17",
+                    Integer.valueOf(productionE56.getText()), Integer.parseInt(queueE17.getText()),
+                    Integer.parseInt(safetyE17.getText()), Integer.parseInt(stockE17.getText()),
+                    Integer.parseInt(queueE17.getText()), Integer.parseInt(processE17.getText()))));
 
             orderE55.setText(String.valueOf(productionE56.getText()));
             stockE55.setText(String.valueOf(getStockValue("55")));
@@ -122,7 +141,9 @@ public class WomenBikeController extends BaseProductionTabController {
             queueE55.setText(String.valueOf(getQueueValue("55")));
             processE55.setText(String.valueOf(getProcessValue("55")));
             productionE55.setText(String.valueOf(
-                    getProductionValueEParts("55", Integer.valueOf(productionE56.getText()), getQueueValue("56"), Integer.parseInt(safetyE55.getText()), Integer.parseInt(stockE55.getText()), Integer.parseInt(queueE55.getText()), Integer.parseInt(processE55.getText()))));
+                    getProductionValueEParts("55", Integer.valueOf(productionE56.getText()), getQueueValue("56"),
+                            Integer.parseInt(safetyE55.getText()), Integer.parseInt(stockE55.getText()),
+                            Integer.parseInt(queueE55.getText()), Integer.parseInt(processE55.getText()))));
 
             orderE5.setText(String.valueOf(productionE55.getText()));
             stockE5.setText(String.valueOf(getStockValue("5")));
@@ -134,8 +155,9 @@ public class WomenBikeController extends BaseProductionTabController {
             }
             queueE5.setText(String.valueOf(getQueueValue("5")));
             processE5.setText(String.valueOf(getProcessValue("5")));
-            productionE5.setText(String.valueOf(
-                    getProductionValueEParts("5", Integer.valueOf(productionE55.getText()), getQueueValue("55"), Integer.parseInt(safetyE5.getText()), Integer.parseInt(stockE5.getText()), Integer.parseInt(queueE5.getText()), Integer.parseInt(processE5.getText()))));
+            productionE5.setText(String.valueOf(getProductionValueEParts("5", Integer.valueOf(productionE55.getText()),
+                    getQueueValue("55"), Integer.parseInt(safetyE5.getText()), Integer.parseInt(stockE5.getText()),
+                    Integer.parseInt(queueE5.getText()), Integer.parseInt(processE5.getText()))));
 
             orderE11.setText(String.valueOf(productionE55.getText()));
             stockE11.setText(String.valueOf(getStockValue("11")));
@@ -148,7 +170,9 @@ public class WomenBikeController extends BaseProductionTabController {
             queueE11.setText(String.valueOf(getQueueValue("11")));
             processE11.setText(String.valueOf(getProcessValue("11")));
             productionE11.setText(String.valueOf(
-                    getProductionValueEParts("11", Integer.valueOf(productionE55.getText()), getQueueValue("55"), Integer.parseInt(safetyE11.getText()), Integer.parseInt(stockE11.getText()), Integer.parseInt(queueE11.getText()), Integer.parseInt(processE11.getText()))));
+                    getProductionValueEParts("11", Integer.valueOf(productionE55.getText()), getQueueValue("55"),
+                            Integer.parseInt(safetyE11.getText()), Integer.parseInt(stockE11.getText()),
+                            Integer.parseInt(queueE11.getText()), Integer.parseInt(processE11.getText()))));
 
             orderE54.setText(String.valueOf(productionE55.getText()));
             stockE54.setText(String.valueOf(getStockValue("54")));
@@ -161,7 +185,9 @@ public class WomenBikeController extends BaseProductionTabController {
             queueE54.setText(String.valueOf(getQueueValue("54")));
             processE54.setText(String.valueOf(getProcessValue("54")));
             productionE54.setText(String.valueOf(
-                    getProductionValueEParts("54", Integer.valueOf(productionE55.getText()), getQueueValue("55"), Integer.parseInt(safetyE54.getText()), Integer.parseInt(stockE54.getText()), Integer.parseInt(queueE54.getText()), Integer.parseInt(processE54.getText()))));
+                    getProductionValueEParts("54", Integer.valueOf(productionE55.getText()), getQueueValue("55"),
+                            Integer.parseInt(safetyE54.getText()), Integer.parseInt(stockE54.getText()),
+                            Integer.parseInt(queueE54.getText()), Integer.parseInt(processE54.getText()))));
 
             orderE8.setText(String.valueOf(productionE54.getText()));
             stockE8.setText(String.valueOf(getStockValue("8")));
@@ -173,8 +199,9 @@ public class WomenBikeController extends BaseProductionTabController {
             }
             queueE8.setText(String.valueOf(getQueueValue("8")));
             processE8.setText(String.valueOf(getProcessValue("8")));
-            productionE8.setText(String.valueOf(
-                    getProductionValueEParts("8", Integer.valueOf(productionE54.getText()), getQueueValue("54"), Integer.parseInt(safetyE8.getText()), Integer.parseInt(stockE8.getText()), Integer.parseInt(queueE8.getText()), Integer.parseInt(processE8.getText()))));
+            productionE8.setText(String.valueOf(getProductionValueEParts("8", Integer.valueOf(productionE54.getText()),
+                    getQueueValue("54"), Integer.parseInt(safetyE8.getText()), Integer.parseInt(stockE8.getText()),
+                    Integer.parseInt(queueE8.getText()), Integer.parseInt(processE8.getText()))));
 
             orderE14.setText(String.valueOf(productionE54.getText()));
             stockE14.setText(String.valueOf(getStockValue("14")));
@@ -187,7 +214,9 @@ public class WomenBikeController extends BaseProductionTabController {
             queueE14.setText(String.valueOf(getQueueValue("14")));
             processE14.setText(String.valueOf(getProcessValue("14")));
             productionE14.setText(String.valueOf(
-                    getProductionValueEParts("14", Integer.valueOf(productionE54.getText()), getQueueValue("54"), Integer.parseInt(safetyE14.getText()), Integer.parseInt(stockE14.getText()), Integer.parseInt(queueE14.getText()), Integer.parseInt(processE14.getText()))));
+                    getProductionValueEParts("14", Integer.valueOf(productionE54.getText()), getQueueValue("54"),
+                            Integer.parseInt(safetyE14.getText()), Integer.parseInt(stockE14.getText()),
+                            Integer.parseInt(queueE14.getText()), Integer.parseInt(processE14.getText()))));
 
             orderE19.setText(String.valueOf(productionE54.getText()));
             stockE19.setText(String.valueOf(getStockValue("19")));
@@ -200,31 +229,38 @@ public class WomenBikeController extends BaseProductionTabController {
             queueE19.setText(String.valueOf(getQueueValue("19")));
             processE19.setText(String.valueOf(getProcessValue("19")));
             productionE19.setText(String.valueOf(
-                    getProductionValueEParts("19", Integer.valueOf(productionE54.getText()), getQueueValue("54"), Integer.parseInt(safetyE19.getText()), Integer.parseInt(stockE19.getText()), Integer.parseInt(queueE19.getText()), Integer.parseInt(processE19.getText()))));
+                    getProductionValueEParts("19", Integer.valueOf(productionE54.getText()), getQueueValue("54"),
+                            Integer.parseInt(safetyE19.getText()), Integer.parseInt(stockE19.getText()),
+                            Integer.parseInt(queueE19.getText()), Integer.parseInt(processE19.getText()))));
 
-
-            /*setMainProductionList("2",
-                    Arrays.asList(productionP2, productionE26, productionE56, productionE16, productionE17,
-                            productionE55, productionE5, productionE11, productionE54, productionE8, productionE14,
-                            productionE19));*/
+            /*
+             * setMainProductionList("2", Arrays.asList(productionP2,
+             * productionE26, productionE56, productionE16, productionE17,
+             * productionE55, productionE5, productionE11, productionE54,
+             * productionE8, productionE14, productionE19));
+             */
         } catch (Exception e) {
             logger.error(e);
             e.printStackTrace();
         }
     }
 
-    @FXML
-    public void saveNewReserve() {
-        initUIThingsRandom();
+    public void storeNewReserve() {
+        getXmlInputData().getWareHouseArticles().get("2").setReserve(Integer.parseInt(safetyP2.getText()));
+        getXmlInputData().getWareHouseArticles().get("56").setReserve(Integer.parseInt(safetyE56.getText()));
+        getXmlInputData().getWareHouseArticles().get("55").setReserve(Integer.parseInt(safetyE55.getText()));
+        getXmlInputData().getWareHouseArticles().get("5").setReserve(Integer.parseInt(safetyE5.getText()));
+        getXmlInputData().getWareHouseArticles().get("11").setReserve(Integer.parseInt(safetyE11.getText()));
+        getXmlInputData().getWareHouseArticles().get("54").setReserve(Integer.parseInt(safetyE54.getText()));
+        getXmlInputData().getWareHouseArticles().get("8").setReserve(Integer.parseInt(safetyE8.getText()));
+        getXmlInputData().getWareHouseArticles().get("14").setReserve(Integer.parseInt(safetyE14.getText()));
+        getXmlInputData().getWareHouseArticles().get("19").setReserve(Integer.parseInt(safetyE19.getText()));
     }
 
-    public List<Item> setList()
-    {
-        List<Item> productionResultChild =
-                setMainProductionList("2",
-                        Arrays.asList(productionP2, productionE26, productionE56, productionE16, productionE17,
-                                productionE55, productionE5, productionE11, productionE54, productionE8, productionE14,
-                                productionE19));
+    public List<Item> setList() {
+        List<Item> productionResultChild = setMainProductionList("2",
+                Arrays.asList(productionP2, productionE26, productionE56, productionE16, productionE17, productionE55,
+                        productionE5, productionE11, productionE54, productionE8, productionE14, productionE19));
         return productionResultChild;
     }
 }
