@@ -1,10 +1,10 @@
 package de.ibsys.planningTool.controller.tab;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import com.jfoenix.controls.JFXButton;
 
@@ -13,6 +13,7 @@ import de.ibsys.planningTool.controller.tab.productionOrderTab.ChildBikeControll
 import de.ibsys.planningTool.controller.tab.productionOrderTab.MenBikeController;
 import de.ibsys.planningTool.controller.tab.productionOrderTab.WomenBikeController;
 import de.ibsys.planningTool.model.xmlExportModel.Item;
+import de.ibsys.planningTool.service.Dispo;
 import javafx.fxml.FXML;
 import javafx.stage.Stage;
 
@@ -63,27 +64,36 @@ public class ProductionController extends BaseTabController {
 
     @FXML
     public void saveBtnPressed() {
+        initProductionControllerCalculation();
+    }
+    
+    public void initProductionControllerCalculation () {
         try {
             childBikeController.storeNewReserve();
+            menBikeController.storeNewReserve();
+            womenBikeController.storeNewReserve();
             childBikeController.initUIComponents();
             menBikeController.initUIComponents();
             womenBikeController.initUIComponents();
-            
-            List<Item> child = childBikeController.setList();
-            List<Item> men = menBikeController.setList();
-            List<Item> women = womenBikeController.setList();
+
             List<Item> result = new ArrayList<>();
+
             result.clear();
-            
-            result.addAll(child);
-            result.addAll(women);
-            result.addAll(men);
+
+            result = new Dispo().calculate( // do calculation and reduce 
+                    Stream.concat(childBikeController.setList().parallelStream(), //
+                            Stream.concat(menBikeController.setList().parallelStream(), //
+                                    womenBikeController.setList().parallelStream() //
+                            ).collect(Collectors.toList()).parallelStream()) // get all list from men and women in one list
+                            .collect(Collectors.toList())) // get all list form views together
+                    .stream()
+                    .sorted((item1, item2) -> Integer.valueOf(item1.getArticleId()) // sorted things 
+                            .compareTo(Integer.valueOf(item2.getArticleId()))) //
+                    .collect(Collectors.toList()); // return a list
 
             getMainController().setProductionList(result);
             main.initWorkThings();
             logger.info("save new stuff successfull");
-           
-            mainController.getProductionList().forEach(System.out::println);
         } catch (NullPointerException e) {
             logger.info(e);
         }

@@ -261,6 +261,22 @@ public class MenBikeController extends BaseProductionTabController {
     public void saveNewReserve() {
         initUIComponents();
     }
+    
+    public void  storeNewReserve() {
+        getXmlInputData().getWareHouseArticles().get("26").setReserve(Integer.parseInt(safetyE26.getText()));
+        getXmlInputData().getWareHouseArticles().get("16").setReserve(Integer.parseInt(safetyE16.getText()));
+        getXmlInputData().getWareHouseArticles().get("17").setReserve(Integer.parseInt(safetyE17.getText()));
+
+        getXmlInputData().getWareHouseArticles().get("3").setReserve(Integer.parseInt(safetyP3.getText()));
+        getXmlInputData().getWareHouseArticles().get("31").setReserve(Integer.parseInt(safetyE31.getText()));
+        getXmlInputData().getWareHouseArticles().get("30").setReserve(Integer.parseInt(safetyE30.getText()));
+        getXmlInputData().getWareHouseArticles().get("6").setReserve(Integer.parseInt(safetyE6.getText()));
+        getXmlInputData().getWareHouseArticles().get("12").setReserve(Integer.parseInt(safetyE12.getText()));
+        getXmlInputData().getWareHouseArticles().get("29").setReserve(Integer.parseInt(safetyE29.getText()));
+        getXmlInputData().getWareHouseArticles().get("9").setReserve(Integer.parseInt(safetyE9.getText()));
+        getXmlInputData().getWareHouseArticles().get("15").setReserve(Integer.parseInt(safetyE15.getText()));
+        getXmlInputData().getWareHouseArticles().get("20").setReserve(Integer.parseInt(safetyE20.getText()));
+    }
 
     public List<Item> setList() {
         List<Item> productionResultChild = setMainProductionList("3",

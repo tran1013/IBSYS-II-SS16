@@ -73,7 +73,7 @@ public class ChildBikeController extends BaseProductionTabController {
             stockE26.setText(String.valueOf(getStockValue("26")));
             helpE26.setText(String.valueOf(getQueueValue("1")));
             if (safetyE26.getText().equals("")) {
-                safetyE26.setText(String.valueOf(getXmlInputData().getWareHouseArticles().get("26").getReserve() / 3));
+                safetyE26.setText(String.valueOf(getXmlInputData().getWareHouseArticles().get("26").getReserve()));
             } else {
                 safetyE26.getText();
             }
@@ -103,7 +103,7 @@ public class ChildBikeController extends BaseProductionTabController {
             stockE16.setText(String.valueOf(getStockValue("16")));
             helpE16.setText(String.valueOf(getQueueValue("51")));
             if (safetyE16.getText().equals("")) {
-                safetyE16.setText(String.valueOf(getXmlInputData().getWareHouseArticles().get("16").getReserve() / 3));
+                safetyE16.setText(String.valueOf(getXmlInputData().getWareHouseArticles().get("16").getReserve()));
             } else {
                 safetyE16.getText();
             }
@@ -118,7 +118,7 @@ public class ChildBikeController extends BaseProductionTabController {
             stockE17.setText(String.valueOf(getStockValue("17")));
             helpE17.setText(String.valueOf(getQueueValue("51")));
             if (safetyE17.getText().equals("")) {
-                safetyE17.setText(String.valueOf(getXmlInputData().getWareHouseArticles().get("17").getReserve() / 3));
+                safetyE17.setText(String.valueOf(getXmlInputData().getWareHouseArticles().get("17").getReserve()));
             } else {
                 safetyE17.getText();
             }
@@ -238,11 +238,12 @@ public class ChildBikeController extends BaseProductionTabController {
     }
     
     public void  storeNewReserve() {
-        getXmlInputData().getWareHouseArticles().get("1").setReserve(Integer.parseInt(safetyP1.getText()));
         getXmlInputData().getWareHouseArticles().get("26").setReserve(Integer.parseInt(safetyE26.getText()));
-        getXmlInputData().getWareHouseArticles().get("51").setReserve(Integer.parseInt(safetyE51.getText()));
         getXmlInputData().getWareHouseArticles().get("16").setReserve(Integer.parseInt(safetyE16.getText()));
         getXmlInputData().getWareHouseArticles().get("17").setReserve(Integer.parseInt(safetyE17.getText()));
+        
+        getXmlInputData().getWareHouseArticles().get("1").setReserve(Integer.parseInt(safetyP1.getText()));
+        getXmlInputData().getWareHouseArticles().get("51").setReserve(Integer.parseInt(safetyE51.getText()));
         getXmlInputData().getWareHouseArticles().get("50").setReserve(Integer.parseInt(safetyE50.getText()));
         getXmlInputData().getWareHouseArticles().get("4").setReserve(Integer.parseInt(safetyE4.getText()));
         getXmlInputData().getWareHouseArticles().get("10").setReserve(Integer.parseInt(safetyE10.getText()));

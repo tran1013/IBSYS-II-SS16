@@ -245,9 +245,20 @@ public class WomenBikeController extends BaseProductionTabController {
         }
     }
 
-    @FXML
-    public void saveNewReserve() {
-        initUIComponents();
+    public void storeNewReserve() {
+        getXmlInputData().getWareHouseArticles().get("26").setReserve(Integer.parseInt(safetyE26.getText()));
+        getXmlInputData().getWareHouseArticles().get("16").setReserve(Integer.parseInt(safetyE16.getText()));
+        getXmlInputData().getWareHouseArticles().get("17").setReserve(Integer.parseInt(safetyE17.getText()));
+
+        getXmlInputData().getWareHouseArticles().get("2").setReserve(Integer.parseInt(safetyP2.getText()));
+        getXmlInputData().getWareHouseArticles().get("56").setReserve(Integer.parseInt(safetyE56.getText()));
+        getXmlInputData().getWareHouseArticles().get("55").setReserve(Integer.parseInt(safetyE55.getText()));
+        getXmlInputData().getWareHouseArticles().get("5").setReserve(Integer.parseInt(safetyE5.getText()));
+        getXmlInputData().getWareHouseArticles().get("11").setReserve(Integer.parseInt(safetyE11.getText()));
+        getXmlInputData().getWareHouseArticles().get("54").setReserve(Integer.parseInt(safetyE54.getText()));
+        getXmlInputData().getWareHouseArticles().get("8").setReserve(Integer.parseInt(safetyE8.getText()));
+        getXmlInputData().getWareHouseArticles().get("14").setReserve(Integer.parseInt(safetyE14.getText()));
+        getXmlInputData().getWareHouseArticles().get("19").setReserve(Integer.parseInt(safetyE19.getText()));
     }
 
     public List<Item> setList() {
