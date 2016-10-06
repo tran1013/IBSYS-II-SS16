@@ -1,39 +1,35 @@
 package de.ibsys.planningTool.controller.tab;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 import de.ibsys.planningTool.controller.MainController;
-import de.ibsys.planningTool.mock.sellData;
 import de.ibsys.planningTool.model.CapPlaResult;
-import de.ibsys.planningTool.model.ProductionResult;
-import de.ibsys.planningTool.model.ProductionSteps;
-import de.ibsys.planningTool.model.XmlInputData;
 import de.ibsys.planningTool.model.xmlExportModel.Item;
 import de.ibsys.planningTool.model.xmlExportModel.WorkTime;
 import de.ibsys.planningTool.model.xmlInputModel.OrdersInWork;
 import de.ibsys.planningTool.model.xmlInputModel.WaitingListWorkPlace;
 import de.ibsys.planningTool.service.CapPla;
-import de.ibsys.planningTool.util.Dialogs.DialogMessages;
 import de.ibsys.planningTool.util.I18N;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.chart.*;
-import javafx.scene.control.*;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
-import java.util.*;
-import java.util.List;
-
-
 /**
- * Created by Duc on 11.08.16.
- * TODO: Clean up mess in class
- * TODO: Test class or take a deep breath and get to it?
+ * Created by Duc on 11.08.16. TODO: Clean up mess in class TODO: Test class or
+ * take a deep breath and get to it?
  */
 public class CapPlaController extends BaseTabController {
-
 
     @FXML
     private TableView<CapPlaResult> tableView;
@@ -74,7 +70,6 @@ public class CapPlaController extends BaseTabController {
     @FXML
     private Label label_05;
 
-
     @Override
     public void start(Stage primaryStage) throws Exception {
 
@@ -103,7 +98,6 @@ public class CapPlaController extends BaseTabController {
 
         return result;
     }
-
 
     /**
      * Get ObservableList with datas to print them on the table view
@@ -139,7 +133,6 @@ public class CapPlaController extends BaseTabController {
 
         Integer workplaceId, reqCapacity;
 
-
         for (CapPlaResult cap : capPlaList) {
             workplaceId = cap.getWorkplaceId();
             reqCapacity = cap.getReqCapacity();
@@ -151,20 +144,16 @@ public class CapPlaController extends BaseTabController {
     }
 
     /**
-     * Build the CapPla UI
-     * TODO: Delete build CapPla GUI by click on button and automate this if dispo datas are available
+     * Build the CapPla UI TODO: Delete build CapPla GUI by click on button and
+     * automate this if dispo datas are available
      */
-    @FXML
     private void getCapPlaUI() {
-
         try {
             XYChart.Series dataSet;
-
             workplaceCol.setCellValueFactory(new PropertyValueFactory<>("workplaceId"));
             capacityCol.setCellValueFactory(new PropertyValueFactory<>("reqCapacity"));
             shiftsCol.setCellValueFactory(new PropertyValueFactory<>("shifts"));
             overtimeCol.setCellValueFactory(new PropertyValueFactory<>("overtime"));
-
             this.storeData();
             tableView.setItems(getTableData());
             dataSet = this.getBarChartData();
@@ -173,6 +162,7 @@ public class CapPlaController extends BaseTabController {
             barChart.setLegendVisible(false);
         } catch (NullPointerException e) {
             logger.info(e);
+            e.printStackTrace();
         }
     }
 
@@ -207,6 +197,3 @@ public class CapPlaController extends BaseTabController {
     }
 
 }
-
-
-

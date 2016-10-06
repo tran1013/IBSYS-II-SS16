@@ -1,16 +1,20 @@
 package de.ibsys.planningTool.controller.tab;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+import java.util.ResourceBundle;
+
 import com.jfoenix.controls.JFXButton;
+
 import de.ibsys.planningTool.controller.MainController;
 import de.ibsys.planningTool.controller.tab.productionOrderTab.ChildBikeController;
 import de.ibsys.planningTool.controller.tab.productionOrderTab.MenBikeController;
 import de.ibsys.planningTool.controller.tab.productionOrderTab.WomenBikeController;
 import de.ibsys.planningTool.model.xmlExportModel.Item;
-import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.stage.Stage;
-
-import java.util.*;
 
 /**
  * Created by minhnguyen on 22.09.16.
@@ -59,11 +63,11 @@ public class ProductionController extends BaseTabController {
 
     @FXML
     public void saveBtnPressed() {
-
         try {
-            childBikeController.initUIThingsRandom();
-            menBikeController.initUIThingsRandom();
-            womenBikeController.initUIThingsRandom();
+            childBikeController.storeNewReserve();
+            childBikeController.initUIComponents();
+            menBikeController.initUIComponents();
+            womenBikeController.initUIComponents();
             List<Item> child = childBikeController.setList();
             List<Item> men = menBikeController.setList();
             List<Item> women = womenBikeController.setList();
@@ -71,26 +75,31 @@ public class ProductionController extends BaseTabController {
             result.clear();
             result.addAll(child);
 
-
             int quantity = 0;
 
+
+            for (int i = 0; i < men.size(); i++) {
+                if (!(men.get(i).getArticleId().equals("16") || men.get(i).getArticleId().equals("17")
+                        || men.get(i).getArticleId().equals("26")))
+                    result.add(men.get(i));
+            }
+
+            for (int i = 0; i < women.size(); i++) {
+                if (!(women.get(i).getArticleId().equals("16") || women.get(i).getArticleId().equals("17")
+                        || women.get(i).getArticleId().equals("26")))
+                    result.add(women.get(i));
+            }
+            
+            // Logischer Fehler ? wenns ganz oben steht kommt an sich nicht genugend information rein 
             for (int i = 0; i < result.size(); i++) {
-                if (result.get(i).getArticleId().equals("16") || result.get(i).getArticleId().equals("17") || result.get(i).getArticleId().equals("26")) {
+                if (result.get(i).getArticleId().equals("16") || result.get(i).getArticleId().equals("17")
+                        || result.get(i).getArticleId().equals("26")) {
                     quantity = result.get(i).getQuantity();
                     quantity += men.get(i).getQuantity() + women.get(i).getQuantity();
                     result.set(i, new Item(result.get(i).getArticleId(), quantity));
                 }
             }
-
-            for (int i = 0; i < men.size(); i++) {
-                if (!(men.get(i).getArticleId().equals("16") || men.get(i).getArticleId().equals("17") || men.get(i).getArticleId().equals("26")))
-                    result.add(men.get(i));
-            }
-
-            for (int i = 0; i < women.size(); i++) {
-                if (!(women.get(i).getArticleId().equals("16") || women.get(i).getArticleId().equals("17") || women.get(i).getArticleId().equals("26")))
-                    result.add(women.get(i));
-            }
+            logger.info(result);
 
             Collections.sort(result, new Comparator<Item>() {
                 @Override
@@ -99,13 +108,13 @@ public class ProductionController extends BaseTabController {
                 }
             });
 
-
             getMainController().setProductionList(result);
             main.initWorkThings();
             logger.info("save new stuff successfull");
-            /*System.out.println("Result:");
-            System.out.println(result);*/
-        } catch(NullPointerException e){
+            /*
+             * System.out.println("Result:"); System.out.println(result);
+             */
+        } catch (NullPointerException e) {
             logger.info(e);
         }
     }
