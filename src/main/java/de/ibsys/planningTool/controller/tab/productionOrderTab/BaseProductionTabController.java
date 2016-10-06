@@ -18,20 +18,6 @@ import javafx.application.Application;
  * Created by minhnguyen on 22.09.16.
  */
 public abstract class BaseProductionTabController extends Application {
-    
-    
-    // TODO changeable in every view
-    protected int childBikeE16 = 0;
-    protected int childBikeE17 = 0;
-    protected int childBikeE26 = 0;
-    
-    protected int womenBikeE16 = 0;
-    protected int womenBikeE17 = 0;
-    protected int womenBikeE26 = 0;
-    
-    protected int menBikeE16 = 0;
-    protected int menBikeE17 = 0;
-    protected int menBikeE26 = 0;
 
     public Logger logger = Logger.getLogger(this.getClass().getSimpleName());
 
@@ -90,30 +76,22 @@ public abstract class BaseProductionTabController extends Application {
         // TODO maybe ?? need feedback with get WaitingLIstPartsAmount on
         // Machines ?
         // how to handle it
-        int ergebnis = vertriebwunsch + sicherheitsbestand - lagerBestand - warteschlange - bearbeitung;
 
-        return ergebnis;
+        return vertriebwunsch + sicherheitsbestand - lagerBestand - warteschlange - bearbeitung;
     }
 
     protected int getProductionValueEParts(String code, int vertriebwunsch, int hilfszahl, int sicherheitsbestand,
             int lagerBestand, int warteschlange, int bearbeitung) {
 
         if (code.equals("16") || code.equals("17") || code.equals("26")) {
-            int ergebnis = vertriebwunsch + hilfszahl + sicherheitsbestand - lagerBestand - warteschlange
+            return vertriebwunsch + hilfszahl + sicherheitsbestand - lagerBestand - warteschlange
                     - bearbeitung/*- getWaitingListPartsAmount(code)*/;
             // TODO WHY ?
-            return ergebnis;
         } else {
             // TODO maybe ?? need feedback with get WaitingLIstPartsAmount on
-            int ergebnis = vertriebwunsch + hilfszahl + sicherheitsbestand - lagerBestand - warteschlange - bearbeitung
+            return vertriebwunsch + hilfszahl + sicherheitsbestand - lagerBestand - warteschlange - bearbeitung
                     - getWaitingListPartsAmount(code);
-            return ergebnis;
         }
-    }
-    
-    public void savedReserveForDuplicatedParts(String code, int value1, int value2, int value3) {
-        getXmlInputData().getWareHouseArticles().get(code).setReserve(0);
-        getXmlInputData().getWareHouseArticles().get(code).setReserve(value1 + value2 + value3);
     }
 
     public List<Item> setMainProductionList(String product, List<JFXTextField> textfields) {

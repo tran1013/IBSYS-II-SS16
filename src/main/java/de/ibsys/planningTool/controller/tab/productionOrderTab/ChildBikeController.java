@@ -236,12 +236,12 @@ public class ChildBikeController extends BaseProductionTabController {
             e.printStackTrace();
         }
     }
-    
-    public void  storeNewReserve() {
+
+    public void storeNewReserve() {
         getXmlInputData().getWareHouseArticles().get("26").setReserve(Integer.parseInt(safetyE26.getText()));
         getXmlInputData().getWareHouseArticles().get("16").setReserve(Integer.parseInt(safetyE16.getText()));
         getXmlInputData().getWareHouseArticles().get("17").setReserve(Integer.parseInt(safetyE17.getText()));
-        
+
         getXmlInputData().getWareHouseArticles().get("1").setReserve(Integer.parseInt(safetyP1.getText()));
         getXmlInputData().getWareHouseArticles().get("51").setReserve(Integer.parseInt(safetyE51.getText()));
         getXmlInputData().getWareHouseArticles().get("50").setReserve(Integer.parseInt(safetyE50.getText()));

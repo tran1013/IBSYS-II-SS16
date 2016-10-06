@@ -31,7 +31,7 @@
                 <JFXTextField fx:id="processE26" disable="true" editable="false" focusTraversable="false" layoutX="710.0" layoutY="33.0" maxWidth="75.0" minWidth="75.0" prefHeight="33.0" prefWidth="75.0" />
                 <JFXTextField fx:id="queueE26" disable="true" editable="false" focusTraversable="false" layoutX="539.0" layoutY="33.0" maxWidth="75.0" minWidth="75.0" prefHeight="33.0" prefWidth="75.0" />
                 <JFXTextField fx:id="stockE26" disable="true" editable="false" focusTraversable="false" layoutX="406.0" layoutY="33.0" maxWidth="75.0" minWidth="75.0" prefHeight="33.0" prefWidth="75.0" />
-                <JFXTextField fx:id="safetyE26" layoutX="267.0" layoutY="33.0" maxWidth="75.0" minWidth="75.0" prefHeight="33.0" prefWidth="75.0" />
+                <JFXTextField fx:id="safetyE26" disable="true" editable="false" layoutX="267.0" layoutY="33.0" maxWidth="75.0" minWidth="75.0" prefHeight="33.0" prefWidth="75.0" />
                 <JFXTextField fx:id="helpE26" disable="true" editable="false" focusTraversable="false" layoutX="156.0" layoutY="33.0" maxWidth="75.0" minWidth="75.0" prefHeight="33.0" prefWidth="75.0" />
                 <JFXTextField fx:id="orderE26" disable="true" editable="false" focusTraversable="false" layoutX="67.0" layoutY="33.0" maxWidth="75.0" minWidth="75.0" prefHeight="33.0" prefWidth="75.0" />
                 <JFXTextField fx:id="orderE31" disable="true" editable="false" focusTraversable="false" layoutX="67.0" layoutY="59.0" maxWidth="75.0" minWidth="75.0" prefHeight="33.0" prefWidth="75.0" />
@@ -67,7 +67,7 @@
                 <Label layoutX="14.0" layoutY="67.0" text="E 30" />
                 <JFXTextField fx:id="orderE16" disable="true" editable="false" focusTraversable="false" layoutX="67.0" layoutY="6.0" maxWidth="75.0" minWidth="75.0" prefHeight="33.0" prefWidth="75.0" />
                 <JFXTextField fx:id="helpE16" disable="true" editable="false" focusTraversable="false" layoutX="156.0" layoutY="6.0" maxWidth="75.0" minWidth="75.0" prefHeight="33.0" prefWidth="75.0" />
-                <JFXTextField fx:id="safetyE16" layoutX="267.0" layoutY="6.0" maxWidth="75.0" minWidth="75.0" prefHeight="33.0" prefWidth="75.0" />
+                <JFXTextField fx:id="safetyE16" disable="true" editable="false" layoutX="267.0" layoutY="6.0" maxWidth="75.0" minWidth="75.0" prefHeight="33.0" prefWidth="75.0" />
                 <JFXTextField fx:id="stockE16" disable="true" editable="false" focusTraversable="false" layoutX="406.0" layoutY="6.0" maxWidth="75.0" minWidth="75.0" prefHeight="33.0" prefWidth="75.0" />
                 <JFXTextField fx:id="queueE16" disable="true" editable="false" focusTraversable="false" layoutX="539.0" layoutY="6.0" maxWidth="75.0" minWidth="75.0" prefHeight="33.0" prefWidth="75.0" />
                 <JFXTextField fx:id="processE16" disable="true" editable="false" focusTraversable="false" layoutX="710.0" layoutY="6.0" maxWidth="75.0" minWidth="75.0" prefHeight="33.0" prefWidth="75.0" />
@@ -76,7 +76,7 @@
                 <JFXTextField fx:id="processE17" disable="true" editable="false" focusTraversable="false" layoutX="710.0" layoutY="33.0" maxWidth="75.0" minWidth="75.0" prefHeight="33.0" prefWidth="75.0" />
                 <JFXTextField fx:id="queueE17" disable="true" editable="false" focusTraversable="false" layoutX="539.0" layoutY="33.0" maxWidth="75.0" minWidth="75.0" prefHeight="33.0" prefWidth="75.0" />
                 <JFXTextField fx:id="stockE17" disable="true" editable="false" focusTraversable="false" layoutX="406.0" layoutY="33.0" maxWidth="75.0" minWidth="75.0" prefHeight="33.0" prefWidth="75.0" />
-                <JFXTextField fx:id="safetyE17" layoutX="267.0" layoutY="33.0" maxWidth="75.0" minWidth="75.0" prefHeight="33.0" prefWidth="75.0" />
+                <JFXTextField fx:id="safetyE17" disable="true" editable="false" layoutX="267.0" layoutY="33.0" maxWidth="75.0" minWidth="75.0" prefHeight="33.0" prefWidth="75.0" />
                 <JFXTextField fx:id="helpE17" disable="true" editable="false" focusTraversable="false" layoutX="156.0" layoutY="33.0" maxWidth="75.0" minWidth="75.0" prefHeight="33.0" prefWidth="75.0" />
                 <JFXTextField fx:id="orderE17" disable="true" editable="false" focusTraversable="false" layoutX="67.0" layoutY="33.0" maxWidth="75.0" minWidth="75.0" prefHeight="33.0" prefWidth="75.0" />
                 <JFXTextField fx:id="orderE30" disable="true" editable="false" focusTraversable="false" layoutX="67.0" layoutY="59.0" maxWidth="75.0" minWidth="75.0" prefHeight="33.0" prefWidth="75.0" />
