@@ -2,7 +2,6 @@ package de.ibsys.planningTool.controller;
 
 import static de.ibsys.planningTool.util.I18N.CAPPLA;
 import static de.ibsys.planningTool.util.I18N.DISPOSITION;
-import static de.ibsys.planningTool.util.I18N.Export_TAB;
 import static de.ibsys.planningTool.util.I18N.FORECAST;
 import static de.ibsys.planningTool.util.I18N.ORDER;
 
@@ -33,6 +32,8 @@ import de.ibsys.planningTool.model.xmlExportModel.Order;
 import de.ibsys.planningTool.model.xmlExportModel.WorkTime;
 import de.ibsys.planningTool.util.I18N;
 import de.ibsys.planningTool.util.Dialogs.DialogMessages;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.Tab;
 import javafx.stage.FileChooser;
@@ -71,9 +72,6 @@ public class MainController extends BaseTabController {
     public Tab productionTab;
 
     @FXML
-    public Tab settingsTab;
-
-    @FXML
     public Tab productionpriorityTab;
 
     @FXML
@@ -109,7 +107,7 @@ public class MainController extends BaseTabController {
     private ForeCastController foreCastController;
 
     @FXML
-    private OrderController orderController;
+    public OrderController orderController;
 
     @FXML
     private SettingsController settingsController;
@@ -143,6 +141,27 @@ public class MainController extends BaseTabController {
 
         mainTabPane.getStyleClass().add("jfx-tab-pane");
         new DialogMessages().setMainController(this);
+
+        mainTabPane.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Tab>() {
+            @Override
+            public void changed(ObservableValue<? extends Tab> observable, Tab oldValue, Tab newValue) {
+
+                if(newValue==forecast) {
+                    productionTab.setDisable(false);
+                }
+                /*
+                if(newValue==productionTab) {
+                    cappla.setDisable(false);
+                }
+                if(newValue==cappla) {
+                    orderTab.setDisable(false);
+                }
+                if(newValue==orderTab) {
+                    productionpriorityTab.setDisable(false);
+                }*/
+            }
+        });
+
     }
 
     public void initWorkThings() {
@@ -151,6 +170,7 @@ public class MainController extends BaseTabController {
         orderController.init(this);
         productionPriorityController.init(this);
     }
+
 
     public XmlInputData getXmlInputData() {
         return xmlInputData;

@@ -122,7 +122,6 @@ public class OrderController extends BaseTabController{
         newBtn.getStyleClass().add("button-raised");
         changeBtn.getStyleClass().add("button-raised");
         deleteBtn.getStyleClass().add("button-raised");
-        mockProductionResult.setProductionResultList();
 
         orderTableView.setEditable(true);
 
@@ -151,6 +150,7 @@ public class OrderController extends BaseTabController{
                 = (TableColumn<OrderResult, Boolean> cell) -> new BooleanCheckBoxCell();
 
         checkBoxOptionColumn.setCellFactory(cellBoolFactory);
+
     }
 
     /*

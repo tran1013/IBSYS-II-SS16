@@ -93,6 +93,10 @@ public class ProductionController extends BaseTabController {
 
             getMainController().setProductionList(result);
             main.initWorkThings();
+            main.orderController.getData();
+            main.cappla.setDisable(false);
+            main.orderTab.setDisable(false);
+            main.productionpriorityTab.setDisable(false);
             logger.info("save new stuff successfull");
         } catch (NullPointerException e) {
             logger.info(e);

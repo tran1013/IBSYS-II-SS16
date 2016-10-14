@@ -71,6 +71,7 @@ public class ForeCastController extends BaseTabController {
                     }
                     main.exportButton.setVisible(true);
                     main.initWorkThings();
+                    main.productionTab.setDisable(false);
                 } else {
                     DialogMessages.ErrorDialog(getI18NText(I18N.FORECAST_INPUT_ERROR));
                 }
