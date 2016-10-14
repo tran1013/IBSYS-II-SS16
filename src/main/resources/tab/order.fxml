@@ -13,9 +13,8 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.control.cell.PropertyValueFactory?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="570.0" prefWidth="1079.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.ibsys.planningTool.controller.tab.OrderController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="570.0" prefWidth="1079.0" xmlns="http://javafx.com/javafx/8.0.76-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.ibsys.planningTool.controller.tab.OrderController">
     <children>
         <SplitPane dividerPositions="0.48746518105849584" layoutX="247.0" layoutY="103.0" prefHeight="467.0" prefWidth="832.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="247.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="103.0">
             <items>
@@ -25,7 +24,7 @@
                             <columns>
                                 <TableColumn fx:id="nrColumn" prefWidth="119.0" text="Nr." />
                                 <TableColumn fx:id="quantityColumn" prefWidth="128.0" text="Bestellmenge" />
-                        <TableColumn fx:id="checkBoxOptionColumn" prefWidth="75.0" text="Expresslieferung" >
+                        <TableColumn fx:id="checkBoxOptionColumn" prefWidth="75.0" text="Expresslieferung">
                                 </TableColumn>
                             </columns>
                             <columnResizePolicy>
@@ -68,9 +67,8 @@
                 </AnchorPane>
             </items>
         </SplitPane>
-        <ButtonBar layoutX="275.0" layoutY="31.0" prefHeight="40.0" prefWidth="240.0">
+        <ButtonBar layoutX="360.0" layoutY="42.0" prefHeight="40.0" prefWidth="159.0">
             <buttons>
-                <JFXButton fx:id="changeBtn" onAction="#getData" text="Berechne!" />
                 <JFXButton fx:id="newBtn" onAction="#handleNewOrder" text="Neu" />
                 <JFXButton fx:id="deleteBtn" onAction="#handleDeleteOrder" text="Löschen" />
             </buttons>

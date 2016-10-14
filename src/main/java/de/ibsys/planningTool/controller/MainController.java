@@ -16,6 +16,7 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTabPane;
 import com.jfoenix.controls.JFXToggleButton;
 
+import de.ibsys.planningTool.util.Dialogs.DialogMessages;
 import de.ibsys.planningTool.controller.tab.BaseTabController;
 import de.ibsys.planningTool.controller.tab.CapPlaController;
 import de.ibsys.planningTool.controller.tab.ForeCastController;
@@ -34,8 +35,11 @@ import de.ibsys.planningTool.util.I18N;
 import de.ibsys.planningTool.util.Dialogs.DialogMessages;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.EventHandler;
+import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.scene.control.Tab;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -162,6 +166,17 @@ public class MainController extends BaseTabController {
             }
         });
 
+        mainTabPane.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                /*
+                if(cappla.isDisable()) {
+                    DialogMessages.InfoDialog("Info","Bitte zuerst speichern!");
+                }
+                */
+
+            }
+        });
     }
 
     public void initWorkThings() {
@@ -170,7 +185,6 @@ public class MainController extends BaseTabController {
         orderController.init(this);
         productionPriorityController.init(this);
     }
-
 
     public XmlInputData getXmlInputData() {
         return xmlInputData;

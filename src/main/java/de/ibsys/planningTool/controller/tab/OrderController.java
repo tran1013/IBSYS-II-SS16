@@ -15,7 +15,6 @@ import de.ibsys.planningTool.util.Dialogs.DialogMessages;
 import de.ibsys.planningTool.util.I18N;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -99,9 +98,6 @@ public class OrderController extends BaseTabController{
     private JFXButton newBtn;
 
     @FXML
-    private JFXButton changeBtn;
-
-    @FXML
     private JFXButton deleteBtn;
 
     OrderService orderService = new OrderService();
@@ -120,7 +116,6 @@ public class OrderController extends BaseTabController{
     public void init(MainController main) {
         super.init(main);
         newBtn.getStyleClass().add("button-raised");
-        changeBtn.getStyleClass().add("button-raised");
         deleteBtn.getStyleClass().add("button-raised");
 
         orderTableView.setEditable(true);
@@ -546,7 +541,6 @@ public class OrderController extends BaseTabController{
         nrColumn.setText(main.getTranslation().getString(I18N.NRCOLUMN));
         quantityColumn.setText(main.getTranslation().getString(I18N.QUANTITYLABEL));
         newBtn.setText(main.getTranslation().getString(I18N.NEWBTN));
-        changeBtn.setText(main.getTranslation().getString(I18N.CHANGEBTN));
         deleteBtn.setText(main.getTranslation().getString(I18N.DELETEBTN));
         quantityL.setText(main.getTranslation().getString(I18N.QUANTITYL));
         stockL.setText(main.getTranslation().getString(I18N.STOCKL));
