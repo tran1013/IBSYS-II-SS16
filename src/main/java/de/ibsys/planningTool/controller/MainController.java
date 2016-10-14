@@ -125,7 +125,6 @@ public class MainController extends BaseTabController {
         logger.info("Start Application");
 
         foreCastController.init(this);
-        settingsController.init(this);
         capPlaController.init(this);
         orderController.init(this);
 
@@ -149,7 +148,7 @@ public class MainController extends BaseTabController {
     public void initWorkThings() {
         productionController.init(this);
         capPlaController.init(this);
-
+        orderController.init(this);
         productionPriorityController.init(this);
     }
 
@@ -248,14 +247,12 @@ public class MainController extends BaseTabController {
 
         forecast.setText(translation.getString(FORECAST));
         productionTab.setText(translation.getString(DISPOSITION));
-        settingsTab.setText(translation.getString(Export_TAB));
         cappla.setText(translation.getString(CAPPLA));
         orderTab.setText(translation.getString(ORDER));
         productionpriorityTab.setText(translation.getString(I18N.PRIORITY));
         langBtn.setText(translation.getString(I18N.LANGUAGE));
 
         foreCastController.initUIComponents();
-        settingsController.initUIComponents();
         capPlaController.initUIComponents();
         orderController.initUIComponents();
     }

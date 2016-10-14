@@ -111,22 +111,7 @@ public class OrderController extends BaseTabController{
 
     private List<OrderResult> orderResults = new ArrayList<>();
     public ObservableList<OrderResult> results = FXCollections.observableArrayList();
-    /*
-        public class CheckBoxCellFactory implements Callback {
-            @Override
-            public TableCell call(Object param) {
-                CheckBoxTableCell<OrderResult,Boolean> checkBoxCell = new CheckBoxTableCell();
-                return checkBoxCell;
-            }
-        }
 
-        public class CheckBoxCellFactory<OrderResult, Boolean>
-                implements Callback<TableColumn<OrderResult, Boolean>, TableCell<OrderResult, Boolean>> {
-            @Override public TableCell<OrderResult, Boolean> call(TableColumn<OrderResult, Boolean> p) {
-                return new CheckBoxTableCell<>();
-            }
-        }
-    */
     @Override
     public void start(Stage primaryStage) throws Exception {
     }
@@ -141,25 +126,6 @@ public class OrderController extends BaseTabController{
 
         orderTableView.setEditable(true);
 
-        //TODO I1N8
-
-        /*
-        Callback<TableColumn<OrderResult, String>,
-                TableCell<OrderResult, String>> cellFactory
-                = (TableColumn<OrderResult, String> cell) -> new EditingCell();
-
-        nrColumn.setCellFactory(cellFactory);
-        nrColumn.setOnEditCommit(
-                new EventHandler<TableColumn.CellEditEvent<OrderResult, String>>() {
-                    @Override
-                    public void handle(TableColumn.CellEditEvent<OrderResult, String> event) {
-                        ((OrderResult) event.getTableView().getItems().get(
-                                event.getTablePosition().getRow())
-                        ).setItemConfigId(event.getNewValue());
-                    }
-                }
-        );
-  */
         Callback<TableColumn<OrderResult, Integer>,
                 TableCell<OrderResult, Integer>> cellIntFactory
                 = (TableColumn<OrderResult, Integer> cell) -> new IntegerEditingCell();
@@ -178,71 +144,27 @@ public class OrderController extends BaseTabController{
                     }
                 }
         );
-        /*
-        Callback<TableColumn<OrderResult, Integer>,
-                TableCell<OrderResult, Integer>> cellIntNrFactory
-                = (TableColumn<OrderResult, Integer> cell) -> new IntegerNrEditinCell();
 
-        optionColumn.setCellFactory(TextFieldTableCell.<OrderResult, Integer>forTableColumn(new IntegerStringConverter()));
-        //optionColumn.setCellFactory(cellIntNrFactory);
-        optionColumn.setOnEditCommit(
-                new EventHandler<TableColumn.CellEditEvent<OrderResult, Integer>>() {
-                    @Override
-                    public void handle(TableColumn.CellEditEvent<OrderResult, Integer> event) {
-                        ((OrderResult) event.getTableView().getItems().get(
-                                event.getTablePosition().getRow())
-                        ).setOrderingMode(event.getNewValue());
-                    }
-                }
-        );
-        */
         //checkBoxOptionColumn.setCellFactory(CheckBoxTableCell.forTableColumn(checkBoxOptionColumn));
         Callback<TableColumn<OrderResult, Boolean>,
                 TableCell<OrderResult, Boolean>> cellBoolFactory
                 = (TableColumn<OrderResult, Boolean> cell) -> new BooleanCheckBoxCell();
 
         checkBoxOptionColumn.setCellFactory(cellBoolFactory);
-        //checkBoxOptionColumn.setCellFactory(CheckBoxTableCell.forTableColumn(checkBoxOptionColumn));
-        /*
-        checkBoxOptionColumn.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<OrderResult, Boolean>>() {
-            @Override
-            public void handle(TableColumn.CellEditEvent<OrderResult, Boolean> event) {
-                ((OrderResult) event.getTableView().getItems().get(
-                        event.getTablePosition().getRow())
-                ).setDeliveryMode(event.getNewValue());
-
-                storeData();
-                boolean mode = event.getNewValue();
-
-                System.out.println(mode);
-
-                String itemConfidId = event.getTableView().getItems().get(
-                        event.getTablePosition().getRow()).getItemConfigId();
-                String itemConfigID = orderTableView.getSelectionModel().getSelectedItem().getItemConfigId();
-                for(OrderResult order : orderResults) {
-                    if(order.getItemConfigId().equals(itemConfidId) || order.getItemConfigId() == itemConfidId || order.getItemConfigId()==itemConfigID
-                            || order.getItemConfigId().equals(itemConfigID)) {
-                        order.setDeliveryMode(event.getNewValue());
-                    }
-                }
-            }
-        });
-        */
-
     }
 
     /*
     orderResult is stored in Controller
      */
     @FXML
-    public List<OrderResult> getOrderResults() {
+    private List<OrderResult> getOrderResults() {
         //List<OrderResult> orderResults = new ArrayList<>();
         try {
             Map<String, Item> forecastProductionList = main.getForecastProductionList();
 
-            //TODO change mockdata with real data from production
+            //List<ProductionResult> productionResults = mockProductionResult.getProductionResultList();
 
-            List<ProductionResult> productionResults = mockProductionResult.getProductionResultList();
+            List<ProductionResult> productionResults = getMappedList(main.getProductionList());
 
             orderResults = calculateOrders(productionResults, forecastProductionList);
         }
@@ -255,7 +177,7 @@ public class OrderController extends BaseTabController{
     /*
     Change List<OrderResults> in ObservableList
      */
-    public ObservableList<OrderResult> getOrderData() {
+    private ObservableList<OrderResult> getOrderData() {
         ObservableList<OrderResult> results = FXCollections.observableArrayList();
         List<OrderResult> orderList = this.getOrderResults();
 
@@ -287,7 +209,7 @@ public class OrderController extends BaseTabController{
      * fill data in tableView
      */
     @FXML
-    private void getData() {
+    public void getData() {
 
         nrColumn.setCellValueFactory(new PropertyValueFactory<>("itemConfigId"));
         quantityColumn.setCellValueFactory(new PropertyValueFactory<>("quantity"));
@@ -333,9 +255,6 @@ public class OrderController extends BaseTabController{
                 handleNewOrder();
             }
         });
-
-        getFutureInComingOrderAmount("K21");
-        getFutureInComingOrderAmount("K25");
 
         orderTableView.setRowFactory(new Callback<TableView<OrderResult>, TableRow<OrderResult>>() {
             @Override
@@ -703,6 +622,47 @@ public class OrderController extends BaseTabController{
         }
     */
         return orderResults;
+    }
+
+    public List<ProductionResult> mapToProductionResults(List<Item> items) {
+
+        List<ProductionResult> res = new ArrayList<>();
+
+        for(Item item : items) {
+            if(item.getArticleId().equals("1") || item.getArticleId().equals("2") || item.getArticleId().equals("1")) {
+                String itemConfigId = "P" + item.getArticleId();
+                System.out.println(itemConfigId);
+                res.add(new ProductionResult(itemConfigId, item.getQuantity()));
+            }
+            else {
+                String itemConfidId = "E" + item.getArticleId();
+                System.out.println(itemConfidId);
+                res.add(new ProductionResult(itemConfidId, item.getQuantity()));
+            }
+        }
+
+        for(ProductionResult re : res) {
+            System.out.println(re.getItemConfigId() + " " + re.getQuantity());
+        }
+
+        return  res;
+    }
+
+    public List<ProductionResult> getMappedList(List<Item> productionResult) {
+        List<ProductionResult> List = new ArrayList<>();
+
+        for (Integer i = 0; i < productionResult.size(); i++) {
+            if (productionResult.get(i).getArticleId().equals("1") || productionResult.get(i).getArticleId().equals("2") || productionResult.get(i).getArticleId().equals("3")) {
+                String itemID = "P" + productionResult.get(i).getArticleId();
+                List.add(i, new ProductionResult(itemID, productionResult.get(i).getQuantity()));
+            } else {
+                String itemID = "E" + productionResult.get(i).getArticleId();
+                List.add(i, new ProductionResult(itemID, productionResult.get(i).getQuantity()));
+            }
+
+        }
+        System.out.println(List);
+        return List;
     }
 
 
