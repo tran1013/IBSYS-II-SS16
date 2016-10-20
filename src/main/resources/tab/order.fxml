@@ -67,7 +67,7 @@
                 </AnchorPane>
             </items>
         </SplitPane>
-        <ButtonBar layoutX="360.0" layoutY="42.0" prefHeight="40.0" prefWidth="159.0">
+        <ButtonBar layoutX="247.0" layoutY="43.0" prefHeight="40.0" prefWidth="159.0">
             <buttons>
                 <JFXButton fx:id="newBtn" onAction="#handleNewOrder" text="Neu" />
                 <JFXButton fx:id="deleteBtn" onAction="#handleDeleteOrder" text="Löschen" />

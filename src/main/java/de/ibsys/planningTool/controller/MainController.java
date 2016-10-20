@@ -32,9 +32,9 @@ import de.ibsys.planningTool.model.xmlExportModel.Item;
 import de.ibsys.planningTool.model.xmlExportModel.Order;
 import de.ibsys.planningTool.model.xmlExportModel.WorkTime;
 import de.ibsys.planningTool.util.I18N;
-import de.ibsys.planningTool.util.Dialogs.DialogMessages;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.event.EventType;
 import javafx.fxml.FXML;
@@ -149,34 +149,50 @@ public class MainController extends BaseTabController {
         mainTabPane.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Tab>() {
             @Override
             public void changed(ObservableValue<? extends Tab> observable, Tab oldValue, Tab newValue) {
-
+        /*
                 if(newValue==forecast) {
                     productionTab.setDisable(false);
                 }
-                /*
+
                 if(newValue==productionTab) {
                     cappla.setDisable(false);
+
                 }
+
                 if(newValue==cappla) {
-                    orderTab.setDisable(false);
+                    //orderTab.setDisable(false);
+                    initWorkThings();
                 }
                 if(newValue==orderTab) {
-                    productionpriorityTab.setDisable(false);
-                }*/
+                    //productionpriorityTab.setDisable(false);
+                    initWorkThings();
+                }
+*/
             }
         });
-
+        /*
         mainTabPane.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                /*
-                if(cappla.isDisable()) {
-                    DialogMessages.InfoDialog("Info","Bitte zuerst speichern!");
-                }
-                */
-
+                DialogMessages.InfoDialog("","");
             }
         });
+
+        */
+    /*
+        productionTab.setOnSelectionChanged(new EventHandler<Event>() {
+            @Override
+            public void handle(Event event) {
+                DialogMessages.InfoDialog("Bitte zuerst speichern!","cappla");
+            }
+        });
+    */
+    mainTabPane.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
+        @Override
+        public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+
+        }
+    });
     }
 
     public void initWorkThings() {

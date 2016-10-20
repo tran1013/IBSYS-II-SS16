@@ -34,11 +34,10 @@ public class ProductionController extends BaseTabController {
     WomenBikeController womenBikeController;
 
     @FXML
-    JFXButton saveBtn;
+    public JFXButton saveBtn;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-
     }
 
     @Override
@@ -66,7 +65,7 @@ public class ProductionController extends BaseTabController {
     public void saveBtnPressed() {
         initProductionControllerCalculation();
     }
-    
+
     public void initProductionControllerCalculation () {
         try {
             childBikeController.storeNewReserve();
