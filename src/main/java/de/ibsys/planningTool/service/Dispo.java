@@ -37,11 +37,18 @@ public class Dispo {
             }
         });
 
-        tmpList.add(new Item("16", tmp16 > 0 ? tmp16 : 0));
-        tmpList.add(new Item("17", tmp17 > 0 ? tmp17 : 0));
-        tmpList.add(new Item("26", tmp26 > 0 ? tmp26 : 0));
+        if (tmp16 > 0 ) {
+        	tmpList.add(new Item("16", tmp16 > 0 ? tmp16 : 0));
+        }
+        
+        if (tmp17 > 0 ) {
+        	tmpList.add(new Item("17", tmp17 > 0 ? tmp17 : 0));
+        }
+        
+        if (tmp26 > 0) {
+        	tmpList.add(new Item("26", tmp26 > 0 ? tmp26 : 0));
+        }
 
         return tmpList;
     }
-
 }
