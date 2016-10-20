@@ -85,12 +85,11 @@ public abstract class BaseProductionTabController extends Application {
 
         if (code.equals("16") || code.equals("17") || code.equals("26")) {
             return vertriebwunsch + hilfszahl + sicherheitsbestand - lagerBestand - warteschlange
-                    - bearbeitung/*- getWaitingListPartsAmount(code)*/;
+                    - bearbeitung;
             // TODO WHY ?
         } else {
             // TODO maybe ?? need feedback with get WaitingLIstPartsAmount on
-            return vertriebwunsch + hilfszahl + sicherheitsbestand - lagerBestand - warteschlange - bearbeitung
-                    - getWaitingListPartsAmount(code);
+            return vertriebwunsch + hilfszahl + sicherheitsbestand - lagerBestand - warteschlange - bearbeitung;
         }
     }
 

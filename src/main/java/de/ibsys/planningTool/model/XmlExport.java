@@ -84,7 +84,7 @@ public class XmlExport {
             Element information = new Element(ORDER);
             information.setAttribute(ARTICLE, order.getArticleId());
             information.setAttribute(QUANTITY, String.valueOf(order.getQuantity()));
-            information.setAttribute(MODE, String.valueOf(order.getModus()));
+            information.setAttribute("modus", String.valueOf(order.getModus()));
             orderList.addContent(information);
         });
         inputElement.addContent(orderList);

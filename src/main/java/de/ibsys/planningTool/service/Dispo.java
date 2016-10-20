@@ -13,15 +13,15 @@ public class Dispo {
     public List<Item> calculate(List<Item> production) {
 
         int tmp16 = production.parallelStream().filter(predicate -> predicate.getArticleId().equals("16"))
-                .mapToInt(mapper -> mapper.getQuantity()).sum();
+                .mapToInt(Item::getQuantity).sum();
         int tmp17 = production.parallelStream().filter(predicate -> predicate.getArticleId().equals("17"))
-                .mapToInt(mapper -> mapper.getQuantity()).sum();
+                .mapToInt(Item::getQuantity).sum();
         int tmp26 = production.parallelStream().filter(predicate -> predicate.getArticleId().equals("26"))
-                .mapToInt(mapper -> mapper.getQuantity()).sum();
+                .mapToInt(Item::getQuantity).sum();
 
         List<Item> tmpList = new ArrayList<>();
 
-        production.stream().forEach(value -> {
+        production.stream().filter(item -> item.getQuantity() > 0).forEach(value -> {
             String article = value.getArticleId();
             switch (article) {
                 case "16":
