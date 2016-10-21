@@ -1,13 +1,6 @@
 package de.ibsys.planningTool.controller.tab;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ResourceBundle;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
 import com.jfoenix.controls.JFXButton;
-
 import de.ibsys.planningTool.controller.MainController;
 import de.ibsys.planningTool.controller.tab.productionOrderTab.ChildBikeController;
 import de.ibsys.planningTool.controller.tab.productionOrderTab.MenBikeController;
@@ -16,6 +9,12 @@ import de.ibsys.planningTool.model.xmlExportModel.Item;
 import de.ibsys.planningTool.service.ProductionService;
 import javafx.fxml.FXML;
 import javafx.stage.Stage;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ResourceBundle;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * Created by minhnguyen on 22.09.16.
@@ -89,13 +88,21 @@ public class ProductionController extends BaseTabController {
                     .sorted((item1, item2) -> Integer.valueOf(item1.getArticleId()) // sorted things 
                             .compareTo(Integer.valueOf(item2.getArticleId()))) //
                     .collect(Collectors.toList()); // return a list
-            
-//            for(int i = 0; i < 3; i++) {
-//                if(result.get(i).getArticleId().equals("1") || result.get(i).getArticleId().equals("2") || result.get(i).getArticleId().equals("3")) {
-//                    result.add(result.get(i));
-//                    result.remove(0);
-//                }
-//            }
+
+            if (result.get(0).getArticleId().equals("1")) {
+                result.add(result.get(0));
+                result.remove(0);
+            }
+
+            if (result.get(0).getArticleId().equals("2")) {
+                result.add(result.get(0));
+                result.remove(0);
+            }
+
+            if (result.get(0).getArticleId().equals("3")) {
+                result.add(result.get(0));
+                result.remove(0);
+            }
 
             getMainController().setProductionList(result);
             main.initWorkThings();
