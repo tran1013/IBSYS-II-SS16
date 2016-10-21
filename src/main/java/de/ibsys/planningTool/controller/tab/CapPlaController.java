@@ -26,7 +26,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 /**
- * Created by Duc on 11.08.16. TODO: Clean up mess in class TODO: Test class or
+ * Created by Duc on 11.08.16.
  * take a deep breath and get to it?
  */
 public class CapPlaController extends BaseTabController {
@@ -140,8 +140,7 @@ public class CapPlaController extends BaseTabController {
     }
 
     /**
-     * Build the CapPla UI TODO: Delete build CapPla GUI by click on button and
-     * automate this if dispo datas are available
+     * Build the CapPla UI
      */
     private void getCapPlaUI() {
         try {

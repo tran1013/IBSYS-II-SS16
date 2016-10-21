@@ -2,7 +2,6 @@ package de.ibsys.planningTool.controller.tab;
 
 import de.ibsys.planningTool.controller.MainController;
 import de.ibsys.planningTool.database.OrderDB;
-import de.ibsys.planningTool.mock.MockProductionResult;
 import de.ibsys.planningTool.model.*;
 import de.ibsys.planningTool.model.xmlExportModel.Item;
 import de.ibsys.planningTool.model.xmlExportModel.Order;
@@ -102,7 +101,7 @@ public class OrderController extends BaseTabController{
 
     OrderService orderService = new OrderService();
     OrderDB orderDB = new OrderDB();
-    MockProductionResult mockProductionResult = new MockProductionResult();
+    //MockProductionResult mockProductionResult = new MockProductionResult();
 
 
     private List<OrderResult> orderResults = new ArrayList<>();

@@ -80,34 +80,23 @@ public abstract class BaseProductionTabController extends Application {
         return vertriebwunsch + sicherheitsbestand - lagerBestand - warteschlange - bearbeitung;
     }
 
-    protected int getProductionValueEParts(String code, int vertriebwunsch, int hilfszahl, int sicherheitsbestand,
-            int lagerBestand, int warteschlange, int bearbeitung) {
+    protected int getProductionValueEParts(int vertriebwunsch, int hilfszahl, int sicherheitsbestand,
+                                           int lagerBestand, int warteschlange, int bearbeitung) {
 
-        if (code.equals("16") || code.equals("17") || code.equals("26")) {
-            return vertriebwunsch + hilfszahl + sicherheitsbestand - lagerBestand - warteschlange
-                    - bearbeitung;
-            // TODO WHY ?
-        } else {
-            // TODO maybe ?? need feedback with get WaitingLIstPartsAmount on
-            return vertriebwunsch + hilfszahl + sicherheitsbestand - lagerBestand - warteschlange - bearbeitung;
-        }
+        return vertriebwunsch + hilfszahl + sicherheitsbestand - lagerBestand - warteschlange - bearbeitung;
+
     }
 
-    public int checkIsNegative(int production)
-    {
-        if (production < 0)
-        {
+    public int checkIsNegative(int production) {
+        if (production < 0) {
             return 0;
-        }
-        else {
+        } else {
             return production;
         }
     }
 
     public List<Item> setMainProductionList(String product, List<JFXTextField> textfields) {
         List<Item> productionResultList = new ArrayList<>();
-        // TODO: Die Liste productionesultList muss im günstigsten Fall immer
-        // komplett neu erstellt werden. Wie umsetzen?
         List<String> parts = new ArrayList<String>();
         switch (product) {
             case "1":
