@@ -89,6 +89,11 @@ public class ProductionController extends BaseTabController {
                     .sorted((item1, item2) -> Integer.valueOf(item1.getArticleId()) // sorted things 
                             .compareTo(Integer.valueOf(item2.getArticleId()))) //
                     .collect(Collectors.toList()); // return a list
+            
+            for(int i = 0; i < 3; i++) {
+                result.add(result.get(i));
+                result.remove(0);
+            }
 
             getMainController().setProductionList(result);
             main.initWorkThings();
