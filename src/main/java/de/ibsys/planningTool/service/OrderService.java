@@ -4,13 +4,10 @@ import de.ibsys.planningTool.controller.MainController;
 import de.ibsys.planningTool.controller.tab.ForeCastController;
 import de.ibsys.planningTool.database.ItemDB;
 import de.ibsys.planningTool.database.OrderDB;
-import de.ibsys.planningTool.mock.MockProductionResult;
 import de.ibsys.planningTool.model.*;
 import de.ibsys.planningTool.model.xmlExportModel.Item;
 import de.ibsys.planningTool.model.xmlInputModel.Article;
-import de.ibsys.planningTool.model.xmlInputModel.FutureInComingOrder;
-import de.ibsys.planningTool.model.XmlInputData;
-import java.io.IOException;
+
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;

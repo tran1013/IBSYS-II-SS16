@@ -1,10 +1,8 @@
 package de.ibsys.planningTool.model;
 
-import de.ibsys.planningTool.model.xmlExportModel.Item;
-
-import java.util.Objects;
 import java.util.Collections;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * Created by Che on 16.08.2016.

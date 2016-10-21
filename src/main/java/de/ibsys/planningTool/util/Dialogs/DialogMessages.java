@@ -33,12 +33,4 @@ public class DialogMessages {
 
         alert.show();
     }
-
-    public static void InfoDialog(String message, String info_message) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle(main.getTranslation().getString(I18N.DIALOG_MESSAGE_INFO_TITLE));
-        alert.setHeaderText(info_message);
-        alert.setContentText(message);
-        alert.show();
-    }
 }

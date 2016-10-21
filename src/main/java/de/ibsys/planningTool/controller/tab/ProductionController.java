@@ -13,7 +13,7 @@ import de.ibsys.planningTool.controller.tab.productionOrderTab.ChildBikeControll
 import de.ibsys.planningTool.controller.tab.productionOrderTab.MenBikeController;
 import de.ibsys.planningTool.controller.tab.productionOrderTab.WomenBikeController;
 import de.ibsys.planningTool.model.xmlExportModel.Item;
-import de.ibsys.planningTool.service.Dispo;
+import de.ibsys.planningTool.service.ProductionService;
 import javafx.fxml.FXML;
 import javafx.stage.Stage;
 
@@ -79,7 +79,7 @@ public class ProductionController extends BaseTabController {
 
             result.clear();
 
-            result = new Dispo().calculate( // do calculation and reduce 
+            result = new ProductionService().calculate( // do calculation and reduce 
                     Stream.concat(childBikeController.setList().parallelStream(), //
                             Stream.concat(menBikeController.setList().parallelStream(), //
                                     womenBikeController.setList().parallelStream() //

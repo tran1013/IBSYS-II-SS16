@@ -16,7 +16,6 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTabPane;
 import com.jfoenix.controls.JFXToggleButton;
 
-import de.ibsys.planningTool.util.Dialogs.DialogMessages;
 import de.ibsys.planningTool.controller.tab.BaseTabController;
 import de.ibsys.planningTool.controller.tab.CapPlaController;
 import de.ibsys.planningTool.controller.tab.ForeCastController;
@@ -32,14 +31,11 @@ import de.ibsys.planningTool.model.xmlExportModel.Item;
 import de.ibsys.planningTool.model.xmlExportModel.Order;
 import de.ibsys.planningTool.model.xmlExportModel.WorkTime;
 import de.ibsys.planningTool.util.I18N;
+import de.ibsys.planningTool.util.Dialogs.DialogMessages;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.event.Event;
-import javafx.event.EventHandler;
-import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.scene.control.Tab;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 

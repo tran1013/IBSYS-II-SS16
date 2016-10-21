@@ -8,7 +8,7 @@ import de.ibsys.planningTool.model.xmlExportModel.Item;
 /**
  * Created by Duc on 28.09.16. Ansatz is komplett falsch
  */
-public class Dispo {
+public class ProductionService {
 
     public List<Item> calculate(List<Item> production) {
 

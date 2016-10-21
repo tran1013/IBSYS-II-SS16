@@ -2,7 +2,6 @@ package de.ibsys.planningTool.model;
 
 import static de.ibsys.planningTool.model.Constants.ARTICLE;
 import static de.ibsys.planningTool.model.Constants.ITEM_ID;
-import static de.ibsys.planningTool.model.Constants.MODE;
 import static de.ibsys.planningTool.model.Constants.ORDER;
 import static de.ibsys.planningTool.model.Constants.ORDER_LIST;
 import static de.ibsys.planningTool.model.Constants.OVER_TIME;
