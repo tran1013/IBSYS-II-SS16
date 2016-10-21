@@ -93,6 +93,17 @@ public abstract class BaseProductionTabController extends Application {
         }
     }
 
+    public int checkIsNegative(int production)
+    {
+        if (production < 0)
+        {
+            return 0;
+        }
+        else {
+            return production;
+        }
+    }
+
     public List<Item> setMainProductionList(String product, List<JFXTextField> textfields) {
         List<Item> productionResultList = new ArrayList<>();
         // TODO: Die Liste productionesultList muss im günstigsten Fall immer
