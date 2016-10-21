@@ -90,10 +90,12 @@ public class ProductionController extends BaseTabController {
                             .compareTo(Integer.valueOf(item2.getArticleId()))) //
                     .collect(Collectors.toList()); // return a list
             
-            for(int i = 0; i < 3; i++) {
-                result.add(result.get(i));
-                result.remove(0);
-            }
+//            for(int i = 0; i < 3; i++) {
+//                if(result.get(i).getArticleId().equals("1") || result.get(i).getArticleId().equals("2") || result.get(i).getArticleId().equals("3")) {
+//                    result.add(result.get(i));
+//                    result.remove(0);
+//                }
+//            }
 
             getMainController().setProductionList(result);
             main.initWorkThings();
