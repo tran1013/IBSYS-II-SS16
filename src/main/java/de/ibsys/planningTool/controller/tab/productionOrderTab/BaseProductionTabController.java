@@ -80,7 +80,7 @@ public abstract class BaseProductionTabController extends Application {
         return vertriebwunsch + sicherheitsbestand - lagerBestand - warteschlange - bearbeitung;
     }
 
-    protected int getProductionValueEParts(int vertriebwunsch, int hilfszahl, int sicherheitsbestand,
+    protected int getProductionValueEParts(String code, int vertriebwunsch, int hilfszahl, int sicherheitsbestand,
                                            int lagerBestand, int warteschlange, int bearbeitung) {
 
         return vertriebwunsch + hilfszahl + sicherheitsbestand - lagerBestand - warteschlange - bearbeitung;
