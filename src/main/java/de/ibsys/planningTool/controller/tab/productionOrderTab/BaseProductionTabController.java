@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import de.ibsys.planningTool.controller.MainController;
 import org.apache.log4j.Logger;
 
 import com.jfoenix.controls.JFXTextField;
@@ -18,6 +19,9 @@ import javafx.application.Application;
  * Created by minhnguyen on 22.09.16.
  */
 public abstract class BaseProductionTabController extends Application {
+
+    protected MainController main;
+
 
     public Logger logger = Logger.getLogger(this.getClass().getSimpleName());
 
@@ -94,6 +98,7 @@ public abstract class BaseProductionTabController extends Application {
             return production;
         }
     }
+
 
     public List<Item> setMainProductionList(String product, List<JFXTextField> textfields) {
         List<Item> productionResultList = new ArrayList<>();

@@ -22,7 +22,9 @@ import de.ibsys.planningTool.controller.tab.ForeCastController;
 import de.ibsys.planningTool.controller.tab.OrderController;
 import de.ibsys.planningTool.controller.tab.ProductionController;
 import de.ibsys.planningTool.controller.tab.ProductionPriorityController;
-import de.ibsys.planningTool.controller.tab.SettingsController;
+import de.ibsys.planningTool.controller.tab.productionOrderTab.ChildBikeController;
+import de.ibsys.planningTool.controller.tab.productionOrderTab.MenBikeController;
+import de.ibsys.planningTool.controller.tab.productionOrderTab.WomenBikeController;
 import de.ibsys.planningTool.model.ProductionResult;
 import de.ibsys.planningTool.model.XmlExport;
 import de.ibsys.planningTool.model.XmlInputData;
@@ -110,13 +112,19 @@ public class MainController extends BaseTabController {
     public OrderController orderController;
 
     @FXML
-    private SettingsController settingsController;
-
-    @FXML
     private ProductionPriorityController productionPriorityController;
 
     @FXML
     private ProductionController productionController;
+
+    @FXML
+    private WomenBikeController womenBikeController;
+
+    @FXML
+    private ChildBikeController childBikeController;
+
+    @FXML
+    private MenBikeController menBikeController;
 
     @FXML
     public void initialize() {
@@ -142,47 +150,6 @@ public class MainController extends BaseTabController {
         mainTabPane.getStyleClass().add("jfx-tab-pane");
         new DialogMessages().setMainController(this);
 
-        mainTabPane.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Tab>() {
-            @Override
-            public void changed(ObservableValue<? extends Tab> observable, Tab oldValue, Tab newValue) {
-        /*
-                if(newValue==forecast) {
-                    productionTab.setDisable(false);
-                }
-
-                if(newValue==productionTab) {
-                    cappla.setDisable(false);
-
-                }
-
-                if(newValue==cappla) {
-                    //orderTab.setDisable(false);
-                    initWorkThings();
-                }
-                if(newValue==orderTab) {
-                    //productionpriorityTab.setDisable(false);
-                    initWorkThings();
-                }
-*/
-            }
-        });
-        /*
-        mainTabPane.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                DialogMessages.InfoDialog("","");
-            }
-        });
-
-        */
-    /*
-        productionTab.setOnSelectionChanged(new EventHandler<Event>() {
-            @Override
-            public void handle(Event event) {
-                DialogMessages.InfoDialog("Bitte zuerst speichern!","cappla");
-            }
-        });
-    */
     mainTabPane.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
         @Override
         public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {

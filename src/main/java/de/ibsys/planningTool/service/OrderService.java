@@ -37,67 +37,7 @@ public class OrderService {
 
     ItemDB itemDB = new ItemDB();
 
-    XmlInputData inputData;
-
-    ForeCastController foreCastController = new ForeCastController();
-
     MainController main = new MainController();
-
-    ItemComponents itemComponents = new ItemComponents();
-
-    /*
-    public List<OrderResult> calculateOrders(List<ProductionResult> productionResults, Map<String, Item> forecastProductionList) {
-
-        List<OrderResult> orderResults = new ArrayList<>();
-
-        List<Map<String, Integer>> kUsageList = calculateConsumption(calculateProgramm(productionResults, forecastProductionList));
-
-        try {
-            List<TermsOfSaleData> terms = orderDB.findAll();
-
-            for(TermsOfSaleData term : terms) {
-                String itemConfigId = term.getItemConfigId();
-
-                double avg = calculateAverage(kUsageList, itemConfigId);
-                double max = calculateMaxUsage(kUsageList, itemConfigId);
-                double orderpoint = avg * (term.getDeliveryTime() + term.getVariance() + REPLACEMENT_TIME);
-                String itemConfigSub = itemConfigId.substring(1);
-                double stock = main.getXmlInputData().getWareHouseArticles().get(itemConfigSub).getAmount();
-                double stockRange = Math.round(stock/avg);
-                if(stock <= orderpoint) {
-                    double maxDeliveryTime = term.getVariance() + term.getDeliveryTime();
-                    int orderQuantity = (int) Math.round((avg* term.getDeliveryTime() + max * maxDeliveryTime)/2);
-
-                    int orderMode;
-                    if (stockRange/maxDeliveryTime<=1) {
-                        orderMode = FAST_DELIVERY;
-                    } else {
-                        orderMode = NORMAL_DELIVERY;
-                    }
-
-                    double deliveryTime = term.getDeliveryTime();
-                    int discont = term.getDiscountQuantity();
-                    int orderingCosts = term.getOrderingCosts();
-                    double variance = term.getVariance();
-
-                    orderResults.add(new OrderResult(itemConfigId, orderQuantity, orderMode, orderingCosts, discont, deliveryTime, variance));
-                }
-            }
-        }
-        catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        for(OrderResult res : orderResults){
-            System.out.println("ID "+res.getItemConfigId());
-            System.out.println("Q "+res.getQuantity());
-            System.out.println("MODE "+res.getOrderingMode());
-
-        }
-
-        return orderResults;
-    }
-    */
 
     public double calculateAverage(List<Map<String, Integer>> kUsageList, String itemConfigId) {
         double avg = 0.0;
@@ -132,36 +72,6 @@ public class OrderService {
         }
         return stock;
     }
-
-    public double calculateWeightedAverage(List<Map<String, Integer>> kUsageList, String itemConfigId, double g1, double g2, double g3, double g4) {
-
-        double p1 = 0.0;
-        double p2 = 0.0;
-        double p3 = 0.0;
-        double p4 = 0.0;
-
-        int z = 0;
-        for(Map<String, Integer> entry : kUsageList) {
-            if(z==0) {
-                p1 = entry.get(itemConfigId);
-            }
-            else if(z==1) {
-                p2 = entry.get(itemConfigId);
-            }
-            else if(z ==2) {
-                p3 = entry.get(itemConfigId);
-            }
-            else p4 = entry.get(itemConfigId);
-            ++z;
-        }
-
-
-        System.out.println(Math.round(p1*0.5+p2*0.2+p3*0.2+p4+0.1));
-        //return Math.round(p1*g1+p2*g2+p3*g3+p4+g4);
-        return Math.round((p1*0.5+p2*0.2+p3*0.2+p4+0.1));
-
-    }
-
 
     public double calculateMaxUsage(List<Map<String, Integer>> kUsageList, String itemConfigId) {
         double maxUsage = 0.0;
@@ -203,24 +113,6 @@ public class OrderService {
         }
         System.out.println(maxTime);
         return maxTime;
-    }
-
-    public double getDiscontQuantity(String itemConfigId) {
-        double discont = 0.0;
-         try {
-             List<TermsOfSaleData> terms = orderDB.findAll();
-
-             for(TermsOfSaleData data : terms) {
-                 if(data.getItemConfigId().equals(itemConfigId)) {
-                    discont = data.getDiscountQuantity();
-                 }
-             }
-
-         }
-         catch (SQLException e) {
-             e.printStackTrace();
-         }
-        return discont;
     }
 
     public double calculateOrderCosts(OrderResult orderResult) {

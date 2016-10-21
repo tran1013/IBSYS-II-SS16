@@ -7,7 +7,9 @@ import de.ibsys.planningTool.controller.tab.productionOrderTab.MenBikeController
 import de.ibsys.planningTool.controller.tab.productionOrderTab.WomenBikeController;
 import de.ibsys.planningTool.model.xmlExportModel.Item;
 import de.ibsys.planningTool.service.ProductionService;
+import de.ibsys.planningTool.util.I18N;
 import javafx.fxml.FXML;
+import javafx.scene.control.Tab;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
@@ -33,6 +35,15 @@ public class ProductionController extends BaseTabController {
     WomenBikeController womenBikeController;
 
     @FXML
+    Tab childBikeTab;
+
+    @FXML
+    Tab menBikeTab;
+
+    @FXML
+    Tab womanBikeTab;
+
+    @FXML
     public JFXButton saveBtn;
 
     @Override
@@ -46,6 +57,7 @@ public class ProductionController extends BaseTabController {
         childBikeController.init(this);
         menBikeController.init(this);
         womenBikeController.init(this);
+        initTabsUI();
     }
 
     public MainController getMainController() {
@@ -65,6 +77,12 @@ public class ProductionController extends BaseTabController {
         initProductionControllerCalculation();
     }
 
+    public void initTabsUI() {
+        childBikeTab.setText(getTranslation().getString(I18N.CHILD_BIKE));
+        womanBikeTab.setText(getTranslation().getString(I18N.WOMAN_BIKE));
+        menBikeTab.setText(getTranslation().getString(I18N.MEN_BIKE));
+    }
+
     public void initProductionControllerCalculation () {
         try {
             childBikeController.storeNewReserve();
@@ -73,6 +91,8 @@ public class ProductionController extends BaseTabController {
             childBikeController.initUIComponents();
             menBikeController.initUIComponents();
             womenBikeController.initUIComponents();
+            childBikeController.initUI();
+            initTabsUI();
 
             List<Item> result = new ArrayList<>();
 
@@ -107,12 +127,17 @@ public class ProductionController extends BaseTabController {
             getMainController().setProductionList(result);
             main.initWorkThings();
             main.orderController.getData();
-            main.cappla.setDisable(false);
-            main.orderTab.setDisable(false);
-            main.productionpriorityTab.setDisable(false);
+            setUI();
             logger.info("save new stuff successfull");
         } catch (NullPointerException e) {
             logger.info(e);
         }
+    }
+
+    public void setUI() {
+        main.cappla.setDisable(false);
+        main.orderTab.setDisable(false);
+        main.productionpriorityTab.setDisable(false);
+        main.exportButton.setVisible(true);
     }
 }

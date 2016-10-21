@@ -40,7 +40,6 @@ public class I18N {
 	public static final String DIALOG_MESSAGE_ERROR_BIG_NUMBER = "DIALOG_MESSAGE_ERROR_BIG_NUMBER";
 	public static final String DIALOG_MESSAGE_ERROR_ONLY_NUMBER = "DIALOG_MESSAGE_ERROR_ONLY_NUMBER";
 	public static final String DIALOG_MESSAGE_ERROR_TITLE = "DIALOG_MESSAGE_ERROR_TITLE";
-	public static final String DIALOG_MESSAGE_INFO_TITLE = "DIALOG_MESSAGE_INFO_TITLE";
 	public static final String DIALOG_MESSAGE_ERROR_MESSAGE = "DIALOG_MESSAGE_ERROR_MESSAGE";
 	public static final String LANGUAGE = "LANGUAGE";
 	public static final String OK = "OK";
@@ -62,7 +61,15 @@ public class I18N {
 	public static final String ALERT_TITLE_ERROR_NEW_ORDER = "ALERT_TITLE_ERROR_NEW_ORDER";
 	public static final String ALERT_HEAD_NEW_ORDER = "ALERT_HEAD_NEW_ORDER";
 	public static final String ALERT_TEXT_NEW_ORDER = "ALERT_TEXT_NEW_ORDER";
-	public static final String DIALOG_ERROR_MINUS_INTEGER = "DIALOG_ERROR_MINUS_INTEGER";
+	public static final String ORDERS = "ORDERS";
+	public static final String QUEQUE = "QUEQUE";
+	public static final String IN_PROCESS = "IN_PROCESS";
+	public static final String PRODUCTIONS_ORDERS = "PRODUCTION_ORDER";
+	public static final String SAFETYSTOCK = "SAFETYSTOCK";
+	public static final String CHILD_BIKE = "CHILD_BIKE";
+	public static final String WOMAN_BIKE = "WOMAN_BIKE";
+	public static final String MEN_BIKE = "MEN_BIKE";
+	public static final String CALC_N_SAVE = "CALC_N_SAVE";
 
 	public static ResourceBundle translation(String language, String country) {
 		Locale currentLocale;
