@@ -100,7 +100,7 @@ public class XmlInputData {
     }
 
     private void extractPeriod(Element result) {
-        period = Integer.valueOf(result.getAttributeValue("period"));
+        period = Integer.parseInt(result.getAttributeValue("period"));
     }
 
     /***
@@ -117,7 +117,7 @@ public class XmlInputData {
                 continue;
             }
             String id = getFirstChildElement(wareHouseStock, i).getAttribute(ID).getValue();
-            int amount = Integer.valueOf(getFirstChildElement(wareHouseStock, i).getAttribute(AMOUNT).getValue());
+            int amount = Integer.parseInt(getFirstChildElement(wareHouseStock, i).getAttribute(AMOUNT).getValue());
             double pct = numberFormat.parse(getFirstChildElement(wareHouseStock, i).getAttribute(PCT).getValue()).doubleValue();
             double price = numberFormat.parse(getFirstChildElement(wareHouseStock, i).getAttribute(PRICE).getValue()).doubleValue();
             double stockValue = numberFormat.parse(getFirstChildElement(wareHouseStock, i).getAttribute(STOCKVALUE).getValue()).doubleValue();
@@ -130,7 +130,7 @@ public class XmlInputData {
                     reserve = reserve * 3;
                     break;
             }
-            wareHouseArticles.put(id, new Article(Integer.valueOf(id), amount, reserve, pct, price, stockValue));
+            wareHouseArticles.put(id, new Article(Integer.parseInt(id), amount, reserve, pct, price, stockValue));
         }
     }
 
@@ -143,9 +143,9 @@ public class XmlInputData {
         for (int i = 0; i < futureInWardMovements.getChildren().size(); i++) {
             String id = getFirstChildElement(futureInWardMovements, i).getAttribute(ID).getValue();
             String articleId = getFirstChildElement(futureInWardMovements, i).getAttribute(ARTICLE).getValue();
-            int mode = Integer.valueOf(getFirstChildElement(futureInWardMovements, i).getAttribute(MODE).getValue());
-            int orderPeriod = Integer.valueOf(getFirstChildElement(futureInWardMovements, i).getAttribute(ORDER_PERIODE).getValue());
-            int amount = Integer.valueOf(getFirstChildElement(futureInWardMovements, i).getAttribute(AMOUNT).getValue());
+            int mode = Integer.parseInt(getFirstChildElement(futureInWardMovements, i).getAttribute(MODE).getValue());
+            int orderPeriod = Integer.parseInt(getFirstChildElement(futureInWardMovements, i).getAttribute(ORDER_PERIODE).getValue());
+            int amount = Integer.parseInt(getFirstChildElement(futureInWardMovements, i).getAttribute(AMOUNT).getValue());
 
             FutureInComingOrder futureInComingOrder = new FutureInComingOrder(id, articleId, mode, orderPeriod, amount);
             futureInComingOrderMap.put(articleId, futureInComingOrder);
@@ -162,11 +162,11 @@ public class XmlInputData {
 
             String workplaceId = getFirstChildElement(orderInWork, i).getAttribute(ID).getValue();
             String articleId = getFirstChildElement(orderInWork, i).getAttribute(ITEM_ID).getValue();
-            int amount = Integer.valueOf(getFirstChildElement(orderInWork, i).getAttribute(AMOUNT).getValue());
-            int timeNeed = Integer.valueOf(getFirstChildElement(orderInWork, i).getAttribute(TIME_NEED).getValue());
+            int amount = Integer.parseInt(getFirstChildElement(orderInWork, i).getAttribute(AMOUNT).getValue());
+            int timeNeed = Integer.parseInt(getFirstChildElement(orderInWork, i).getAttribute(TIME_NEED).getValue());
             //optional parameters
-            int period = Integer.valueOf(getFirstChildElement(orderInWork, i).getAttribute(PERIOD).getValue());
-            int order = Integer.valueOf(getFirstChildElement(orderInWork, i).getAttribute(ORDER).getValue());
+            int period = Integer.parseInt(getFirstChildElement(orderInWork, i).getAttribute(PERIOD).getValue());
+            int order = Integer.parseInt(getFirstChildElement(orderInWork, i).getAttribute(ORDER).getValue());
 
             ordersInWorkMap.put(workplaceId, new OrdersInWork(workplaceId, articleId, period, order, amount, timeNeed));
         }
@@ -181,13 +181,13 @@ public class XmlInputData {
         for (int index = 0; index < waitingListWorkStations.getChildren().size(); index++) {
             List<WaitingList> waitingLists = new ArrayList<>();
             String workplaceId = getFirstChildElement(waitingListWorkStations, index).getAttribute(ID).getValue();
-            int timeNeed = Integer.valueOf(getFirstChildElement(waitingListWorkStations, index).getAttribute(TIME_NEED).getValue());
+            int timeNeed = Integer.parseInt(getFirstChildElement(waitingListWorkStations, index).getAttribute(TIME_NEED).getValue());
 
             if (getFirstChildElement(waitingListWorkStations, index).getChildren() != null) {
                 for (int secondIndex = 0; secondIndex < waitingListWorkStations.getChildren().get(index).getChildren().size(); secondIndex++) {
                     String articleId = getFirstChildElement(waitingListWorkStations, index).getChildren().get(secondIndex).getAttribute(ITEM_ID).getValue();
-                    Integer amount = Integer.valueOf(getFirstChildElement(waitingListWorkStations, index).getChildren().get(secondIndex).getAttribute(AMOUNT).getValue());
-                    Integer timeNeedWaitingList = Integer.valueOf(getFirstChildElement(waitingListWorkStations, index).getChildren().get(secondIndex).getAttribute(TIME_NEED).getValue());
+                    Integer amount = Integer.parseInt(getFirstChildElement(waitingListWorkStations, index).getChildren().get(secondIndex).getAttribute(AMOUNT).getValue());
+                    Integer timeNeedWaitingList = Integer.parseInt(getFirstChildElement(waitingListWorkStations, index).getChildren().get(secondIndex).getAttribute(TIME_NEED).getValue());
                     waitingLists.add(new WaitingList(articleId, amount, timeNeedWaitingList));
                 }
             }
@@ -205,7 +205,7 @@ public class XmlInputData {
 
             if (waitingListStock.getChildren().get(index).getChildren() != null) {
                 for (int secondIndex = 0; secondIndex < getFirstChildElement(waitingListStock, index).getChildren().size(); secondIndex++) {
-                    int amount = Integer.valueOf(getFirstChildElement(waitingListStock, index).getChildren().get(secondIndex).getAttribute(AMOUNT).getValue());
+                    int amount = Integer.parseInt(getFirstChildElement(waitingListStock, index).getChildren().get(secondIndex).getAttribute(AMOUNT).getValue());
                     String itemId = getFirstChildElement(waitingListStock, index).getChildren().get(secondIndex).getAttribute(ITEM_ID).getValue();
                     //Zero because we must wait that the maschines finish the parts
                     waitingLists.add(new WaitingList(itemId, amount, 0));

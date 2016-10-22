@@ -1,11 +1,8 @@
 package de.ibsys.planningTool.service;
 
-import de.ibsys.planningTool.controller.MainController;
 import de.ibsys.planningTool.database.capPlaDB;
-import de.ibsys.planningTool.mock.sellData;
 import de.ibsys.planningTool.model.CapPlaResult;
 import de.ibsys.planningTool.model.Constants;
-import de.ibsys.planningTool.model.ProductionResult;
 import de.ibsys.planningTool.model.ProductionSteps;
 import de.ibsys.planningTool.model.xmlExportModel.Item;
 import de.ibsys.planningTool.model.xmlInputModel.OrdersInWork;
@@ -17,18 +14,14 @@ import java.sql.SQLException;
 import java.util.*;
 
 /**
- * TODO: Clean up mess in class
- * TODO: Test class or take a deep breath and get to it?
  * Created by Duc on 17.08.16.
  */
 public class CapPla {
 
     capPlaDB prod = new capPlaDB();
-    MainController main = new MainController();
 
     /**
      * God Method to calculate CapPla shit
-     * TODO: return Object from CapPlaResult
      */
     @FXML
     public List<CapPlaResult> calculateCap(Map<String, OrdersInWork> ordersInWorkMap, Map<String, WaitingListWorkPlace> waitingListWorkPlaceMap, List<Item> productionResult) {
@@ -73,19 +66,12 @@ public class CapPla {
                     capResult.put(workplace.toString(), capacity);
                     setupTimeList.put(workplace.toString(), CapSetupTime);
                 }
-                /*System.out.println("Workplace: " + workplace);
-                System.out.println("Cap. require: " + capResult.get(workplace.toString()));
-                System.out.println("Setup Time: " + setupTimeList.get(workplace.toString()));*/
-
                 result = this.getAllScheduledTime(workplace, ordersInWorkMap, waitingListWorkPlaceMap);
                 result = result * productionTime;
-                //System.out.println("Cap. require last period: " + result);
                 ordersInWorkTime.put(workplace.toString(), result);
 
                 setupTimeLastPeriod = this.getPieceAmountOrdersInWork(workplace, ordersInWorkMap);
                 setupTimeLastPeriod = setupTimeLastPeriod * setup;
-                /*System.out.println("SetupTime last period: " + setupTimeLastPeriod);
-                System.out.println("_________________________");*/
 
                 requirePeriod = capResult.get(workplace.toString()) + setupTimeList.get(workplace.toString()) + result + setupTimeLastPeriod;
                 shifts = this.calculateShifts(requirePeriod);
@@ -265,8 +251,6 @@ public class CapPla {
             }
 
         }
-
-        //System.out.println(psList);
         return psList;
     }
 }

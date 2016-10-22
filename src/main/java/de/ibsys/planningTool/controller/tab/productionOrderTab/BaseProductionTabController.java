@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import de.ibsys.planningTool.controller.MainController;
 import org.apache.log4j.Logger;
 
 import com.jfoenix.controls.JFXTextField;
@@ -18,6 +19,8 @@ import javafx.application.Application;
  * Created by minhnguyen on 22.09.16.
  */
 public abstract class BaseProductionTabController extends Application {
+
+    protected MainController main;
 
     public Logger logger = Logger.getLogger(this.getClass().getSimpleName());
 
@@ -81,23 +84,23 @@ public abstract class BaseProductionTabController extends Application {
     }
 
     protected int getProductionValueEParts(String code, int vertriebwunsch, int hilfszahl, int sicherheitsbestand,
-            int lagerBestand, int warteschlange, int bearbeitung) {
+                                           int lagerBestand, int warteschlange, int bearbeitung) {
 
-        if (code.equals("16") || code.equals("17") || code.equals("26")) {
-            return vertriebwunsch + hilfszahl + sicherheitsbestand - lagerBestand - warteschlange
-                    - bearbeitung/*- getWaitingListPartsAmount(code)*/;
-            // TODO WHY ?
+        return vertriebwunsch + hilfszahl + sicherheitsbestand - lagerBestand - warteschlange - bearbeitung;
+
+    }
+
+    public int checkIsNegative(int production) {
+        if (production < 0) {
+            return 0;
         } else {
-            // TODO maybe ?? need feedback with get WaitingLIstPartsAmount on
-            return vertriebwunsch + hilfszahl + sicherheitsbestand - lagerBestand - warteschlange - bearbeitung
-                    - getWaitingListPartsAmount(code);
+            return production;
         }
     }
 
+
     public List<Item> setMainProductionList(String product, List<JFXTextField> textfields) {
         List<Item> productionResultList = new ArrayList<>();
-        // TODO: Die Liste productionesultList muss im günstigsten Fall immer
-        // komplett neu erstellt werden. Wie umsetzen?
         List<String> parts = new ArrayList<String>();
         switch (product) {
             case "1":

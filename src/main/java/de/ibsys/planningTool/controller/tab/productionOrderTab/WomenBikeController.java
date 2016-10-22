@@ -7,6 +7,7 @@ import com.jfoenix.controls.JFXTextField;
 
 import de.ibsys.planningTool.controller.tab.ProductionController;
 import de.ibsys.planningTool.model.xmlExportModel.Item;
+import de.ibsys.planningTool.util.I18N;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
@@ -48,13 +49,22 @@ public class WomenBikeController extends BaseProductionTabController {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-
     }
 
     @Override
     public void init(ProductionController productionOrderController) {
         super.init(productionOrderController);
         initUIComponents();
+        initUI();
+    }
+
+    public void initUI() {
+        orders.setText(productionOrderController.getTranslation().getString(I18N.ORDERS));
+        safetystock.setText(productionOrderController.getTranslation().getString(I18N.SAFETYSTOCK));
+        productionorder.setText(productionOrderController.getTranslation().getString(I18N.PRODUCTIONS_ORDERS));
+        stock.setText(productionOrderController.getTranslation().getString(I18N.STOCKLABEL));
+        process.setText(productionOrderController.getTranslation().getString(I18N.IN_PROCESS));
+        queue.setText(productionOrderController.getTranslation().getString(I18N.QUEQUE));
     }
 
     public void initUIComponents() {
@@ -85,7 +95,7 @@ public class WomenBikeController extends BaseProductionTabController {
                     Integer.parseInt(safetyE26.getText()), Integer.parseInt(stockE26.getText()),
                     Integer.parseInt(queueE26.getText()), Integer.parseInt(processE26.getText()))));
 
-            orderE56.setText(String.valueOf(productionP2.getText()));
+            orderE56.setText(String.valueOf(checkIsNegative(Integer.parseInt(productionP2.getText()))));
             stockE56.setText(String.valueOf(getStockValue("56")));
             helpE56.setText(String.valueOf(getQueueValue("2")));
             if (safetyE56.getText().equals("")) {
@@ -130,7 +140,7 @@ public class WomenBikeController extends BaseProductionTabController {
                     Integer.parseInt(safetyE17.getText()), Integer.parseInt(stockE17.getText()),
                     Integer.parseInt(queueE17.getText()), Integer.parseInt(processE17.getText()))));
 
-            orderE55.setText(String.valueOf(productionE56.getText()));
+            orderE55.setText(String.valueOf(checkIsNegative(Integer.parseInt(productionE56.getText()))));
             stockE55.setText(String.valueOf(getStockValue("55")));
             helpE55.setText(String.valueOf(getQueueValue("56")));
             if (safetyE55.getText().equals("")) {
@@ -145,7 +155,7 @@ public class WomenBikeController extends BaseProductionTabController {
                             Integer.parseInt(safetyE55.getText()), Integer.parseInt(stockE55.getText()),
                             Integer.parseInt(queueE55.getText()), Integer.parseInt(processE55.getText()))));
 
-            orderE5.setText(String.valueOf(productionE55.getText()));
+            orderE5.setText(String.valueOf(checkIsNegative(Integer.parseInt(productionE55.getText()))));
             stockE5.setText(String.valueOf(getStockValue("5")));
             helpE5.setText(String.valueOf(getQueueValue("55")));
             if (safetyE5.getText().equals("")) {
@@ -159,7 +169,7 @@ public class WomenBikeController extends BaseProductionTabController {
                     getQueueValue("55"), Integer.parseInt(safetyE5.getText()), Integer.parseInt(stockE5.getText()),
                     Integer.parseInt(queueE5.getText()), Integer.parseInt(processE5.getText()))));
 
-            orderE11.setText(String.valueOf(productionE55.getText()));
+            orderE11.setText(String.valueOf(checkIsNegative(Integer.parseInt(productionE55.getText()))));
             stockE11.setText(String.valueOf(getStockValue("11")));
             helpE11.setText(String.valueOf(getQueueValue("55")));
             if (safetyE11.getText().equals("")) {
@@ -174,7 +184,7 @@ public class WomenBikeController extends BaseProductionTabController {
                             Integer.parseInt(safetyE11.getText()), Integer.parseInt(stockE11.getText()),
                             Integer.parseInt(queueE11.getText()), Integer.parseInt(processE11.getText()))));
 
-            orderE54.setText(String.valueOf(productionE55.getText()));
+            orderE54.setText(String.valueOf(checkIsNegative(Integer.parseInt(productionE55.getText()))));
             stockE54.setText(String.valueOf(getStockValue("54")));
             helpE54.setText(String.valueOf(getQueueValue("55")));
             if (safetyE54.getText().equals("")) {
@@ -189,7 +199,7 @@ public class WomenBikeController extends BaseProductionTabController {
                             Integer.parseInt(safetyE54.getText()), Integer.parseInt(stockE54.getText()),
                             Integer.parseInt(queueE54.getText()), Integer.parseInt(processE54.getText()))));
 
-            orderE8.setText(String.valueOf(productionE54.getText()));
+            orderE8.setText(String.valueOf(checkIsNegative(Integer.parseInt(productionE54.getText()))));
             stockE8.setText(String.valueOf(getStockValue("8")));
             helpE8.setText(String.valueOf(getQueueValue("54")));
             if (safetyE8.getText().equals("")) {
@@ -203,7 +213,7 @@ public class WomenBikeController extends BaseProductionTabController {
                     getQueueValue("54"), Integer.parseInt(safetyE8.getText()), Integer.parseInt(stockE8.getText()),
                     Integer.parseInt(queueE8.getText()), Integer.parseInt(processE8.getText()))));
 
-            orderE14.setText(String.valueOf(productionE54.getText()));
+            orderE14.setText(String.valueOf(checkIsNegative(Integer.parseInt(productionE54.getText()))));
             stockE14.setText(String.valueOf(getStockValue("14")));
             helpE14.setText(String.valueOf(getQueueValue("54")));
             if (safetyE14.getText().equals("")) {
@@ -218,7 +228,7 @@ public class WomenBikeController extends BaseProductionTabController {
                             Integer.parseInt(safetyE14.getText()), Integer.parseInt(stockE14.getText()),
                             Integer.parseInt(queueE14.getText()), Integer.parseInt(processE14.getText()))));
 
-            orderE19.setText(String.valueOf(productionE54.getText()));
+            orderE19.setText(String.valueOf(checkIsNegative(Integer.parseInt(productionE54.getText()))));
             stockE19.setText(String.valueOf(getStockValue("19")));
             helpE19.setText(String.valueOf(getQueueValue("54")));
             if (safetyE19.getText().equals("")) {
@@ -239,12 +249,14 @@ public class WomenBikeController extends BaseProductionTabController {
              * productionE55, productionE5, productionE11, productionE54,
              * productionE8, productionE14, productionE19));
              */
+
         } catch (Exception e) {
             logger.error(e);
             e.printStackTrace();
         }
     }
 
+//    Label orders, safetystock, stock, queue, process, productionorder;
     public void storeNewReserve() {
         getXmlInputData().getWareHouseArticles().get("2").setReserve(Integer.parseInt(safetyP2.getText()));
         getXmlInputData().getWareHouseArticles().get("56").setReserve(Integer.parseInt(safetyE56.getText()));

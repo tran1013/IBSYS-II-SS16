@@ -1,27 +1,28 @@
 package de.ibsys.planningTool.controller.tab;
 
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXTextField;
-import de.ibsys.planningTool.controller.MainController;
-import de.ibsys.planningTool.controller.tab.productionOrderTab.ChildBikeController;
-import de.ibsys.planningTool.model.XmlInputData;
-import de.ibsys.planningTool.model.xmlExportModel.DirectSell;
-import de.ibsys.planningTool.model.xmlExportModel.Item;
-import de.ibsys.planningTool.util.Dialogs.DialogMessages;
-import de.ibsys.planningTool.util.I18N;
-import de.ibsys.planningTool.util.JFXIntegerTextField;
-import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.stage.FileChooser;
-import javafx.stage.Stage;
-
-import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.xml.parsers.ParserConfigurationException;
+
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXTextField;
+
+import de.ibsys.planningTool.controller.MainController;
+import de.ibsys.planningTool.model.XmlInputData;
+import de.ibsys.planningTool.model.xmlExportModel.DirectSell;
+import de.ibsys.planningTool.model.xmlExportModel.Item;
+import de.ibsys.planningTool.util.I18N;
+import de.ibsys.planningTool.util.JFXIntegerTextField;
+import de.ibsys.planningTool.util.Dialogs.DialogMessages;
+import javafx.fxml.FXML;
+import javafx.scene.control.Label;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 /**
  * Created by minhnguyen on 11.07.16.
@@ -69,7 +70,6 @@ public class ForeCastController extends BaseTabController {
                     } else {
                         storeData();
                     }
-                    main.exportButton.setVisible(true);
                     main.initWorkThings();
                     main.productionTab.setDisable(false);
                 } else {

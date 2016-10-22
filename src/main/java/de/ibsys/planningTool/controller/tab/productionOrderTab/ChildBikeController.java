@@ -7,6 +7,7 @@ import com.jfoenix.controls.JFXTextField;
 
 import de.ibsys.planningTool.controller.tab.ProductionController;
 import de.ibsys.planningTool.model.xmlExportModel.Item;
+import de.ibsys.planningTool.util.I18N;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
@@ -54,6 +55,16 @@ public class ChildBikeController extends BaseProductionTabController {
     public void init(ProductionController productionOrderController) {
         super.init(productionOrderController);
         initUIComponents();
+        initUI();
+    }
+
+    public void initUI() {
+        orders.setText(productionOrderController.getTranslation().getString(I18N.ORDERS));
+        safetystock.setText(productionOrderController.getTranslation().getString(I18N.SAFETYSTOCK));
+        productionorder.setText(productionOrderController.getTranslation().getString(I18N.PRODUCTIONS_ORDERS));
+        stock.setText(productionOrderController.getTranslation().getString(I18N.STOCKLABEL));
+        process.setText(productionOrderController.getTranslation().getString(I18N.IN_PROCESS));
+        queue.setText(productionOrderController.getTranslation().getString(I18N.QUEQUE));
     }
 
     public void initUIComponents() {
@@ -84,7 +95,7 @@ public class ChildBikeController extends BaseProductionTabController {
                             Integer.parseInt(safetyE26.getText()), Integer.parseInt(stockE26.getText()),
                             Integer.parseInt(queueE26.getText()), Integer.parseInt(processE26.getText()))));
 
-            orderE51.setText(String.valueOf(productionP1.getText()));
+            orderE51.setText(String.valueOf(checkIsNegative(Integer.parseInt(productionP1.getText()))));
             stockE51.setText(String.valueOf(getStockValue("51")));
             helpE51.setText(String.valueOf(getQueueValue("1")));
             if (safetyE51.getText().equals("")) {
@@ -129,7 +140,7 @@ public class ChildBikeController extends BaseProductionTabController {
                             Integer.parseInt(safetyE17.getText()), Integer.parseInt(stockE17.getText()),
                             Integer.parseInt(queueE17.getText()), Integer.parseInt(processE17.getText()))));
 
-            orderE50.setText(String.valueOf(productionE51.getText()));
+            orderE50.setText(String.valueOf(checkIsNegative(Integer.parseInt(productionE51.getText()))));
             stockE50.setText(String.valueOf(getStockValue("50")));
             helpE50.setText(String.valueOf(getQueueValue("51")));
             if (safetyE50.getText().equals("")) {
@@ -144,7 +155,7 @@ public class ChildBikeController extends BaseProductionTabController {
                             Integer.parseInt(safetyE50.getText()), Integer.parseInt(stockE50.getText()),
                             Integer.parseInt(queueE50.getText()), Integer.parseInt(processE50.getText()))));
 
-            orderE4.setText(String.valueOf(productionE50.getText()));
+            orderE4.setText(String.valueOf(checkIsNegative(Integer.parseInt(productionE50.getText()))));
             stockE4.setText(String.valueOf(getStockValue("4")));
             helpE4.setText(String.valueOf(getQueueValue("50")));
             if (safetyE4.getText().equals("")) {
@@ -158,7 +169,7 @@ public class ChildBikeController extends BaseProductionTabController {
                     getQueueValue("50"), Integer.parseInt(safetyE4.getText()), Integer.parseInt(stockE4.getText()),
                     Integer.parseInt(queueE4.getText()), Integer.parseInt(processE4.getText()))));
 
-            orderE10.setText(String.valueOf(productionE50.getText()));
+            orderE10.setText(String.valueOf(checkIsNegative(Integer.parseInt(productionE50.getText()))));
             stockE10.setText(String.valueOf(getStockValue("10")));
             helpE10.setText(String.valueOf(getQueueValue("50")));
             if (safetyE10.getText().equals("")) {
@@ -173,7 +184,7 @@ public class ChildBikeController extends BaseProductionTabController {
                             Integer.parseInt(safetyE10.getText()), Integer.parseInt(stockE10.getText()),
                             Integer.parseInt(queueE10.getText()), Integer.parseInt(processE10.getText()))));
 
-            orderE49.setText(String.valueOf(productionE50.getText()));
+            orderE49.setText(String.valueOf(checkIsNegative(Integer.parseInt(productionE50.getText()))));
             stockE49.setText(String.valueOf(getStockValue("49")));
             helpE49.setText(String.valueOf(getQueueValue("50")));
             if (safetyE49.getText().equals("")) {
@@ -188,7 +199,7 @@ public class ChildBikeController extends BaseProductionTabController {
                             Integer.parseInt(safetyE49.getText()), Integer.parseInt(stockE49.getText()),
                             Integer.parseInt(queueE49.getText()), Integer.parseInt(processE49.getText()))));
 
-            orderE7.setText(String.valueOf(productionE49.getText()));
+            orderE7.setText(String.valueOf(checkIsNegative(Integer.parseInt(productionE49.getText()))));
             stockE7.setText(String.valueOf(getStockValue("7")));
             helpE7.setText(String.valueOf(getQueueValue("49")));
             if (safetyE7.getText().equals("")) {
@@ -202,7 +213,7 @@ public class ChildBikeController extends BaseProductionTabController {
                     getQueueValue("49"), Integer.parseInt(safetyE7.getText()), Integer.parseInt(stockE7.getText()),
                     Integer.parseInt(queueE7.getText()), Integer.parseInt(processE7.getText()))));
 
-            orderE13.setText(String.valueOf(productionE49.getText()));
+            orderE13.setText(String.valueOf(checkIsNegative(Integer.parseInt(productionE49.getText()))));
             stockE13.setText(String.valueOf(getStockValue("13")));
             helpE13.setText(String.valueOf(getQueueValue("49")));
             if (safetyE13.getText().equals("")) {
@@ -217,7 +228,7 @@ public class ChildBikeController extends BaseProductionTabController {
                             Integer.parseInt(safetyE13.getText()), Integer.parseInt(stockE13.getText()),
                             Integer.parseInt(queueE13.getText()), Integer.parseInt(processE13.getText()))));
 
-            orderE18.setText(String.valueOf(productionE49.getText()));
+            orderE18.setText(String.valueOf(checkIsNegative(Integer.parseInt(productionE49.getText()))));
             stockE18.setText(String.valueOf(getStockValue("18")));
             helpE18.setText(String.valueOf(getQueueValue("49")));
             if (safetyE18.getText().equals("")) {

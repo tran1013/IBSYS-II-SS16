@@ -6,7 +6,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="436.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.ibsys.planningTool.controller.tab.ProductionPriorityController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="439.0" prefWidth="1054.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.ibsys.planningTool.controller.tab.ProductionPriorityController">
    <children>
       <JFXListView fx:id="listView" layoutX="315.0" layoutY="46.0" prefHeight="366.0" prefWidth="400.0" />
       <ImageView fitHeight="290.0" fitWidth="290.0" layoutX="14.0" layoutY="46.0" pickOnBounds="true" preserveRatio="true">
@@ -14,5 +14,6 @@
             <Image url="@../image/splitIcon.png" />
          </image>
       </ImageView>
+      <Label layoutX="741.0" layoutY="59.0" fx:id="tipForSplit" text="Hinweis: Auf ein element rechts klick um das Element zu splitten" />
    </children>
 </AnchorPane>

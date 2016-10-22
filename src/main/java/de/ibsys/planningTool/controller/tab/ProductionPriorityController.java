@@ -5,7 +5,6 @@ import de.ibsys.planningTool.controller.MainController;
 import de.ibsys.planningTool.model.xmlExportModel.Item;
 import de.ibsys.planningTool.util.Dialogs.DialogMessages;
 import de.ibsys.planningTool.util.I18N;
-import de.ibsys.planningTool.util.MockObject;
 import de.ibsys.planningTool.util.PriorityCell;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -37,6 +36,9 @@ public class ProductionPriorityController extends BaseTabController {
     @FXML
     private JFXListView listView;
 
+    @FXML
+    private Label tipForSplit;
+
     /***
      * TODO REPLACE THIS WITH THE RIGHT DATA
      * DO IT IN THE INIT
@@ -50,6 +52,13 @@ public class ProductionPriorityController extends BaseTabController {
     public void init(MainController main) {
         super.init(main);
 //        main.setProductionList(new MockObject().productionListMockData());
+//        final IntegerProperty dragFromIndex = new SimpleIntegerProperty(-1);
+//        ObservableList<Item> productionList = FXCollections.observableArrayList(main.getProductionList());
+//        listView.setItems(productionList);
+//        listView.setCellFactory(itemListView -> dragAndDrop(dragFromIndex, productionList));
+    }
+
+    public void initFunctions() {
         final IntegerProperty dragFromIndex = new SimpleIntegerProperty(-1);
         ObservableList<Item> productionList = FXCollections.observableArrayList(main.getProductionList());
         listView.setItems(productionList);
@@ -172,6 +181,10 @@ public class ProductionPriorityController extends BaseTabController {
         });
 
         return cell;
+    }
+
+    public void initUiComponents() {
+        tipForSplit.setText(getI18NText(I18N.PRIORITY_TIP));
     }
 
     private void updateProductionList() {

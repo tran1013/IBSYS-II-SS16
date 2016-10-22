@@ -16,14 +16,15 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTabPane;
 import com.jfoenix.controls.JFXToggleButton;
 
-import de.ibsys.planningTool.util.Dialogs.DialogMessages;
 import de.ibsys.planningTool.controller.tab.BaseTabController;
 import de.ibsys.planningTool.controller.tab.CapPlaController;
 import de.ibsys.planningTool.controller.tab.ForeCastController;
 import de.ibsys.planningTool.controller.tab.OrderController;
 import de.ibsys.planningTool.controller.tab.ProductionController;
 import de.ibsys.planningTool.controller.tab.ProductionPriorityController;
-import de.ibsys.planningTool.controller.tab.SettingsController;
+import de.ibsys.planningTool.controller.tab.productionOrderTab.ChildBikeController;
+import de.ibsys.planningTool.controller.tab.productionOrderTab.MenBikeController;
+import de.ibsys.planningTool.controller.tab.productionOrderTab.WomenBikeController;
 import de.ibsys.planningTool.model.ProductionResult;
 import de.ibsys.planningTool.model.XmlExport;
 import de.ibsys.planningTool.model.XmlInputData;
@@ -32,14 +33,10 @@ import de.ibsys.planningTool.model.xmlExportModel.Item;
 import de.ibsys.planningTool.model.xmlExportModel.Order;
 import de.ibsys.planningTool.model.xmlExportModel.WorkTime;
 import de.ibsys.planningTool.util.I18N;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.event.Event;
-import javafx.event.EventHandler;
-import javafx.event.EventType;
+import de.ibsys.planningTool.util.Dialogs.DialogMessages;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Tab;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -114,13 +111,19 @@ public class MainController extends BaseTabController {
     public OrderController orderController;
 
     @FXML
-    private SettingsController settingsController;
-
-    @FXML
     private ProductionPriorityController productionPriorityController;
 
     @FXML
     private ProductionController productionController;
+
+    @FXML
+    private WomenBikeController womenBikeController;
+
+    @FXML
+    private ChildBikeController childBikeController;
+
+    @FXML
+    private MenBikeController menBikeController;
 
     @FXML
     public void initialize() {
@@ -129,6 +132,7 @@ public class MainController extends BaseTabController {
         foreCastController.init(this);
         capPlaController.init(this);
         orderController.init(this);
+        productionPriorityController.init(this);
 
         xmlInputData = null;
         sellWish = new ArrayList<>();
@@ -145,54 +149,6 @@ public class MainController extends BaseTabController {
 
         mainTabPane.getStyleClass().add("jfx-tab-pane");
         new DialogMessages().setMainController(this);
-
-        mainTabPane.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Tab>() {
-            @Override
-            public void changed(ObservableValue<? extends Tab> observable, Tab oldValue, Tab newValue) {
-        /*
-                if(newValue==forecast) {
-                    productionTab.setDisable(false);
-                }
-
-                if(newValue==productionTab) {
-                    cappla.setDisable(false);
-
-                }
-
-                if(newValue==cappla) {
-                    //orderTab.setDisable(false);
-                    initWorkThings();
-                }
-                if(newValue==orderTab) {
-                    //productionpriorityTab.setDisable(false);
-                    initWorkThings();
-                }
-*/
-            }
-        });
-        /*
-        mainTabPane.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                DialogMessages.InfoDialog("","");
-            }
-        });
-
-        */
-    /*
-        productionTab.setOnSelectionChanged(new EventHandler<Event>() {
-            @Override
-            public void handle(Event event) {
-                DialogMessages.InfoDialog("Bitte zuerst speichern!","cappla");
-            }
-        });
-    */
-    mainTabPane.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
-        @Override
-        public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-
-        }
-    });
     }
 
     public void initWorkThings() {
@@ -305,6 +261,7 @@ public class MainController extends BaseTabController {
         foreCastController.initUIComponents();
         capPlaController.initUIComponents();
         orderController.initUIComponents();
+        productionPriorityController.initUiComponents();
     }
 
     @FXML
@@ -324,6 +281,14 @@ public class MainController extends BaseTabController {
         }
     }
 
+    public ProductionPriorityController getProductionPriorityController() {
+        return productionPriorityController;
+    }
+
+    public void setProductionPriorityController(ProductionPriorityController productionPriorityController) {
+        this.productionPriorityController = productionPriorityController;
+    }
+
     @FXML
     public void changeLanguageButtonTapped() {
         if (this.getLanguage().equals("de")) {
@@ -334,5 +299,6 @@ public class MainController extends BaseTabController {
             this.setCountry("DE");
         }
         this.changeUILanguage();
+        productionController.initUI();
     }
 }
