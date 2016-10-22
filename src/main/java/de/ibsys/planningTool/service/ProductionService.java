@@ -63,7 +63,7 @@ public class ProductionService {
     /**
      *
      * @param production
-     * @return sorted production list like orderlist 
+     * @return sorted production list like orderlist
      */
     public List<Item> getRightOrder(List<Item> production) {
         List<Item> sortedProductionList = new ArrayList<>();
