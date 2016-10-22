@@ -132,6 +132,7 @@ public class MainController extends BaseTabController {
         foreCastController.init(this);
         capPlaController.init(this);
         orderController.init(this);
+        productionPriorityController.init(this);
 
         xmlInputData = null;
         sellWish = new ArrayList<>();
@@ -260,6 +261,7 @@ public class MainController extends BaseTabController {
         foreCastController.initUIComponents();
         capPlaController.initUIComponents();
         orderController.initUIComponents();
+        productionPriorityController.initUiComponents();
     }
 
     @FXML
@@ -277,6 +279,14 @@ public class MainController extends BaseTabController {
             // , new MockObject().orderListMockData()
                     , orderList, productionList, workTimeList, file.getPath());
         }
+    }
+
+    public ProductionPriorityController getProductionPriorityController() {
+        return productionPriorityController;
+    }
+
+    public void setProductionPriorityController(ProductionPriorityController productionPriorityController) {
+        this.productionPriorityController = productionPriorityController;
     }
 
     @FXML

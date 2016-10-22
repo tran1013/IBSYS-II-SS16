@@ -126,6 +126,7 @@ public class ProductionController extends BaseTabController {
             main.initWorkThings();
             main.orderController.getData();
             setUI();
+            mainController.getProductionPriorityController().initFunctions();
             logger.info("save new stuff successfull");
         } catch (NullPointerException e) {
             logger.info(e);
