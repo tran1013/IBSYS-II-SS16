@@ -22,7 +22,6 @@ public abstract class BaseProductionTabController extends Application {
 
     protected MainController main;
 
-
     public Logger logger = Logger.getLogger(this.getClass().getSimpleName());
 
     protected ProductionController productionOrderController;
