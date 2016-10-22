@@ -84,27 +84,12 @@ public class ProductionController extends BaseTabController {
                                     womenBikeController.setList().parallelStream() //
                             ).collect(Collectors.toList()).parallelStream()) // get all list from men and women in one list
                             .collect(Collectors.toList())) // get all list form views together
-                    .stream()
-                    .sorted((item1, item2) -> Integer.valueOf(item1.getArticleId()) // sorted things 
-                            .compareTo(Integer.valueOf(item2.getArticleId()))) //
+                    .parallelStream()
+//                    .sorted((item1, item2) -> Integer.valueOf(item1.getArticleId()) // sorted things
+//                            .compareTo(Integer.valueOf(item2.getArticleId()))) //
                     .collect(Collectors.toList()); // return a list
 
-            if (result.get(0).getArticleId().equals("1")) {
-                result.add(result.get(0));
-                result.remove(0);
-            }
-
-            if (result.get(0).getArticleId().equals("2")) {
-                result.add(result.get(0));
-                result.remove(0);
-            }
-
-            if (result.get(0).getArticleId().equals("3")) {
-                result.add(result.get(0));
-                result.remove(0);
-            }
-
-            getMainController().setProductionList(result);
+            getMainController().setProductionList(new ProductionService().getRightOrder(result));
             main.initWorkThings();
             main.orderController.getData();
             main.cappla.setDisable(false);
