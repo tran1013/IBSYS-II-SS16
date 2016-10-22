@@ -176,12 +176,11 @@ public class OrderService {
             if(!productionMap.containsKey("P3")) {
                 productionMap.put("P3", 0);
             }
-
-
+        /*
         for(Map.Entry<String, Integer> mapentry : productionMap.entrySet()) {
             System.out.println("ProductionMap " + mapentry);
         }
-
+        */
         productionProgram.add(productionMap);
 
         Map<String, Integer> forecastMap1 = new HashMap<String, Integer>();
@@ -210,11 +209,11 @@ public class OrderService {
         productionProgram.add(forecastMap1);
         productionProgram.add(forecastMap2);
         productionProgram.add(forecastMap3);
-
+        /*
         for(Map<String, Integer> entry : productionProgram) {
             System.out.println("Einträge in productionProgram "+entry);
         }
-
+        */
         return productionProgram;
 
     }
@@ -275,11 +274,11 @@ public class OrderService {
         kUsageList.add(map_n2);
         kUsageList.add(map_n3);
         // to test output of the list
-
+        /*
         for(Map<String, Integer> entry : kUsageList) {
             System.out.println("ENTRIES in der kUsageList" + entry);
         }
-
+        */
         return kUsageList;
     }
 }
