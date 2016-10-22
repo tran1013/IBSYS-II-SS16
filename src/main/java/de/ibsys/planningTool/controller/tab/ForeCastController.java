@@ -70,7 +70,6 @@ public class ForeCastController extends BaseTabController {
                     } else {
                         storeData();
                     }
-                    main.exportButton.setVisible(true);
                     main.initWorkThings();
                     main.productionTab.setDisable(false);
                 } else {

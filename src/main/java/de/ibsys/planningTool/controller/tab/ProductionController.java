@@ -1,13 +1,16 @@
 package de.ibsys.planningTool.controller.tab;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXToggleButton;
 import de.ibsys.planningTool.controller.MainController;
 import de.ibsys.planningTool.controller.tab.productionOrderTab.ChildBikeController;
 import de.ibsys.planningTool.controller.tab.productionOrderTab.MenBikeController;
 import de.ibsys.planningTool.controller.tab.productionOrderTab.WomenBikeController;
 import de.ibsys.planningTool.model.xmlExportModel.Item;
 import de.ibsys.planningTool.service.ProductionService;
+import de.ibsys.planningTool.util.I18N;
 import javafx.fxml.FXML;
+import javafx.scene.control.Tab;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
@@ -33,6 +36,15 @@ public class ProductionController extends BaseTabController {
     WomenBikeController womenBikeController;
 
     @FXML
+    Tab childBikeTab;
+
+    @FXML
+    Tab menBikeTab;
+
+    @FXML
+    Tab womanBikeTab;
+
+    @FXML
     public JFXButton saveBtn;
 
     @Override
@@ -46,6 +58,7 @@ public class ProductionController extends BaseTabController {
         childBikeController.init(this);
         menBikeController.init(this);
         womenBikeController.init(this);
+        initUI();
     }
 
     public MainController getMainController() {
@@ -65,6 +78,13 @@ public class ProductionController extends BaseTabController {
         initProductionControllerCalculation();
     }
 
+    public void initUI() {
+        childBikeTab.setText(main.getTranslation().getString(I18N.CHILD_BIKE));
+        womanBikeTab.setText(main.getTranslation().getString(I18N.WOMAN_BIKE));
+        menBikeTab.setText(main.getTranslation().getString(I18N.MEN_BIKE));
+        saveBtn.setText(main.getTranslation().getString(I18N.CALC_N_SAVE));
+    }
+
     public void initProductionControllerCalculation () {
         try {
             childBikeController.storeNewReserve();
@@ -73,6 +93,8 @@ public class ProductionController extends BaseTabController {
             childBikeController.initUIComponents();
             menBikeController.initUIComponents();
             womenBikeController.initUIComponents();
+            childBikeController.initUI();
+            initUI();
 
             List<Item> result = new ArrayList<>();
 
@@ -88,16 +110,41 @@ public class ProductionController extends BaseTabController {
 //                    .sorted((item1, item2) -> Integer.valueOf(item1.getArticleId()) // sorted things
 //                            .compareTo(Integer.valueOf(item2.getArticleId()))) //
                     .collect(Collectors.toList()); // return a list
+<<<<<<< HEAD
 
             getMainController().setProductionList(new ProductionService().getRightOrder(result));
+=======
+            /*
+            if (result.get(0).getArticleId().equals("1")) {
+                result.add(result.get(0));
+                result.remove(0);
+            }
+
+            if (result.get(0).getArticleId().equals("2")) {
+                result.add(result.get(0));
+                result.remove(0);
+            }
+
+            if (result.get(0).getArticleId().equals("3")) {
+                result.add(result.get(0));
+                result.remove(0);
+            }
+            */
+            getMainController().setProductionList(result);
+>>>>>>> feature/shithappens
             main.initWorkThings();
             main.orderController.getData();
-            main.cappla.setDisable(false);
-            main.orderTab.setDisable(false);
-            main.productionpriorityTab.setDisable(false);
+            setUI();
             logger.info("save new stuff successfull");
         } catch (NullPointerException e) {
             logger.info(e);
         }
+    }
+
+    public void setUI() {
+        main.cappla.setDisable(false);
+        main.orderTab.setDisable(false);
+        main.productionpriorityTab.setDisable(false);
+        main.exportButton.setVisible(true);
     }
 }

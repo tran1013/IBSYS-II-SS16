@@ -1,7 +1,6 @@
 package de.ibsys.planningTool.service;
 
 import de.ibsys.planningTool.controller.MainController;
-import de.ibsys.planningTool.controller.tab.ForeCastController;
 import de.ibsys.planningTool.database.ItemDB;
 import de.ibsys.planningTool.database.OrderDB;
 import de.ibsys.planningTool.model.*;
@@ -19,11 +18,6 @@ import java.util.Map;
  * Created by Che on 20.08.2016.
  */
 
-/*
-TODO Clean up unused imports
-TODO Delete comments... System.out.prints
-
- */
 public class OrderService {
 
     public final static int[][] purchase_parts = {{1,0,0},{0,1,0},{0,0,1},{7,7,7},
@@ -37,67 +31,7 @@ public class OrderService {
 
     ItemDB itemDB = new ItemDB();
 
-    XmlInputData inputData;
-
-    ForeCastController foreCastController = new ForeCastController();
-
     MainController main = new MainController();
-
-    ItemComponents itemComponents = new ItemComponents();
-
-    /*
-    public List<OrderResult> calculateOrders(List<ProductionResult> productionResults, Map<String, Item> forecastProductionList) {
-
-        List<OrderResult> orderResults = new ArrayList<>();
-
-        List<Map<String, Integer>> kUsageList = calculateConsumption(calculateProgramm(productionResults, forecastProductionList));
-
-        try {
-            List<TermsOfSaleData> terms = orderDB.findAll();
-
-            for(TermsOfSaleData term : terms) {
-                String itemConfigId = term.getItemConfigId();
-
-                double avg = calculateAverage(kUsageList, itemConfigId);
-                double max = calculateMaxUsage(kUsageList, itemConfigId);
-                double orderpoint = avg * (term.getDeliveryTime() + term.getVariance() + REPLACEMENT_TIME);
-                String itemConfigSub = itemConfigId.substring(1);
-                double stock = main.getXmlInputData().getWareHouseArticles().get(itemConfigSub).getAmount();
-                double stockRange = Math.round(stock/avg);
-                if(stock <= orderpoint) {
-                    double maxDeliveryTime = term.getVariance() + term.getDeliveryTime();
-                    int orderQuantity = (int) Math.round((avg* term.getDeliveryTime() + max * maxDeliveryTime)/2);
-
-                    int orderMode;
-                    if (stockRange/maxDeliveryTime<=1) {
-                        orderMode = FAST_DELIVERY;
-                    } else {
-                        orderMode = NORMAL_DELIVERY;
-                    }
-
-                    double deliveryTime = term.getDeliveryTime();
-                    int discont = term.getDiscountQuantity();
-                    int orderingCosts = term.getOrderingCosts();
-                    double variance = term.getVariance();
-
-                    orderResults.add(new OrderResult(itemConfigId, orderQuantity, orderMode, orderingCosts, discont, deliveryTime, variance));
-                }
-            }
-        }
-        catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        for(OrderResult res : orderResults){
-            System.out.println("ID "+res.getItemConfigId());
-            System.out.println("Q "+res.getQuantity());
-            System.out.println("MODE "+res.getOrderingMode());
-
-        }
-
-        return orderResults;
-    }
-    */
 
     public double calculateAverage(List<Map<String, Integer>> kUsageList, String itemConfigId) {
         double avg = 0.0;
@@ -112,10 +46,8 @@ public class OrderService {
             }
                 else return avg;
         }
-
         catch (NullPointerException e) {
             e.printStackTrace();
-
         }
         return avg;
     }
@@ -132,36 +64,6 @@ public class OrderService {
         }
         return stock;
     }
-
-    public double calculateWeightedAverage(List<Map<String, Integer>> kUsageList, String itemConfigId, double g1, double g2, double g3, double g4) {
-
-        double p1 = 0.0;
-        double p2 = 0.0;
-        double p3 = 0.0;
-        double p4 = 0.0;
-
-        int z = 0;
-        for(Map<String, Integer> entry : kUsageList) {
-            if(z==0) {
-                p1 = entry.get(itemConfigId);
-            }
-            else if(z==1) {
-                p2 = entry.get(itemConfigId);
-            }
-            else if(z ==2) {
-                p3 = entry.get(itemConfigId);
-            }
-            else p4 = entry.get(itemConfigId);
-            ++z;
-        }
-
-
-        System.out.println(Math.round(p1*0.5+p2*0.2+p3*0.2+p4+0.1));
-        //return Math.round(p1*g1+p2*g2+p3*g3+p4+g4);
-        return Math.round((p1*0.5+p2*0.2+p3*0.2+p4+0.1));
-
-    }
-
 
     public double calculateMaxUsage(List<Map<String, Integer>> kUsageList, String itemConfigId) {
         double maxUsage = 0.0;
@@ -195,7 +97,6 @@ public class OrderService {
                     maxTime = data.getVariance() + data.getDeliveryTime();
                 }
                 else continue;
-
             }
         }
         catch(SQLException e){
@@ -203,24 +104,6 @@ public class OrderService {
         }
         System.out.println(maxTime);
         return maxTime;
-    }
-
-    public double getDiscontQuantity(String itemConfigId) {
-        double discont = 0.0;
-         try {
-             List<TermsOfSaleData> terms = orderDB.findAll();
-
-             for(TermsOfSaleData data : terms) {
-                 if(data.getItemConfigId().equals(itemConfigId)) {
-                    discont = data.getDiscountQuantity();
-                 }
-             }
-
-         }
-         catch (SQLException e) {
-             e.printStackTrace();
-         }
-        return discont;
     }
 
     public double calculateOrderCosts(OrderResult orderResult) {
@@ -242,7 +125,6 @@ public class OrderService {
                         }
                         else
                             orderCosts += partValue*orderResult.getQuantity();
-
                     }
                     else {
                         if (orderResult.getQuantity() >= orderResult.getDiscountQuantity()) {
@@ -257,7 +139,6 @@ public class OrderService {
             e.printStackTrace();
         }
         return runden(orderCosts, 2);
-
     }
 
     public static double runden(double wert, int stellen)
@@ -266,58 +147,42 @@ public class OrderService {
         return gerundet / Math.pow(10d, stellen);
     }
 
-    public List<Map<String, Integer>> calculateProgramm(List<ProductionResult> productionResults, Map<String, Item> forecastProductionList) {
+    public List<Map<String, Integer>> calculateProgrammNew(List<Item> productionResults, Map<String, Item> forecastProductionList) {
 
         List<Map<String, Integer>> productionProgram = new ArrayList<>();
         Map<String, Integer> productionMap = new HashMap<>();
 
-        for (ProductionResult productionResult : productionResults) {
-            String itemConfigId = productionResult.getItemConfigId();
+        for (Item productionResult : productionResults) {
+            String itemConfigId = productionResult.getArticleId();
 
             //System.out.println("TEST ID "+itemConfigId);
 
-            if (itemConfigId.equals("P1") || itemConfigId.equals("P2") || itemConfigId.equals("P3")) {
+            if (itemConfigId.equals("1") || itemConfigId.equals("2") || itemConfigId.equals("3") || itemConfigId=="1" || itemConfigId =="2" || itemConfigId=="3") {
 
-                ItemComponents itemComponent;
+                int quantity = productionResult.getQuantity();
 
-                try {
-                    itemComponent = itemDB.findById(itemConfigId);
-                    //System.out.println(itemComponent);
-                    /*
-                   List<WaitingList> waitingLists = main.getXmlInputData().getStringWaitingListMissingPartsMap().get(itemConfigId).getWaitingLists();
+                //System.out.println("MENGE " + quantity + " ID " + itemConfigId);
 
-                    int amountofWaitingList = 0;
-
-                    for(WaitingList list : waitingLists){
-                        if(list.getArticleId().equals(itemConfigId)){
-                            amountofWaitingList = list.getAmount();
-                        }
-
-                    }
-
-                    int orderInMapAmount = main.getXmlInputData().getOrdersInWorkMap().get(itemConfigId).getAmount();
-
-                    int quantity1 = productionResult.getQuantity() + orderInMapAmount + amountofWaitingList;
-                    */
-                    int quantity = productionResult.getQuantity();
-
-
-                    //System.out.println("MENGE " + quantity + " ID " + itemConfigId);
-
-                    productionMap.put(itemConfigId, quantity);
-
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
+                productionMap.put("P" + itemConfigId, quantity);
             }
         }
-        /*
+
+            if(!productionMap.containsKey("P1")) {
+                productionMap.put("P1", 0);
+            }
+            if(!productionMap.containsKey("P2")) {
+                productionMap.put("P2", 0);
+            }
+            if(!productionMap.containsKey("P3")) {
+                productionMap.put("P3", 0);
+            }
+
+
         for(Map.Entry<String, Integer> mapentry : productionMap.entrySet()) {
             System.out.println("ProductionMap " + mapentry);
         }
-        */
-        productionProgram.add(productionMap);
 
+        productionProgram.add(productionMap);
 
         Map<String, Integer> forecastMap1 = new HashMap<String, Integer>();
         Map<String, Integer> forecastMap2 = new HashMap<String, Integer>();
@@ -347,7 +212,7 @@ public class OrderService {
         productionProgram.add(forecastMap3);
 
         for(Map<String, Integer> entry : productionProgram) {
-            //System.out.println("Einträge in productionProgram "+entry);
+            System.out.println("Einträge in productionProgram "+entry);
         }
 
         return productionProgram;
@@ -370,10 +235,11 @@ public class OrderService {
         Integer wert = 0;
 
         for(Map<String, Integer> one_map : productionProgram) {
-		/*
+        /*
 		for(Map.Entry<String, Integer> m_entry : one_map.entrySet()) {
 			System.out.println("in der Mappa xD "+ m_entry.getValue() + " " + m_entry.getKey());
-		}*/
+		}
+		*/
             //System.out.println(one_map);
 
             //one_map.get("p1n1")*i[0]+one_map.get("p2n1")*i[1]+one_map.get("p3n1")*i[2]
@@ -409,11 +275,11 @@ public class OrderService {
         kUsageList.add(map_n2);
         kUsageList.add(map_n3);
         // to test output of the list
-        /*
+
         for(Map<String, Integer> entry : kUsageList) {
             System.out.println("ENTRIES in der kUsageList" + entry);
         }
-        */
+
         return kUsageList;
     }
 }

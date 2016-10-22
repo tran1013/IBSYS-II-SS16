@@ -7,6 +7,7 @@ import com.jfoenix.controls.JFXTextField;
 
 import de.ibsys.planningTool.controller.tab.ProductionController;
 import de.ibsys.planningTool.model.xmlExportModel.Item;
+import de.ibsys.planningTool.util.I18N;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
@@ -48,7 +49,6 @@ public class WomenBikeController extends BaseProductionTabController {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-
     }
 
     @Override
@@ -239,12 +239,14 @@ public class WomenBikeController extends BaseProductionTabController {
              * productionE55, productionE5, productionE11, productionE54,
              * productionE8, productionE14, productionE19));
              */
+
         } catch (Exception e) {
             logger.error(e);
             e.printStackTrace();
         }
     }
 
+//    Label orders, safetystock, stock, queue, process, productionorder;
     public void storeNewReserve() {
         getXmlInputData().getWareHouseArticles().get("2").setReserve(Integer.parseInt(safetyP2.getText()));
         getXmlInputData().getWareHouseArticles().get("56").setReserve(Integer.parseInt(safetyE56.getText()));

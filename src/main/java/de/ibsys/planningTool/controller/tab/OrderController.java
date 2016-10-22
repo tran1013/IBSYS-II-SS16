@@ -5,10 +5,7 @@ import de.ibsys.planningTool.database.OrderDB;
 import de.ibsys.planningTool.model.*;
 import de.ibsys.planningTool.model.xmlExportModel.Item;
 import de.ibsys.planningTool.model.xmlExportModel.Order;
-import de.ibsys.planningTool.model.xmlInputModel.Article;
 import de.ibsys.planningTool.model.xmlInputModel.FutureInComingOrder;
-import de.ibsys.planningTool.model.xmlInputModel.WaitingList;
-import de.ibsys.planningTool.model.xmlInputModel.WaitingListMissingParts;
 import de.ibsys.planningTool.service.OrderService;
 import de.ibsys.planningTool.util.Dialogs.DialogMessages;
 import de.ibsys.planningTool.util.I18N;
@@ -101,8 +98,6 @@ public class OrderController extends BaseTabController{
 
     OrderService orderService = new OrderService();
     OrderDB orderDB = new OrderDB();
-    //MockProductionResult mockProductionResult = new MockProductionResult();
-
 
     private List<OrderResult> orderResults = new ArrayList<>();
     public ObservableList<OrderResult> results = FXCollections.observableArrayList();
@@ -156,18 +151,15 @@ public class OrderController extends BaseTabController{
         try {
             Map<String, Item> forecastProductionList = main.getForecastProductionList();
 
-            //List<ProductionResult> productionResults = mockProductionResult.getProductionResultList();
+            List<Item> items = main.getProductionList();
 
-            List<ProductionResult> productionResults = getMappedList(main.getProductionList());
-
-            orderResults = calculateOrders(productionResults, forecastProductionList);
+            orderResults = calculateOrders(items, forecastProductionList);
         }
         catch(Exception e) {
             e.printStackTrace();
         }
         return orderResults;
     }
-
     /*
     Change List<OrderResults> in ObservableList
      */
@@ -208,17 +200,6 @@ public class OrderController extends BaseTabController{
         nrColumn.setCellValueFactory(new PropertyValueFactory<>("itemConfigId"));
         quantityColumn.setCellValueFactory(new PropertyValueFactory<>("quantity"));
         checkBoxOptionColumn.setCellValueFactory(new PropertyValueFactory<OrderResult, Boolean>("deliveryMode"));
-
-        /*
-        checkBoxOptionColumn.setCellValueFactory(
-                new Callback<TableColumn.CellDataFeatures<OrderResult, Boolean>, ObservableValue<Boolean>>() {
-                    @Override
-                    public ObservableValue<Boolean> call(TableColumn.CellDataFeatures<OrderResult, Boolean> param) {
-                        return param.getValue().deliveryModeProperty();
-                    }
-                }
-        );
-        */
 
         results = getOrderData();
         orderTableView.setItems(results);
@@ -456,7 +437,6 @@ public class OrderController extends BaseTabController{
         //System.out.println("STOCKRANGE" + stockRange);
 
         return stockRange;
-
     }
 
     public int getFutureInComingOrderAmount(String itemConfigId) {
@@ -548,11 +528,11 @@ public class OrderController extends BaseTabController{
         checkBoxOptionColumn.setText(main.getTranslation().getString(I18N.OPTIONLABEL));
     }
 
-    public List<OrderResult> calculateOrders(List<ProductionResult> productionResults, Map<String, Item> forecastProductionList) {
+    public List<OrderResult> calculateOrders(List<Item> productionResults, Map<String, Item> forecastProductionList) {
 
         List<OrderResult> orderResults = new ArrayList<>();
 
-        List<Map<String, Integer>> kUsageList = orderService.calculateConsumption(orderService.calculateProgramm(productionResults, forecastProductionList));
+        List<Map<String, Integer>> kUsageList = orderService.calculateConsumption(orderService.calculateProgrammNew(productionResults, forecastProductionList));
 
         try {
             List<TermsOfSaleData> terms = orderDB.findAll();
@@ -579,16 +559,11 @@ public class OrderController extends BaseTabController{
                     boolean deliveryMode;
                     int orderMode;
                     if (stockRange/maxDeliveryTime<=1) {
-                        //orderMode = FAST_DELIVERY;
-                        //deliveryMode = true;
+
                         deliveryMode = true;
                     } else {
-                        //orderMode = NORMAL_DELIVERY;
-                        //deliveryMode = false;
                         deliveryMode = false;
-
                     }
-
                     /*
                     double deliveryTime = term.getDeliveryTime();
                     int discont = term.getDiscountQuantity();
@@ -622,7 +597,7 @@ public class OrderController extends BaseTabController{
         List<ProductionResult> res = new ArrayList<>();
 
         for(Item item : items) {
-            if(item.getArticleId().equals("1") || item.getArticleId().equals("2") || item.getArticleId().equals("1")) {
+            if(item.getArticleId().equals("1") || item.getArticleId().equals("2") || item.getArticleId().equals("1") || item.getArticleId()=="1") {
                 String itemConfigId = "P" + item.getArticleId();
                 System.out.println(itemConfigId);
                 res.add(new ProductionResult(itemConfigId, item.getQuantity()));

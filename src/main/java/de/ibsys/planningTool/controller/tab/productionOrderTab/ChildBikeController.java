@@ -7,6 +7,7 @@ import com.jfoenix.controls.JFXTextField;
 
 import de.ibsys.planningTool.controller.tab.ProductionController;
 import de.ibsys.planningTool.model.xmlExportModel.Item;
+import de.ibsys.planningTool.util.I18N;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
@@ -54,6 +55,16 @@ public class ChildBikeController extends BaseProductionTabController {
     public void init(ProductionController productionOrderController) {
         super.init(productionOrderController);
         initUIComponents();
+        initUI();
+    }
+
+    public void initUI() {
+        orders.setText(productionOrderController.getTranslation().getString(I18N.ORDERS));
+        safetystock.setText(productionOrderController.getTranslation().getString(I18N.SAFETYSTOCK));
+        productionorder.setText(productionOrderController.getTranslation().getString(I18N.PRODUCTIONS_ORDERS));
+        stock.setText(productionOrderController.getTranslation().getString(I18N.STOCKLABEL));
+        process.setText(productionOrderController.getTranslation().getString(I18N.IN_PROCESS));
+        queue.setText(productionOrderController.getTranslation().getString(I18N.QUEQUE));
     }
 
     public void initUIComponents() {
