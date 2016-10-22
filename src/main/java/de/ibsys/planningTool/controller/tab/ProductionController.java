@@ -92,6 +92,8 @@ public class ProductionController extends BaseTabController {
         saveBtn.setText(main.getTranslation().getString(I18N.CALC_N_SAVE));
 
         childBikeController.initUI();
+        womenBikeController.initUI();
+        menBikeController.initUI();
     }
 
     public void initProductionControllerCalculation () {

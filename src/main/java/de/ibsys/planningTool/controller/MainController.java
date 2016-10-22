@@ -289,5 +289,6 @@ public class MainController extends BaseTabController {
             this.setCountry("DE");
         }
         this.changeUILanguage();
+        productionController.initUI();
     }
 }
