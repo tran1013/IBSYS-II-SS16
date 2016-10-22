@@ -47,6 +47,11 @@ public class ProductionController extends BaseTabController {
     @FXML
     public JFXButton saveBtn;
 
+    private String language = "de";
+    private String country = "DE";
+
+    private ResourceBundle translation;
+
     @Override
     public void start(Stage primaryStage) throws Exception {
     }
@@ -79,10 +84,14 @@ public class ProductionController extends BaseTabController {
     }
 
     public void initUI() {
+        translation = I18N.translation(language, country);
+
         childBikeTab.setText(main.getTranslation().getString(I18N.CHILD_BIKE));
         womanBikeTab.setText(main.getTranslation().getString(I18N.WOMAN_BIKE));
         menBikeTab.setText(main.getTranslation().getString(I18N.MEN_BIKE));
         saveBtn.setText(main.getTranslation().getString(I18N.CALC_N_SAVE));
+        
+        childBikeController.initUI();
     }
 
     public void initProductionControllerCalculation () {
