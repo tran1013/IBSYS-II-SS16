@@ -1,7 +1,6 @@
 package de.ibsys.planningTool.service;
 
 import de.ibsys.planningTool.controller.MainController;
-import de.ibsys.planningTool.controller.tab.ForeCastController;
 import de.ibsys.planningTool.database.ItemDB;
 import de.ibsys.planningTool.database.OrderDB;
 import de.ibsys.planningTool.model.*;
@@ -19,11 +18,6 @@ import java.util.Map;
  * Created by Che on 20.08.2016.
  */
 
-/*
-TODO Clean up unused imports
-TODO Delete comments... System.out.prints
-
- */
 public class OrderService {
 
     public final static int[][] purchase_parts = {{1,0,0},{0,1,0},{0,0,1},{7,7,7},
@@ -52,10 +46,8 @@ public class OrderService {
             }
                 else return avg;
         }
-
         catch (NullPointerException e) {
             e.printStackTrace();
-
         }
         return avg;
     }
@@ -105,7 +97,6 @@ public class OrderService {
                     maxTime = data.getVariance() + data.getDeliveryTime();
                 }
                 else continue;
-
             }
         }
         catch(SQLException e){
@@ -134,7 +125,6 @@ public class OrderService {
                         }
                         else
                             orderCosts += partValue*orderResult.getQuantity();
-
                     }
                     else {
                         if (orderResult.getQuantity() >= orderResult.getDiscountQuantity()) {
@@ -149,7 +139,6 @@ public class OrderService {
             e.printStackTrace();
         }
         return runden(orderCosts, 2);
-
     }
 
     public static double runden(double wert, int stellen)
@@ -158,58 +147,42 @@ public class OrderService {
         return gerundet / Math.pow(10d, stellen);
     }
 
-    public List<Map<String, Integer>> calculateProgramm(List<ProductionResult> productionResults, Map<String, Item> forecastProductionList) {
+    public List<Map<String, Integer>> calculateProgrammNew(List<Item> productionResults, Map<String, Item> forecastProductionList) {
 
         List<Map<String, Integer>> productionProgram = new ArrayList<>();
         Map<String, Integer> productionMap = new HashMap<>();
 
-        for (ProductionResult productionResult : productionResults) {
-            String itemConfigId = productionResult.getItemConfigId();
+        for (Item productionResult : productionResults) {
+            String itemConfigId = productionResult.getArticleId();
 
             //System.out.println("TEST ID "+itemConfigId);
 
-            if (itemConfigId.equals("P1") || itemConfigId.equals("P2") || itemConfigId.equals("P3")) {
+            if (itemConfigId.equals("1") || itemConfigId.equals("2") || itemConfigId.equals("3") || itemConfigId=="1" || itemConfigId =="2" || itemConfigId=="3") {
 
-                ItemComponents itemComponent;
+                int quantity = productionResult.getQuantity();
 
-                try {
-                    itemComponent = itemDB.findById(itemConfigId);
-                    //System.out.println(itemComponent);
-                    /*
-                   List<WaitingList> waitingLists = main.getXmlInputData().getStringWaitingListMissingPartsMap().get(itemConfigId).getWaitingLists();
+                //System.out.println("MENGE " + quantity + " ID " + itemConfigId);
 
-                    int amountofWaitingList = 0;
-
-                    for(WaitingList list : waitingLists){
-                        if(list.getArticleId().equals(itemConfigId)){
-                            amountofWaitingList = list.getAmount();
-                        }
-
-                    }
-
-                    int orderInMapAmount = main.getXmlInputData().getOrdersInWorkMap().get(itemConfigId).getAmount();
-
-                    int quantity1 = productionResult.getQuantity() + orderInMapAmount + amountofWaitingList;
-                    */
-                    int quantity = productionResult.getQuantity();
-
-
-                    //System.out.println("MENGE " + quantity + " ID " + itemConfigId);
-
-                    productionMap.put(itemConfigId, quantity);
-
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
+                productionMap.put("P" + itemConfigId, quantity);
             }
         }
-        /*
+
+            if(!productionMap.containsKey("P1")) {
+                productionMap.put("P1", 0);
+            }
+            if(!productionMap.containsKey("P2")) {
+                productionMap.put("P2", 0);
+            }
+            if(!productionMap.containsKey("P3")) {
+                productionMap.put("P3", 0);
+            }
+
+
         for(Map.Entry<String, Integer> mapentry : productionMap.entrySet()) {
             System.out.println("ProductionMap " + mapentry);
         }
-        */
-        productionProgram.add(productionMap);
 
+        productionProgram.add(productionMap);
 
         Map<String, Integer> forecastMap1 = new HashMap<String, Integer>();
         Map<String, Integer> forecastMap2 = new HashMap<String, Integer>();
@@ -239,7 +212,7 @@ public class OrderService {
         productionProgram.add(forecastMap3);
 
         for(Map<String, Integer> entry : productionProgram) {
-            //System.out.println("Einträge in productionProgram "+entry);
+            System.out.println("Einträge in productionProgram "+entry);
         }
 
         return productionProgram;
@@ -262,10 +235,11 @@ public class OrderService {
         Integer wert = 0;
 
         for(Map<String, Integer> one_map : productionProgram) {
-		/*
+        /*
 		for(Map.Entry<String, Integer> m_entry : one_map.entrySet()) {
 			System.out.println("in der Mappa xD "+ m_entry.getValue() + " " + m_entry.getKey());
-		}*/
+		}
+		*/
             //System.out.println(one_map);
 
             //one_map.get("p1n1")*i[0]+one_map.get("p2n1")*i[1]+one_map.get("p3n1")*i[2]
@@ -301,11 +275,11 @@ public class OrderService {
         kUsageList.add(map_n2);
         kUsageList.add(map_n3);
         // to test output of the list
-        /*
+
         for(Map<String, Integer> entry : kUsageList) {
             System.out.println("ENTRIES in der kUsageList" + entry);
         }
-        */
+
         return kUsageList;
     }
 }

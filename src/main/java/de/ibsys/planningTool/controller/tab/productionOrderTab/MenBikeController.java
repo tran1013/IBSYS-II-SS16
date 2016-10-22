@@ -55,6 +55,7 @@ public class MenBikeController extends BaseProductionTabController {
     public void init(ProductionController productionOrderController) {
         super.init(productionOrderController);
         initUIComponents();
+
     }
 
     public void initUIComponents() {

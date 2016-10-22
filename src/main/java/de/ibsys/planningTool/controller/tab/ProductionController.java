@@ -1,6 +1,7 @@
 package de.ibsys.planningTool.controller.tab;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXToggleButton;
 import de.ibsys.planningTool.controller.MainController;
 import de.ibsys.planningTool.controller.tab.productionOrderTab.ChildBikeController;
 import de.ibsys.planningTool.controller.tab.productionOrderTab.MenBikeController;
@@ -57,7 +58,7 @@ public class ProductionController extends BaseTabController {
         childBikeController.init(this);
         menBikeController.init(this);
         womenBikeController.init(this);
-        initTabsUI();
+        initUI();
     }
 
     public MainController getMainController() {
@@ -77,10 +78,11 @@ public class ProductionController extends BaseTabController {
         initProductionControllerCalculation();
     }
 
-    public void initTabsUI() {
-        childBikeTab.setText(getTranslation().getString(I18N.CHILD_BIKE));
-        womanBikeTab.setText(getTranslation().getString(I18N.WOMAN_BIKE));
-        menBikeTab.setText(getTranslation().getString(I18N.MEN_BIKE));
+    public void initUI() {
+        childBikeTab.setText(main.getTranslation().getString(I18N.CHILD_BIKE));
+        womanBikeTab.setText(main.getTranslation().getString(I18N.WOMAN_BIKE));
+        menBikeTab.setText(main.getTranslation().getString(I18N.MEN_BIKE));
+        saveBtn.setText(main.getTranslation().getString(I18N.CALC_N_SAVE));
     }
 
     public void initProductionControllerCalculation () {
@@ -92,7 +94,7 @@ public class ProductionController extends BaseTabController {
             menBikeController.initUIComponents();
             womenBikeController.initUIComponents();
             childBikeController.initUI();
-            initTabsUI();
+            initUI();
 
             List<Item> result = new ArrayList<>();
 
@@ -108,7 +110,7 @@ public class ProductionController extends BaseTabController {
                     .sorted((item1, item2) -> Integer.valueOf(item1.getArticleId()) // sorted things 
                             .compareTo(Integer.valueOf(item2.getArticleId()))) //
                     .collect(Collectors.toList()); // return a list
-
+            /*
             if (result.get(0).getArticleId().equals("1")) {
                 result.add(result.get(0));
                 result.remove(0);
@@ -123,7 +125,7 @@ public class ProductionController extends BaseTabController {
                 result.add(result.get(0));
                 result.remove(0);
             }
-
+            */
             getMainController().setProductionList(result);
             main.initWorkThings();
             main.orderController.getData();

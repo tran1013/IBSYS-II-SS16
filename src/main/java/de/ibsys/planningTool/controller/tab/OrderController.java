@@ -151,18 +151,15 @@ public class OrderController extends BaseTabController{
         try {
             Map<String, Item> forecastProductionList = main.getForecastProductionList();
 
-            //List<ProductionResult> productionResults = mockProductionResult.getProductionResultList();
+            List<Item> items = main.getProductionList();
 
-            List<ProductionResult> productionResults = getMappedList(main.getProductionList());
-
-            orderResults = calculateOrders(productionResults, forecastProductionList);
+            orderResults = calculateOrders(items, forecastProductionList);
         }
         catch(Exception e) {
             e.printStackTrace();
         }
         return orderResults;
     }
-
     /*
     Change List<OrderResults> in ObservableList
      */
@@ -440,7 +437,6 @@ public class OrderController extends BaseTabController{
         //System.out.println("STOCKRANGE" + stockRange);
 
         return stockRange;
-
     }
 
     public int getFutureInComingOrderAmount(String itemConfigId) {
@@ -532,11 +528,11 @@ public class OrderController extends BaseTabController{
         checkBoxOptionColumn.setText(main.getTranslation().getString(I18N.OPTIONLABEL));
     }
 
-    public List<OrderResult> calculateOrders(List<ProductionResult> productionResults, Map<String, Item> forecastProductionList) {
+    public List<OrderResult> calculateOrders(List<Item> productionResults, Map<String, Item> forecastProductionList) {
 
         List<OrderResult> orderResults = new ArrayList<>();
 
-        List<Map<String, Integer>> kUsageList = orderService.calculateConsumption(orderService.calculateProgramm(productionResults, forecastProductionList));
+        List<Map<String, Integer>> kUsageList = orderService.calculateConsumption(orderService.calculateProgrammNew(productionResults, forecastProductionList));
 
         try {
             List<TermsOfSaleData> terms = orderDB.findAll();
@@ -563,16 +559,11 @@ public class OrderController extends BaseTabController{
                     boolean deliveryMode;
                     int orderMode;
                     if (stockRange/maxDeliveryTime<=1) {
-                        //orderMode = FAST_DELIVERY;
-                        //deliveryMode = true;
+
                         deliveryMode = true;
                     } else {
-                        //orderMode = NORMAL_DELIVERY;
-                        //deliveryMode = false;
                         deliveryMode = false;
-
                     }
-
                     /*
                     double deliveryTime = term.getDeliveryTime();
                     int discont = term.getDiscountQuantity();
@@ -606,7 +597,7 @@ public class OrderController extends BaseTabController{
         List<ProductionResult> res = new ArrayList<>();
 
         for(Item item : items) {
-            if(item.getArticleId().equals("1") || item.getArticleId().equals("2") || item.getArticleId().equals("1")) {
+            if(item.getArticleId().equals("1") || item.getArticleId().equals("2") || item.getArticleId().equals("1") || item.getArticleId()=="1") {
                 String itemConfigId = "P" + item.getArticleId();
                 System.out.println(itemConfigId);
                 res.add(new ProductionResult(itemConfigId, item.getQuantity()));

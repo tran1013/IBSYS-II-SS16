@@ -34,8 +34,7 @@ import de.ibsys.planningTool.model.xmlExportModel.Order;
 import de.ibsys.planningTool.model.xmlExportModel.WorkTime;
 import de.ibsys.planningTool.util.I18N;
 import de.ibsys.planningTool.util.Dialogs.DialogMessages;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Tab;
 import javafx.stage.FileChooser;
@@ -149,13 +148,6 @@ public class MainController extends BaseTabController {
 
         mainTabPane.getStyleClass().add("jfx-tab-pane");
         new DialogMessages().setMainController(this);
-
-    mainTabPane.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
-        @Override
-        public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-
-        }
-    });
     }
 
     public void initWorkThings() {
