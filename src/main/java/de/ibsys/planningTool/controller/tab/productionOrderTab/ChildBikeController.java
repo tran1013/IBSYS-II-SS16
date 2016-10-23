@@ -69,9 +69,6 @@ public class ChildBikeController extends BaseProductionTabController {
 
     public void initUIComponents() {
 
-
-        logger.info("---------------- "+getWaitingListPartsAmount("26"));
-
         try {
             orderP1.setText(String.valueOf(getForeCastInformationProductLine("p1n")));
             stockP1.setText(String.valueOf(getStockValue("1")));

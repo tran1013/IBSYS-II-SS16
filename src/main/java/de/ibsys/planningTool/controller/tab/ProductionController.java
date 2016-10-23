@@ -127,11 +127,8 @@ public class ProductionController extends BaseTabController {
             List<Item> caPlaResult = new ArrayList<>();
 
             getMainController().getProductionList().parallelStream().forEach(item -> {
-                System.out.println(item.toString() + " ------------- " + getWaitingListPartsAmount(item.getArticleId()));
                 caPlaResult.add(new Item(item.getArticleId(), item.getQuantity() + getWaitingListPartsAmount(item.getArticleId())));
             });
-
-            mainController.getXmlInputData().getStringWaitingListMissingPartsMap().entrySet().forEach(System.out::println);
 
             getMainController().setProdcutionListCapla(caPlaResult);
 
