@@ -51,7 +51,7 @@ public class Constants {
     public static final String OVER_TIME = "overtime";
 
     //DATABASEPATH
-    public static final String DATABASEPATH = "jdbc:sqlite:src/main/resources/database/Database.db";
+    public static final String DATABASEPATH = "jdbc:sqlite::resource:database/Database.db";
 
     //WOKRPLACE CAPACITY
     public static final int WORKPLACE_CAPACITY = 2400;

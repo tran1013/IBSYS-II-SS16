@@ -549,10 +549,10 @@ public class OrderController extends BaseTabController{
 
                 String itemConfigSub = itemConfigId.substring(1);
                 double stock = main.getXmlInputData().getWareHouseArticles().get(itemConfigSub).getAmount() + getFutureInComingOrderAmount(itemConfigId);
-
+                double maxDeliveryTime = term.getVariance() + term.getDeliveryTime();
                 double stockRange = Math.round(stock/avg);
-                if(stock <= orderpoint) {
-                    double maxDeliveryTime = term.getVariance() + term.getDeliveryTime();
+                if(stock <= orderpoint || stockRange <= maxDeliveryTime+1.0) {
+
                     //int orderQuantity = (int) Math.round((avg* term.getDeliveryTime() + max * maxDeliveryTime)/2);
                     int orderQuantity = (int) Math.round((avg* maxDeliveryTime + max * maxDeliveryTime)/2);
 
