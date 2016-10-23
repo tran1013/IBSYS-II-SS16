@@ -3,6 +3,7 @@ package de.ibsys.planningTool.controller.tab;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import de.ibsys.planningTool.controller.MainController;
 import de.ibsys.planningTool.model.CapPlaResult;
@@ -11,6 +12,7 @@ import de.ibsys.planningTool.model.xmlExportModel.WorkTime;
 import de.ibsys.planningTool.model.xmlInputModel.OrdersInWork;
 import de.ibsys.planningTool.model.xmlInputModel.WaitingListWorkPlace;
 import de.ibsys.planningTool.service.CapPla;
+import de.ibsys.planningTool.util.Dialogs.DialogMessages;
 import de.ibsys.planningTool.util.I18N;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -173,7 +175,15 @@ public class CapPlaController extends BaseTabController {
         for (CapPlaResult cap : capPlaResults) {
             workTimeList.add(new WorkTime(cap.getWorkplaceId(), cap.getShifts(), cap.getOvertime()));
         }
+        checkList(capPlaResults);
         main.setWorkTimeList(workTimeList);
+    }
+
+    public void checkList(List<CapPlaResult> cap){
+        if(cap.parallelStream().filter(item -> item.getReqCapacity() > 7200).collect(Collectors.toList()).size() > 0)
+        {
+            DialogMessages.ErrorDialog(main.getTranslation().getString(I18N.CAP_WARNING));
+        }
     }
 
     public void initUIComponents() {

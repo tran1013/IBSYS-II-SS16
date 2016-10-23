@@ -71,6 +71,7 @@ public class I18N {
     public static final String MEN_BIKE = "MEN_BIKE";
     public static final String CALC_N_SAVE = "CALC_N_SAVE";
     public static final String PRIORITY_TIP = "PRIORITY_TIP";
+    public static final String CAP_WARNING = "CAP_WARNING";
 
     public static ResourceBundle translation(String language, String country) {
         Locale currentLocale;
