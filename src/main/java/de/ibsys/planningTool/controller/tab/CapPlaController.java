@@ -86,7 +86,7 @@ public class CapPlaController extends BaseTabController {
         List<CapPlaResult> result;
         Map<String, OrdersInWork> ordersInWorkMap;
         Map<String, WaitingListWorkPlace> waitingListWorkPlaceMap;
-        List<Item> productionResult = main.getProductionList();
+        List<Item> productionResult = main.getProdcutionListCapla();
 
         ordersInWorkMap = main.getXmlInputData().getOrdersInWorkMap();
         waitingListWorkPlaceMap = main.getXmlInputData().getWaitingListWorkPlaceMap();

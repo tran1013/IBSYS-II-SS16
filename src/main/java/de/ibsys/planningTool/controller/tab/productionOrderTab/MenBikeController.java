@@ -94,7 +94,7 @@ public class MenBikeController extends BaseProductionTabController {
             queueE26.setText(String.valueOf(0));
             processE26.setText(String.valueOf(0));
             productionE26.setText(String.valueOf(getProductionValueEParts("26",
-                    Integer.parseInt(productionP3.getText()), Integer.parseInt(queueE26.getText()),
+                    Integer.parseInt(productionP3.getText()), getQueueValue("3"),
                     Integer.parseInt(safetyE26.getText()), Integer.parseInt(stockE26.getText()),
                     Integer.parseInt(queueE26.getText()), Integer.parseInt(processE26.getText()))));
 

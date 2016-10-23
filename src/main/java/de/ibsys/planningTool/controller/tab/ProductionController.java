@@ -6,6 +6,7 @@ import de.ibsys.planningTool.controller.tab.productionOrderTab.ChildBikeControll
 import de.ibsys.planningTool.controller.tab.productionOrderTab.MenBikeController;
 import de.ibsys.planningTool.controller.tab.productionOrderTab.WomenBikeController;
 import de.ibsys.planningTool.model.xmlExportModel.Item;
+import de.ibsys.planningTool.model.xmlInputModel.WaitingList;
 import de.ibsys.planningTool.service.ProductionService;
 import de.ibsys.planningTool.util.I18N;
 import javafx.fxml.FXML;
@@ -95,7 +96,7 @@ public class ProductionController extends BaseTabController {
         menBikeController.initUI();
     }
 
-    public void initProductionControllerCalculation () {
+    public void initProductionControllerCalculation() {
         try {
             childBikeController.storeNewReserve();
             menBikeController.storeNewReserve();
@@ -122,7 +123,15 @@ public class ProductionController extends BaseTabController {
                     .collect(Collectors.toList()); // return a list
 
             getMainController().setProductionList(new ProductionService().getRightOrder(result));
-            
+
+            List<Item> caPlaResult = new ArrayList<>();
+
+            getMainController().getProductionList().parallelStream().forEach(item -> {
+                caPlaResult.add(new Item(item.getArticleId(), item.getQuantity() + getWaitingListPartsAmount(item.getArticleId())));
+            });
+
+            getMainController().setProdcutionListCapla(caPlaResult);
+
             main.initWorkThings();
             main.orderController.getData();
             setUI();
@@ -132,6 +141,22 @@ public class ProductionController extends BaseTabController {
             logger.info(e);
         }
     }
+
+    // get Production list which are on the machines
+    protected int getWaitingListPartsAmount(String code) {
+//        return mainController.getXmlInputData().getStringWaitingListMissingPartsMap().entrySet().parallelStream()
+//                .filter(predicate -> predicate.getValue().getMissingPartsId().equals(code))
+//                .mapToInt(waitingList -> waitingList.getValue().getWaitingLists().parallelStream()
+//                        .mapToInt(WaitingList::getAmount).sum())
+//                .sum();
+
+        return mainController.getXmlInputData().getStringWaitingListMissingPartsMap().entrySet().parallelStream().mapToInt(value ->
+                value.getValue().getWaitingLists().parallelStream().filter(waitingList -> waitingList.getArticleId().equals(code))
+                        .mapToInt(WaitingList::getAmount)
+                        .sum()
+        ).sum();
+    }
+
 
     public void setUI() {
         main.cappla.setDisable(false);
