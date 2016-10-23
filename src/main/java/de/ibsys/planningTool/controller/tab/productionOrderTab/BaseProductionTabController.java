@@ -63,11 +63,17 @@ public abstract class BaseProductionTabController extends Application {
 
     // get Production list which are on the machines
     protected int getWaitingListPartsAmount(String code) {
-        return getXmlInputData().getStringWaitingListMissingPartsMap().entrySet().parallelStream()
-                .filter(predicate -> predicate.getValue().getMissingPartsId().equals(code))
-                .mapToInt(waitingList -> waitingList.getValue().getWaitingLists().parallelStream()
-                        .mapToInt(WaitingList::getAmount).sum())
-                .sum();
+//        return getXmlInputData().getStringWaitingListMissingPartsMap().entrySet().parallelStream()
+//                .filter(predicate -> predicate.getValue().getMissingPartsId().equals(code))
+//                .mapToInt(waitingList -> waitingList.getValue().getWaitingLists().parallelStream()
+//                        .mapToInt(WaitingList::getAmount).sum())
+//                .sum();
+
+        return getXmlInputData().getStringWaitingListMissingPartsMap().entrySet().parallelStream().mapToInt(value ->
+                value.getValue().getWaitingLists().parallelStream().filter(waitingList -> waitingList.getArticleId().equals(code))
+                        .mapToInt(WaitingList::getAmount)
+                        .sum()
+        ).sum();
     }
 
     protected int getProductionValuePParts(String code, int sicherheitsbestand) {
@@ -80,13 +86,13 @@ public abstract class BaseProductionTabController extends Application {
         // Machines ?
         // how to handle it
 
-        return vertriebwunsch + sicherheitsbestand - lagerBestand - warteschlange - bearbeitung;
+        return vertriebwunsch + sicherheitsbestand - lagerBestand - warteschlange - bearbeitung - getWaitingListPartsAmount(code);
     }
 
     protected int getProductionValueEParts(String code, int vertriebwunsch, int hilfszahl, int sicherheitsbestand,
                                            int lagerBestand, int warteschlange, int bearbeitung) {
         // GetWaotomg bla bla
-        return vertriebwunsch + hilfszahl + sicherheitsbestand - lagerBestand - warteschlange - bearbeitung;
+        return vertriebwunsch + hilfszahl + sicherheitsbestand - lagerBestand - warteschlange - bearbeitung - getWaitingListPartsAmount(code);
 
     }
 

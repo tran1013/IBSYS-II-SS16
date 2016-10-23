@@ -82,7 +82,7 @@ public class WomenBikeController extends BaseProductionTabController {
 
             orderE26.setText(String.valueOf(productionP2.getText()));
             stockE26.setText(/* String.valueOf(getStockValue("26")) */String.valueOf(0));
-            helpE26.setText(String.valueOf(/* getQueueValue("2") */0));
+            helpE26.setText(String.valueOf(getQueueValue("2")));
             safetyE26.setText(
                     String.valueOf(/*
                                     * getXmlInputData().getWareHouseArticles().

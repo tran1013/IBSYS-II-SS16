@@ -98,11 +98,6 @@ public class MenBikeController extends BaseProductionTabController {
                     Integer.parseInt(safetyE26.getText()), Integer.parseInt(stockE26.getText()),
                     Integer.parseInt(queueE26.getText()), Integer.parseInt(processE26.getText()))));
 
-            System.out.println(getProductionValueEParts("26",
-                    Integer.parseInt(productionP3.getText()), Integer.parseInt(queueE26.getText()),
-                    Integer.parseInt(safetyE26.getText()), Integer.parseInt(stockE26.getText()),
-                    Integer.parseInt(queueE26.getText()), Integer.parseInt(processE26.getText())));
-
             orderE31.setText(String.valueOf(checkIsNegative(Integer.parseInt(productionP3.getText()))));
             stockE31.setText(String.valueOf(getStockValue("31")));
             helpE31.setText(String.valueOf(getQueueValue("3")));
