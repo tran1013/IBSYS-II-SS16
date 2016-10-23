@@ -94,6 +94,16 @@ public class MainController extends BaseTabController {
 
     private List<Item> productionList;
 
+    private List<Item> prodcutionListCapla;
+
+    public List<Item> getProdcutionListCapla() {
+        return prodcutionListCapla;
+    }
+
+    public void setProdcutionListCapla(List<Item> prodcutionListCapla) {
+        this.prodcutionListCapla = prodcutionListCapla;
+    }
+
     private List<WorkTime> workTimeList;
 
     private List<ProductionResult> productionResultList;

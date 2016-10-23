@@ -85,7 +85,7 @@ public abstract class BaseProductionTabController extends Application {
 
     protected int getProductionValueEParts(String code, int vertriebwunsch, int hilfszahl, int sicherheitsbestand,
                                            int lagerBestand, int warteschlange, int bearbeitung) {
-
+        // GetWaotomg bla bla
         return vertriebwunsch + hilfszahl + sicherheitsbestand - lagerBestand - warteschlange - bearbeitung;
 
     }
