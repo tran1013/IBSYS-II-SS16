@@ -6,6 +6,7 @@ import de.ibsys.planningTool.database.OrderDB;
 import de.ibsys.planningTool.model.*;
 import de.ibsys.planningTool.model.xmlExportModel.Item;
 import de.ibsys.planningTool.model.xmlInputModel.Article;
+import de.ibsys.planningTool.model.xmlInputModel.WaitingListMissingParts;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -146,7 +147,7 @@ public class OrderService {
         double gerundet = Math.round(wert * Math.pow(10d, stellen));
         return gerundet / Math.pow(10d, stellen);
     }
-
+/*
     public List<Map<String, Integer>> calculateProgrammNew(List<Item> productionResults, Map<String, Item> forecastProductionList) {
 
         List<Map<String, Integer>> productionProgram = new ArrayList<>();
@@ -163,6 +164,15 @@ public class OrderService {
 
                 //System.out.println("MENGE " + quantity + " ID " + itemConfigId);
 
+                if(!main.getXmlInputData().getStringWaitingListMissingPartsMap().isEmpty()) {
+                    Map<String, WaitingListMissingParts> missingParts = main.getXmlInputData().getStringWaitingListMissingPartsMap();
+
+                    for(Map.Entry<String, WaitingListMissingParts> part : missingParts.entrySet()) {
+                        System.out.println(part.getValue().getWaitingLists());
+                    }
+                }
+
+
                 productionMap.put("P" + itemConfigId, quantity);
             }
         }
@@ -176,11 +186,11 @@ public class OrderService {
             if(!productionMap.containsKey("P3")) {
                 productionMap.put("P3", 0);
             }
-        /*
+
         for(Map.Entry<String, Integer> mapentry : productionMap.entrySet()) {
             System.out.println("ProductionMap " + mapentry);
         }
-        */
+
         productionProgram.add(productionMap);
 
         Map<String, Integer> forecastMap1 = new HashMap<String, Integer>();
@@ -209,15 +219,15 @@ public class OrderService {
         productionProgram.add(forecastMap1);
         productionProgram.add(forecastMap2);
         productionProgram.add(forecastMap3);
-        /*
+
         for(Map<String, Integer> entry : productionProgram) {
             System.out.println("Einträge in productionProgram "+entry);
         }
-        */
+      
         return productionProgram;
 
     }
-
+    */
     public List<Map<String, Integer>> calculateConsumption(List<Map<String, Integer>> productionProgram) {
         List<Map<String, Integer>> kUsageList = new ArrayList<Map<String, Integer>>();
 
