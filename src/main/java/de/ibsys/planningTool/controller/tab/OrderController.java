@@ -6,6 +6,8 @@ import de.ibsys.planningTool.model.*;
 import de.ibsys.planningTool.model.xmlExportModel.Item;
 import de.ibsys.planningTool.model.xmlExportModel.Order;
 import de.ibsys.planningTool.model.xmlInputModel.FutureInComingOrder;
+import de.ibsys.planningTool.model.xmlInputModel.WaitingList;
+import de.ibsys.planningTool.model.xmlInputModel.WaitingListMissingParts;
 import de.ibsys.planningTool.service.OrderService;
 import de.ibsys.planningTool.util.Dialogs.DialogMessages;
 import de.ibsys.planningTool.util.I18N;
@@ -532,7 +534,7 @@ public class OrderController extends BaseTabController{
 
         List<OrderResult> orderResults = new ArrayList<>();
 
-        List<Map<String, Integer>> kUsageList = orderService.calculateConsumption(orderService.calculateProgrammNew(productionResults, forecastProductionList));
+        List<Map<String, Integer>> kUsageList = orderService.calculateConsumption(calculateProgrammNew(productionResults, forecastProductionList));
 
         try {
             List<TermsOfSaleData> terms = orderDB.findAll();
@@ -551,6 +553,11 @@ public class OrderController extends BaseTabController{
                 double stock = main.getXmlInputData().getWareHouseArticles().get(itemConfigSub).getAmount() + getFutureInComingOrderAmount(itemConfigId);
                 double maxDeliveryTime = term.getVariance() + term.getDeliveryTime();
                 double stockRange = Math.round(stock/avg);
+
+                //System.out.println(main.getXmlInputData().getStringWaitingListMissingPartsMap());
+
+                main.getXmlInputData().getStringWaitingListMissingPartsMap();
+
                 if(stock <= orderpoint || stockRange <= maxDeliveryTime+1.0) {
 
                     //int orderQuantity = (int) Math.round((avg* term.getDeliveryTime() + max * maxDeliveryTime)/2);
@@ -592,45 +599,115 @@ public class OrderController extends BaseTabController{
         return orderResults;
     }
 
-    public List<ProductionResult> mapToProductionResults(List<Item> items) {
+    public List<Map<String, Integer>> calculateProgrammNew(List<Item> productionResults, Map<String, Item> forecastProductionList) {
 
-        List<ProductionResult> res = new ArrayList<>();
+        List<Map<String, Integer>> productionProgram = new ArrayList<>();
+        Map<String, Integer> productionMap = new HashMap<>();
 
-        for(Item item : items) {
-            if(item.getArticleId().equals("1") || item.getArticleId().equals("2") || item.getArticleId().equals("1") || item.getArticleId()=="1") {
-                String itemConfigId = "P" + item.getArticleId();
-                System.out.println(itemConfigId);
-                res.add(new ProductionResult(itemConfigId, item.getQuantity()));
-            }
-            else {
-                String itemConfidId = "E" + item.getArticleId();
-                System.out.println(itemConfidId);
-                res.add(new ProductionResult(itemConfidId, item.getQuantity()));
+        for (Item productionResult : productionResults) {
+            String itemConfigId = productionResult.getArticleId();
+
+            //System.out.println("TEST ID "+itemConfigId);
+
+            if (itemConfigId.equals("1") || itemConfigId.equals("2") || itemConfigId.equals("3") || itemConfigId=="1" || itemConfigId =="2" || itemConfigId=="3") {
+
+                int quantity = productionResult.getQuantity();
+                int p1quantity = 0;
+                int p2quantity = 0;
+                int p3quantity = 0;
+                //System.out.println("MENGE " + quantity + " ID " + itemConfigId);
+
+                if(!main.getXmlInputData().getStringWaitingListMissingPartsMap().isEmpty()) {
+                    Map<String, WaitingListMissingParts> missingParts = main.getXmlInputData().getStringWaitingListMissingPartsMap();
+
+                    for(Map.Entry<String, WaitingListMissingParts> part : missingParts.entrySet()) {
+                        System.out.println(part.getValue().getWaitingLists());
+
+                                for(WaitingList list : part.getValue().getWaitingLists()) {
+                                    System.out.println(list.getArticleId() + " " + list.getAmount());
+
+                                    if(list.getArticleId().equals("1")) {
+                                        p1quantity += list.getAmount();
+                                    }
+                                    else if(list.getArticleId().equals("2")) {
+                                        p2quantity += list.getAmount();
+                                    }
+                                    else if(list.getArticleId().equals("3")) {
+                                        p3quantity += list.getAmount();
+                                    }
+                                }
+                                //productionMap.put("P" + itemConfigId, quantity+p1quantity);
+                                /*
+                                System.out.println("P1 "+p1quantity);
+                                System.out.println("P2 "+p2quantity);
+                                System.out.println("P3 "+p3quantity);
+                                */
+                    }
+                }
+
+                if(itemConfigId.equals("1")) {
+                    productionMap.put("P" + itemConfigId, quantity + p1quantity);
+                }
+                if(itemConfigId.equals("2")) {
+                    productionMap.put("P" + itemConfigId, quantity + p2quantity);
+                }
+                if(itemConfigId.equals("3")) {
+                    productionMap.put("P" + itemConfigId, quantity + p3quantity);
+                }
+                //productionMap.put("P" + itemConfigId, quantity);
+                //System.out.println(itemConfigId + " " + quantity);
             }
         }
 
-        for(ProductionResult re : res) {
-            System.out.println(re.getItemConfigId() + " " + re.getQuantity());
+        if(!productionMap.containsKey("P1")) {
+            productionMap.put("P1", 0);
         }
+        if(!productionMap.containsKey("P2")) {
+            productionMap.put("P2", 0);
+        }
+        if(!productionMap.containsKey("P3")) {
+            productionMap.put("P3", 0);
+        }
+        /*
+        for(Map.Entry<String, Integer> mapentry : productionMap.entrySet()) {
+            System.out.println("ProductionMap " + mapentry);
+        }
+        */
+        productionProgram.add(productionMap);
 
-        return  res;
-    }
+        Map<String, Integer> forecastMap1 = new HashMap<String, Integer>();
+        Map<String, Integer> forecastMap2 = new HashMap<String, Integer>();
+        Map<String, Integer> forecastMap3 = new HashMap<String, Integer>();
 
-    public List<ProductionResult> getMappedList(List<Item> productionResult) {
-        List<ProductionResult> List = new ArrayList<>();
+        for(Map.Entry<String, Item> itemEntry: forecastProductionList.entrySet()) {
 
-        for (Integer i = 0; i < productionResult.size(); i++) {
-            if (productionResult.get(i).getArticleId().equals("1") || productionResult.get(i).getArticleId().equals("2") || productionResult.get(i).getArticleId().equals("3")) {
-                String itemID = "P" + productionResult.get(i).getArticleId();
-                List.add(i, new ProductionResult(itemID, productionResult.get(i).getQuantity()));
-            } else {
-                String itemID = "E" + productionResult.get(i).getArticleId();
-                List.add(i, new ProductionResult(itemID, productionResult.get(i).getQuantity()));
+            if(itemEntry.getKey().endsWith("n")) {
+                //map.put(itemEntry.getKey(), itemEntry.getValue().getQuantity());
+                continue;
             }
 
+            else if(itemEntry.getKey().endsWith("n1")) {
+                forecastMap1.put(itemEntry.getKey(), itemEntry.getValue().getQuantity());
+            }
+            else if(itemEntry.getKey().endsWith("n2")) {
+                forecastMap2.put(itemEntry.getKey(), itemEntry.getValue().getQuantity());
+            }
+            else if(itemEntry.getKey().endsWith("n3")) {
+                forecastMap3.put(itemEntry.getKey(), itemEntry.getValue().getQuantity());
+            }
+            else continue;
         }
-        System.out.println(List);
-        return List;
+
+        productionProgram.add(forecastMap1);
+        productionProgram.add(forecastMap2);
+        productionProgram.add(forecastMap3);
+        /*
+        for(Map<String, Integer> entry : productionProgram) {
+            System.out.println("Einträge in productionProgram "+entry);
+        }
+        */
+        return productionProgram;
+
     }
 
 
